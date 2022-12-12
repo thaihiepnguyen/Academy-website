@@ -11,4 +11,7 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
-app.listen(3000);
+const PORT = 3000;
+app.listen(PORT, function () {
+  console.log(`Online Academy App listening at http://localhost:${PORT}`);
+});
