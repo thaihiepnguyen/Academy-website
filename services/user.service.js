@@ -1,6 +1,14 @@
 import db from '../utils/db.js';
 
 export default {
+    async findAll() {
+        const list = await db('users');
+        if (list.length === 0) {
+            return null;
+        }
+
+        return list;
+    },
     async findById(id) {
         const list = await db('users').where('id', id);
         if (list.length === 0) {

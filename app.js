@@ -17,7 +17,7 @@ app.set('views', './views');
 
 app.get('/', function (req, res) {
   // res.send('Hello World.');
-  res.render('home');
+  res.render('vwlogin/login');
 })
 
 app.use('/account', accountRoute);

@@ -14,11 +14,27 @@ router.post('/signup',async function (req, res) {
         role_id: 1,
     };
 
-    await userService.add(user);
+    const entity = await userService.findAll();
+    let isEmailExists = false;
 
-    res.render('../views/home', {
-        user: user
-    });
+    for (let item of entity) {
+        if (item.email === user.email) {
+            isEmailExists = true;
+        }
+    }
+
+    if (!isEmailExists) {
+        await userService.add(user);
+        console.log(`Tài khoản ${user.firstname} ${user.lastname} đã được đăng ký!`);
+        res.render('home', {
+            user: user
+        });
+    } else {
+        console.log("Tài khoản email này đã được sử dụng!");
+        res.render('vwSignup/signup', {
+            message: "Tài khoản email này đã được sử dụng!",
+        });
+    }
 })
 
 
