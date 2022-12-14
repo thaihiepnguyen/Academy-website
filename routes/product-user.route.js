@@ -6,5 +6,7 @@ const router = express.Router();
 router.get("/detail", function (req, res) {
   res.render("vwProduct/detail.hbs");
 });
+
+
+
 export default router;
-signup.hbs

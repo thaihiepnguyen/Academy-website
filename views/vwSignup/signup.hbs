@@ -164,24 +164,24 @@ i span{
 <div class="bg-img">
     <div class="content">
         <header>Sign Up</header>
-        <form action="#">
+        <form method="post">
             <div class="field space">
                 <span class="fa fa-user"></span>
 
-                <input type="text" required placeholder="First name">
+                <input name="firstname" type="text" required placeholder="First name" autofocus>
             </div>
             <div class="field space">
                 <span class="fa fa-user"></span>
 
-                <input type="text" required placeholder="Last name">
+                <input name="lastname" type="text" required placeholder="Last name">
             </div>
             <div class="field space ">
-                <span class="fa fa-user"></span>
-                <input type="text" required placeholder="Email">
+                <span class="fa fa-envelope"></span>
+                <input name="email" type="text" required placeholder="Email">
             </div>
             <div class="field space">
                 <span class="fa fa-lock"></span>
-                <input type="password" class="pass-key" required placeholder="Password">
+                <input name="password" type="password" class="pass-key" required placeholder="Password">
                 <span class="show">SHOW</span>
             </div>
 
@@ -191,7 +191,7 @@ i span{
         </form>
 
         <div class="signup space">Already have an account?
-            <a href="#">Log in</a>
+            <a href="/account/login">Log in</a>
         </div>
     </div>
 </div>
@@ -211,7 +211,5 @@ i span{
        }
       });
     </script>
-
-
 </body>
 </html>

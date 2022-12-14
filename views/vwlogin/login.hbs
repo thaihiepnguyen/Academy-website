@@ -187,14 +187,14 @@ i span{
 <div class="bg-img">
     <div class="content">
         <header>Login</header>
-        <form action="#">
+        <form method="post">
             <div class="field">
                 <span class="fa fa-user"></span>
-                <input type="text" required placeholder="Email">
+                <input name="username" type="text" required placeholder="Email" autofocus>
             </div>
             <div class="field space">
                 <span class="fa fa-lock"></span>
-                <input type="password" class="pass-key" required placeholder="Password">
+                <input name="password" type="password" class="pass-key" required placeholder="Password">
                 <span class="show">SHOW</span>
             </div>
             <div class="pass">
@@ -214,7 +214,7 @@ i span{
             </div>
         </div>
         <div class="signup">Don't have account?
-            <a href="#">Signup Now</a>
+            <a href="/account/signup">Signup Now</a>
         </div>
     </div>
 </div>
