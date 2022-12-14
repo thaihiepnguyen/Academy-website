@@ -1,35 +1,30 @@
 {
   "type": "module",
-  "name": "online_academy",
+  "name": "online_academy_final_project",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "website",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "nodemon app"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/thaihiepnguyen/online_academy.git"
   },
-  "author": "",
+  "keywords": [
+    "web",
+    "npm",
+    "js"
+  ],
+  "author": "hiep, hai, dung, hai, duy",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/thaihiepnguyen/online_academy/issues"
   },
   "homepage": "https://github.com/thaihiepnguyen/online_academy#readme",
   "dependencies": {
-    "better-sqlite3": "^8.0.1",
     "express": "^4.18.2",
-    "express-handlebars": "^6.0.6",
-    "express-handlebars-sections": "^1.0.1",
-    "knex": "^2.3.0",
-    "mysql": "^2.18.1",
-    "mysql2": "^2.3.3",
-    "numeral": "^2.0.6",
-    "oracledb": "^5.5.0",
-    "pg": "^8.8.0",
-    "sqlite3": "^5.1.4",
-    "tedious": "^15.1.2"
+    "nodemon": "^2.0.20"
   }
 }
