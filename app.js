@@ -23,6 +23,11 @@ app.engine(
         }
         return result;
       },
+      breaklines(text) {
+        text = Handlebars.Utils.escapeExpression(text);
+        text = text.replace(/(\r\n|\n|\r)/gm, "<br>");
+        return new Handlebars.SafeString(text);
+      },
     },
   })
 );
@@ -30,11 +35,11 @@ app.set("view engine", "hbs");
 app.set("views", "./views");
 
 app.get("/", async function (req, res) {
-    const categories =  await categoryService.findAll();
-    // res.send('Hello World.');
-    res.render('home.hbs', {
-        categories
-    });
+  const categories = await categoryService.findAll();
+  // res.send('Hello World.');
+  res.render("home.hbs", {
+    categories,
+  });
 });
 
 app.use("/account", accountRoute);
@@ -54,7 +59,11 @@ app.use("/products", productUserRoute);
 //   }
 //   return new ExpressHandlebars.SafeString(result);
 // });
-
+// Handlebars.registerHelper("breaklines", function (text) {
+//   text = Handlebars.Utils.escapeExpression(text);
+//   text = text.replace(/(\r\n|\n|\r)/gm, "<br>");
+//   return new Handlebars.SafeString(text);
+// });
 const PORT = 3000;
 app.listen(PORT, function () {
   console.log(`E-Commerce App listening at http://localhost:${PORT}`);

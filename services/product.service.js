@@ -8,7 +8,7 @@ export default {
           "https://media.sketchfab.com/models/3f49271eb0dc404e87333baebca59886/thumbnails/914bdb37755946e8813325f9592bb0da/c09eace2ef6942268f325c369b1043e3.jpeg",
         nameCourse: "Unity 3D for dummies",
         level: "Beginner",
-        star: ["checked", "checked", "checked", "checked", ""],
+        stars: [true, true, true, true, false],
         reviews: 276,
         duration: 2,
         weekly: 3,
@@ -17,15 +17,39 @@ export default {
         discountTo: 5,
         timeLeft: "1 day 04:09:07",
         shortInfo:
-          "You want to create your own game but dont know where to begin your journey? <br /> This is the course for you!",
+          "You want to create your own game but dont know where to begin your journey?\nThis is the course for you!",
         requirements:
-          "_Basic knowledge about computer <br />_Have good internet connection",
+          "_Basic knowledge about computer \n_Have good internet connection",
         overview:
-          "_In this course you will learn: <br />+Basic programming using C#, +Popular tools in Unity 3D <br />+Making 3 simple games with concept: 3d racing game, 2d action game and a top down rpg",
+          "_In this course you will learn: \n+Basic programming using C#, +Popular tools in Unity 3D \n+Making 3 simple games with concept: 3d racing game, 2d action game and a top down rpg",
         includedItem:
-          "_20 hours on-demand video <br />_2 articles <br />_10 quizzes <br />_Full lifetime access all resources in this course",
+          "_20 hours on-demand video \n_2 articles \n_10 quizzes \n_Full lifetime access all resources in this course",
       },
     ];
   },
-  findClip() {},
+  findClip() {
+    return [
+      {
+        urlImage:
+          "https://media.sketchfab.com/models/3f49271eb0dc404e87333baebca59886/thumbnails/914bdb37755946e8813325f9592bb0da/c09eace2ef6942268f325c369b1043e3.jpeg",
+        nameVid: "Introduction",
+        videoLength: "10:30",
+        free: true,
+      },
+      {
+        urlImage:
+          "https://media.sketchfab.com/models/3f49271eb0dc404e87333baebca59886/thumbnails/914bdb37755946e8813325f9592bb0da/c09eace2ef6942268f325c369b1043e3.jpeg",
+        nameVid: "Setup environments",
+        videoLength: "4:08",
+        free: false,
+      },
+      {
+        urlImage:
+          "https://media.sketchfab.com/models/3f49271eb0dc404e87333baebca59886/thumbnails/914bdb37755946e8813325f9592bb0da/c09eace2ef6942268f325c369b1043e3.jpeg",
+        nameVid: "Basic tools",
+        videoLength: "8:12",
+        free: false,
+      },
+    ];
+  },
 };
