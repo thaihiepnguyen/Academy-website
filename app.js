@@ -5,6 +5,7 @@ import { fileURLToPath } from "url";
 import bodyParser from "body-parser";
 import accountRoute from "./routes/account.route.js";
 import productUserRoute from "./routes/product-user.route.js";
+import categoryService from "./services/category.service.js";
 
 const app = express();
 app.use(express.static("public"));
@@ -28,9 +29,12 @@ app.engine(
 app.set("view engine", "hbs");
 app.set("views", "./views");
 
-app.get("/", function (req, res) {
-  // res.send('Hello World.');
-  res.render('home.hbs');
+app.get("/", async function (req, res) {
+    const categories =  await categoryService.findAll();
+    // res.send('Hello World.');
+    res.render('home.hbs', {
+        categories
+    });
 });
 
 app.use("/account", accountRoute);

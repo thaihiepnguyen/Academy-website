@@ -3,7 +3,7 @@ import userService from "../services/user.service.js";
 export default {
     getLoginPage: (req, res) => {
         res.render('vwlogin/login.hbs', {
-            layout: 'nav.hbs'
+            isLoginPage: true,
         });
     },
 
@@ -31,14 +31,14 @@ export default {
         } else {
             res.render('vwSignup/signup', {
                 message: "Email is existed",
-                layout: 'nav.hbs'
+                isLoginPage: true,
             });
         }
     },
 
     getSignupPage: (req, res) => {
         res.render('vwSignup/signup.hbs', {
-            layout: 'nav.hbs'
+            isLoginPage: true,
         });
     }
 }
