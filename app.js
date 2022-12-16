@@ -30,7 +30,7 @@ app.set("views", "./views");
 
 app.get("/", function (req, res) {
   // res.send('Hello World.');
-  res.render("vwlogin/login");
+  res.render('home.hbs');
 });
 
 app.use("/account", accountRoute);
