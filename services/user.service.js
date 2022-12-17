@@ -18,8 +18,8 @@ export default {
         return list[0];
     },
 
-    findByUsername: async (username) => {
-        const list = await db('users').where('username', username);
+    findByUsername: async (email) => {
+        const list = await db('users').where('email', email);
         if (list.length === 0) {
             return null;
         }

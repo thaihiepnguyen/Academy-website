@@ -10,4 +10,6 @@ router.get('/signup', accountController.getSignupPage);
 
 router.post('/signup', accountController.handleSignup);
 
+router.post('/login', accountController.handleLogin);
+
 export default router;
