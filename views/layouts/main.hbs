@@ -115,18 +115,11 @@
                             Categories
                         </h4>
                         <div class="list-group list-group-flush">
-                            {{#each lcCategories}}
-                                {{#if isActive}}
-                                    <a href="/products/bycat/{{CatID}}" class="active list-group-item list-group-item-action">
+                            {{#each this.categories}}
+                                    <a href="#" class="list-group-item list-group-item-action">
                                         <i class="fa fa-caret-right" aria-hidden="true"></i>
-                                        {{CatName}}
+                                        {{name}}
                                     </a>
-                                {{else}}
-                                    <a href="/products/bycat/{{CatID}}" class="list-group-item list-group-item-action">
-                                        <i class="fa fa-caret-right" aria-hidden="true"></i>
-                                        {{CatName}}
-                                    </a>
-                                {{/if}}
                             {{/each}}
                         </div>
                     </div>

@@ -1,0 +1,13 @@
+
+<div class="d-flex is-flex-wrap-wrap">
+    {{#each this.courses}}
+        <div class="card mr-6" style="width: 18rem;">
+            <img src="/imgs/sp/{{id}}/{{id}}.jpeg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{name}}</h5>
+                <p class="card-text">{{tiny_des}}</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    {{/each}}
+</div>

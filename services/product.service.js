@@ -1,6 +1,14 @@
 import db from "../utils/db.js";
 
 export default {
+  findByCatId: async (CatId) => {
+    const list = await db('courses').where('category_id', CatId);
+    if (list.length === 0) {
+      return null;
+    }
+
+    return list;
+  },
   findGeneralData() {
     return [
       {
