@@ -76,14 +76,34 @@
 
         <div class="navbar-end">
             <div class="navbar-item">
-                <div class="buttons">
-                    <a class="button is-primary" href="/account/signup">
-                        <strong>Sign up</strong>
-                    </a>
-                    <a class="button is-light" href="/account/login">
-                        Log in
-                    </a>
-                </div>
+                {{#if auth}}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                            Welcome, <b>{{authUser.name}}</b>!
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/account/home_profile">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                Profile
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <form id="frmLogout" action="/account/logout" method="post"></form>
+                            <a class="dropdown-item" href="javascript: $('#frmLogout').submit();">
+                                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </li>
+                {{else}}
+                    <div class="buttons">
+                        <a class="button is-primary" href="/account/signup">
+                            <strong>Sign up</strong>
+                        </a>
+                        <a class="button is-light" href="/account/login">
+                            Log in
+                        </a>
+                    </div>
+                {{/if}}
             </div>
         </div>
     </div>

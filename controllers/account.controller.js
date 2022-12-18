@@ -68,6 +68,23 @@ export default {
         //     });
         // }
 
+        req.session.auth = true;
+        req.session.authUser = user;
+
+        const url = '/';
+        res.redirect(url);
+    },
+
+    getHomeProfilePage: (req, res) => {
+        res.render('vwProfile/home_profile.hbs', {
+            //isLoginPage: true,
+        });
+    },
+
+    handleLogout: (req, res) => {
+        req.session.auth = false;
+        req.session.authUser = null;
+
         const url = '/';
         res.redirect(url);
     }
