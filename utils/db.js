@@ -8,5 +8,5 @@ export default knexObj({
     user: "root",
     database: "academy-db",
     password: "reallyStrongPwd123"
-  },
+  }
 });

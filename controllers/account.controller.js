@@ -1,4 +1,5 @@
 import userService from "../services/user.service.js";
+import bcrypt from "bcrypt";
 
 export default {
     getLoginPage: (req, res) => {
@@ -40,6 +41,35 @@ export default {
         res.render('vwSignup/signup.hbs', {
             isLoginPage: true,
         });
+    },
+
+    handleLogin: async (req, res) => {
+        const user = await userService.findByUsername((req.body.username))
+        if(user == null) {
+            return res.render("vwlogin/login.hbs", {
+                isLoginPage: true,
+                err_message: "Invalid email or password."
+            });
+        }
+
+        if(req.body.password != user.password) {
+            return res.render("vwlogin/login.hbs", {
+                isLoginPage: true,
+                err_message: "Invalid email or password."
+            });
+        }
+
+        //const ret = bcrypt.compare(req.body.password, user.password);
+
+        // if(ret == false) {
+        //     return res.render("vwlogin/login.hbs", {
+        //         layout: false,
+        //         err_message: "Invalid email or password."
+        //     });
+        // }
+
+        const url = '/';
+        res.redirect(url);
     }
 
 
