@@ -1,4 +1,4 @@
-import knexObj from "knex";
+import knexObj from 'knex';
 
 export default knexObj({
   client: "mysql2",
