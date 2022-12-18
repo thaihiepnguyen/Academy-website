@@ -1,5 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
+
 import viewMdw from "./middlewares/view.mdw.js";
 import localsMdw from "./middlewares/locals.mdw.js";
 import routesMdw from "./middlewares/routes.mdw.js";
@@ -27,6 +28,7 @@ routesMdw(app);
 //   text = text.replace(/(\r\n|\n|\r)/gm, "<br>");
 //   return new Handlebars.SafeString(text);
 // });
+
 const PORT = 3000;
 app.listen(PORT, function () {
   console.log(`E-Commerce App listening at http://localhost:${PORT}`);
