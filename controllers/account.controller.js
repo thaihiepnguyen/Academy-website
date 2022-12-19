@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 export default {
     getLoginPage: (req, res) => {
         res.render('vwlogin/login.hbs', {
-            isLoginPage: true,
+            hideTagbar: true,
         });
     },
 
@@ -32,14 +32,14 @@ export default {
         } else {
             res.render('vwSignup/signup', {
                 message: "Email is existed",
-                isLoginPage: true,
+                hideTagbar: true,
             });
         }
     },
 
     getSignupPage: (req, res) => {
         res.render('vwSignup/signup.hbs', {
-            isLoginPage: true,
+            hideTagbar: true,
         });
     },
 
@@ -47,14 +47,14 @@ export default {
         const user = await userService.findByUsername((req.body.username))
         if(user == null) {
             return res.render("vwlogin/login.hbs", {
-                isLoginPage: true,
+                hideTagbar: true,
                 err_message: "Invalid email or password."
             });
         }
 
         if(req.body.password != user.password) {
             return res.render("vwlogin/login.hbs", {
-                isLoginPage: true,
+                hideTagbar: true,
                 err_message: "Invalid email or password."
             });
         }
@@ -79,7 +79,7 @@ export default {
 
     getHomeProfilePage: (req, res) => {
         res.render('vwProfile/home_profile.hbs', {
-            //isLoginPage: true,
+            hideTagbar: true,
         });
     },
 

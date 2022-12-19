@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/login.css">
     <link rel="stylesheet" href="/css/bulma.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/rating.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
     <style>
         * {
             font-size: 14px;
@@ -63,7 +66,7 @@
 
                 <div class="navbar-dropdown">
                     {{#each this.categories}}
-                        <a class="navbar-item">
+                        <a class="navbar-item" href="/courses/byCat/{{id}}">
                             {{name}}
                         </a>
                     {{/each}}
@@ -123,7 +126,7 @@
     </div>
 </nav>
 
-{{#if isLoginPage}}
+{{#if this.hideTagbar}}
     {{{body}}}
 {{else}}
     <div >
@@ -136,10 +139,10 @@
                         </h4>
                         <div class="list-group list-group-flush">
                             {{#each this.categories}}
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        <i class="fa fa-caret-right" aria-hidden="true"></i>
-                                        {{name}}
-                                    </a>
+                                <a href="/courses/byCat/{{id}}" class="list-group-item list-group-item-action">
+                                    <i class="fa fa-caret-right" aria-hidden="true"></i>
+                                    {{name}}
+                                </a>
                             {{/each}}
                         </div>
                     </div>
@@ -170,6 +173,7 @@
         integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
         crossorigin="anonymous"></script>
 <script src="/js/login.js"></script>
+<script src="/js/rating.js"></script>
 
 <script>
 

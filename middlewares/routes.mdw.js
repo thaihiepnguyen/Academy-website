@@ -1,6 +1,6 @@
 import productUserRoute from '../routes/product-user.route.js';
 import accountRoute from '../routes/account.route.js';
-import productRoute from "../routes/product.route.js";
+import coursesRoute from "../routes/courses.route.js";
 export default function (app) {
   app.get("/", async function (req, res) {
     // res.send('Hello World.');
@@ -17,5 +17,5 @@ export default function (app) {
 //  res.sendFile(__dirname + '/views/layouts/bs4');
 //})
   app.use("/products", productUserRoute);
-  app.use("/courses", productRoute);
+  app.use("/courses", coursesRoute);
 }

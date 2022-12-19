@@ -2,10 +2,21 @@ import db from "../utils/db.js";
 
 export default {
   findByCatId: async (CatId) => {
-    const list = await db("courses").where("category_id", CatId);
+    // const posts = await db('posts')
+    //     .join('users', 'users.id', 'posts.user_id')
+    //     .select('posts.id', 'users.username', 'posts.contents')
+    //     .where({user_id: id})
+    // select courses.id, users.firstname, users.lastname, courses.tiny_des, courses.name
+    // from users, courses
+    // where users.id = courses.lecture_id and courses.category_id = 1;
+    const list = await db("courses")
+        .join('users', 'users.id', 'courses.lecture_id')
+        .select('courses.id', 'users.firstname', 'users.lastname', 'courses.tiny_des', 'courses.name', 'courses.rating' )
+        .where({'courses.category_id': CatId});
     if (list.length === 0) {
       return null;
     }
+
 
     return list;
   },

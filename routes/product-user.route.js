@@ -1,6 +1,6 @@
 import express from "express";
 //import productUserRoute from "./routes/product-user.route.js";
-import productService from "../services/product.service.js";
+import productService from "../services/courses.service.js";
 
 const router = express.Router();
 router.get("/detail", async function (req, res) {
