@@ -2,7 +2,7 @@ import db from "../utils/db.js";
 
 export default {
   findByCatId: async (CatId) => {
-    const list = await db('courses').where('category_id', CatId);
+    const list = await db("courses").where("category_id", CatId);
     if (list.length === 0) {
       return null;
     }
@@ -17,7 +17,7 @@ export default {
         nameCourse: "Unity 3D for dummies",
         level: "Beginner",
         stars: [true, true, true, true, false],
-        reviews: 276,
+        reviews: 5,
         duration: 2,
         weekly: 3,
         enrolled: 4033,
@@ -57,6 +57,44 @@ export default {
         nameVid: "Basic tools",
         videoLength: "8:12",
         free: false,
+      },
+    ];
+  },
+  find5Course() {
+    return [
+      {
+        urlImage: "https://pbs.twimg.com/media/Drm7xx8WoAAenNz.jpg",
+        nameVid: "Cocos2dx Beginner",
+      },
+      {
+        urlImage: "https://pbs.twimg.com/media/Drm7xx8WoAAenNz.jpg",
+        nameVid: "Cocos2dx Medium",
+      },
+      {
+        urlImage: "https://pbs.twimg.com/media/Drm7xx8WoAAenNz.jpg",
+        nameVid: "Cocos2dx Advanced",
+      },
+      {
+        urlImage: "https://pbs.twimg.com/media/Drm7xx8WoAAenNz.jpg",
+        nameVid: "Cocos2d Beginner",
+      },
+      {
+        urlImage: "https://pbs.twimg.com/media/Drm7xx8WoAAenNz.jpg",
+        nameVid: "Cocos2d Medium",
+      },
+    ];
+  },
+  findComments() {
+    return [
+      {
+        urlImage: "https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp",
+        username: "Rasputin",
+        contentReview: "Roses are red \nViolets are blue \nThis is good ",
+      },
+      {
+        urlImage: "https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp",
+        username: "Pewdipie",
+        contentReview: "Good for beginner, worth the money!",
       },
     ];
   },
