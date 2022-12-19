@@ -71,8 +71,10 @@ export default {
         req.session.auth = true;
         req.session.authUser = user;
 
-        const url = '/';
-        res.redirect(url);
+        res.render('home', {
+            user: req.session.authUser,
+            isLogin: req.session.auth,
+        });
     },
 
     getHomeProfilePage: (req, res) => {
@@ -88,6 +90,4 @@ export default {
         const url = '/';
         res.redirect(url);
     }
-
-
 }

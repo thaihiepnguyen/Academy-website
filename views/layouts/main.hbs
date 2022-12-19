@@ -90,10 +90,10 @@
 
         <div class="navbar-end">
             <div class="navbar-item">
-                {{#if auth}}
+                {{#if isLogin}}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                            Welcome, <b>{{authUser.name}}</b>!
+                            Welcome, <b>{{user.firstname}} {{user.lastname}}</b>!
                         </a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="/account/home_profile">

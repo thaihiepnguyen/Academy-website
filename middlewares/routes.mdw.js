@@ -4,7 +4,10 @@ import productRoute from "../routes/product.route.js";
 export default function (app) {
   app.get("/", async function (req, res) {
     // res.send('Hello World.');
-    res.render("home.hbs");
+    res.render("home.hbs", {
+      isLogin: req.session.auth,
+      user: req.session.authUser
+    });
   });
 
   app.use("/account", accountRoute);

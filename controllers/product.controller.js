@@ -7,7 +7,6 @@ export default {
 
         const courses = await productService.findByCatId(CatId);
 
-        console.log(courses);
         res.render('vwProduct/courses', {
             courses
         });
