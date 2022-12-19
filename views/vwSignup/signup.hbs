@@ -1,6 +1,47 @@
-<div class="bg-img">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>E-Commerce Application (20KTPMC)</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/bulma.css">
+    <style>
+        * {
+            font-size: 14px;
+        }
+
+        .z-index-1 {
+            z-index: 1;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+
+        .margin-top-100 {
+            margin-top: 100px !important;
+        }
+    </style>
+    {{{_sections.css}}}
+</head>
+<body>
+
+<div class="overlay bg-img">
     <div class="content">
         <header>Sign Up</header>
+        {{#if message}}
+            <div class="alert alert-warning" role="alert"> {{message}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {{/if}}
         <form method="post">
             <div class="field space">
                 <span class="fa fa-user"></span>
@@ -22,10 +63,7 @@
                 <span class="show">SHOW</span>
             </div>
 
-            {{#if message}}
-                <div class=" field space alert alert-danger" role="alert">{{message}}
-                </div>
-            {{/if}}
+
 
             <div class="field space">
                 <input type="submit" value="SIGNUP">
@@ -37,3 +75,4 @@
         </div>
     </div>
 </div>
+</body>

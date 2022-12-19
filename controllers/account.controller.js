@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 export default {
     getLoginPage: (req, res) => {
         res.render('vwlogin/login.hbs', {
+            layout: false,
             hideTagbar: true,
         });
     },
@@ -32,6 +33,7 @@ export default {
         } else {
             res.render('vwSignup/signup', {
                 message: "Email is existed",
+                layout: false,
                 hideTagbar: true,
             });
         }
@@ -39,6 +41,7 @@ export default {
 
     getSignupPage: (req, res) => {
         res.render('vwSignup/signup.hbs', {
+            layout: false,
             hideTagbar: true,
         });
     },
@@ -47,39 +50,34 @@ export default {
         const user = await userService.findByUsername((req.body.username))
         if(user == null) {
             return res.render("vwlogin/login.hbs", {
+                layout: false,
                 hideTagbar: true,
                 err_message: "Invalid email or password."
             });
         }
 
-        if(req.body.password != user.password) {
+        else if(req.body.password != user.password) {
             return res.render("vwlogin/login.hbs", {
+                layout: false,
                 hideTagbar: true,
                 err_message: "Invalid email or password."
             });
         }
+        else{
+         req.session.auth = true;
+                req.session.authUser = user;
 
-        //const ret = bcrypt.compare(req.body.password, user.password);
+                res.render('home', {
+                    user: req.session.authUser,
+                    isLogin: req.session.auth,
+                });
+        }
 
-        // if(ret == false) {
-        //     return res.render("vwlogin/login.hbs", {
-        //         layout: false,
-        //         err_message: "Invalid email or password."
-        //     });
-        // }
-
-        req.session.auth = true;
-        req.session.authUser = user;
-
-        res.render('home', {
-            user: req.session.authUser,
-            isLogin: req.session.auth,
-        });
     },
 
     getHomeProfilePage: (req, res) => {
         res.render('vwProfile/home_profile.hbs', {
-            hideTagbar: true
+            layout: 'profile'
         });
     },
 
