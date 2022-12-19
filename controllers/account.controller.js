@@ -79,7 +79,7 @@ export default {
 
     getHomeProfilePage: (req, res) => {
         res.render('vwProfile/home_profile.hbs', {
-            hideTagbar: true,
+            hideTagbar: true
         });
     },
 
