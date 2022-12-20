@@ -7,6 +7,10 @@ import routesMdw from "./middlewares/routes.mdw.js";
 import sessionMdw from "./middlewares/session.mdw.js";
 
 const app = express();
+
+// const passport = require('passport');
+// const GoogleStrategy = require('passport-google-oauth20').Strategy;
+
 const port = process.env.PORT || 3000;
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));

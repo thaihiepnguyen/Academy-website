@@ -53,7 +53,6 @@ export default {
                 err_message: "Invalid email or password."
             });
         }
-
         else if(req.body.password != user.password) {
             return res.render("vwlogin/login.hbs", {
                 layout: false,
@@ -62,15 +61,23 @@ export default {
             });
         }
         else{
-         req.session.auth = true;
-                req.session.authUser = user;
+            req.session.auth = true;
+            req.session.authUser = user;
 
-                res.render('home', {
-                    user: req.session.authUser,
-                    isLogin: req.session.auth,
-                });
+            res.render('home', {
+                user: req.session.authUser,
+                isLogin: req.session.auth,
+            });
         }
 
+        //const ret = bcrypt.compare(req.body.password, user.password);
+
+        // if(ret == false) {
+        //     return res.render("vwlogin/login.hbs", {
+        //         layout: false,
+        //         err_message: "Invalid email or password."
+        //     });
+        // }
     },
 
     getHomeProfilePage: (req, res) => {
@@ -80,8 +87,38 @@ export default {
     },
 
     handleLogout: (req, res) => {
+
         req.session.auth = false;
         req.session.authUser = null;
+
+        const url = req.headers.referer || '/';
+        res.redirect(url);
+    },
+
+    callback: async (req, res) => {
+        // Successful authentication, redirect home.
+
+        const { user } = req;
+
+        const userdb = {
+            ...req.body,
+            email: user.emails[0].value,
+            firstname: user.name.givenName,
+            lastname: user.name.familyName,
+            image: user.photos[0].value,
+            role_id: 1,
+        };
+
+        const isSignUp = await userService.findByUsername(userdb.email);
+
+        console.log(isSignUp);
+
+        if(isSignUp == null) { // Check sign up
+            await userService.add(userdb);
+        }
+
+        req.session.auth = true;
+        req.session.authUser = userdb;
 
         const url = '/';
         res.redirect(url);
