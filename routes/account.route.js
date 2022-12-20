@@ -21,6 +21,8 @@ router.post('/logout', accountController.handleLogout);
 
 router.get('/home_profile', authWithRequiredPermission(0), accountController.getHomeProfilePage);
 
+// router.get('/home_profile/detail', accountController.getHomeProfilePageDetail);
+
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/failed' }), accountController.callback);

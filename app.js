@@ -1,6 +1,5 @@
 import express from "express";
 import bodyParser from "body-parser";
-
 import viewMdw from "./middlewares/view.mdw.js";
 import localsMdw from "./middlewares/locals.mdw.js";
 import routesMdw from "./middlewares/routes.mdw.js";

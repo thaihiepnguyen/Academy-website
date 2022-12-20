@@ -7,7 +7,9 @@ export default function (app) {
     res.render("home.hbs", {
       isLogin: req.session.auth,
       user: req.session.authUser,
-
+      // isDefault: true,
+      activeTagbarLayout: true,
+      // isDefault: true,
     });
   });
 

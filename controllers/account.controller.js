@@ -1,15 +1,22 @@
 import userService from "../services/user.service.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 export default {
     getLoginPage: (req, res) => {
         res.render('vwlogin/login.hbs', {
-            // layout: false,
-            hideTagbar: true,
+            isDefault: true,
         });
     },
 
     handleSignup: async (req, res) => {
+        const rawPass = req.body.password;
+
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(rawPass, salt);
+
+        req.body.password = hash;
+
+
         const user = {
             ...req.body,
             image: null,
@@ -30,59 +37,49 @@ export default {
             res.render('vwLogin/login');
         } else {
             res.render('vwSignup/signup', {
-                message: "Email is existed",
-                // layout: false,
-                hideTagbar: true,
+                message: "Email is existed"
             });
         }
     },
 
     getSignupPage: (req, res) => {
         res.render('vwSignup/signup.hbs', {
-            // layout: false,
-            hideTagbar: true,
+            isDefault: true,
         });
     },
 
     handleLogin: async (req, res) => {
-        const user = await userService.findByUsername((req.body.username))
-        if(user == null) {
+        const user = req.body;
+        const rawUser = await userService.findByEmail(req.body.email);
+
+        if(rawUser == null) {
             return res.render("vwlogin/login.hbs", {
-                layout: false,
-                hideTagbar: true,
                 err_message: "Invalid email or password."
             });
         }
-        else if(req.body.password != user.password) {
+        else if(!bcrypt.compareSync(user.password, rawUser.password)) {
             return res.render("vwlogin/login.hbs", {
-                layout: false,
-                hideTagbar: true,
                 err_message: "Invalid email or password."
             });
         }
         else{
             req.session.auth = true;
-            req.session.authUser = user;
+            req.session.authUser = rawUser;
 
             res.render('home', {
+                activeTagbarLayout: true,
                 user: req.session.authUser,
                 isLogin: req.session.auth,
             });
         }
-
-        //const ret = bcrypt.compare(req.body.password, user.password);
-
-        // if(ret == false) {
-        //     return res.render("vwlogin/login.hbs", {
-        //         layout: false,
-        //         err_message: "Invalid email or password."
-        //     });
-        // }
     },
 
     getHomeProfilePage: (req, res) => {
-        res.render('vwProfile/home_profile.hbs', {
-            layout: 'profile'
+        console.log(req.session.authUser);
+        res.render('vwProfile/public_profile.hbs', {
+            activeProfileLayout: true,
+            // isDefault: true,
+            user: req.session.authUser,
         });
     },
 
@@ -109,7 +106,7 @@ export default {
             role_id: 1,
         };
 
-        const isSignUp = await userService.findByUsername(userdb.email);
+        const isSignUp = await userService.findByEmail(userdb.email);
 
         console.log(isSignUp);
 
@@ -122,5 +119,5 @@ export default {
 
         const url = '/';
         res.redirect(url);
-    }
+    },
 }

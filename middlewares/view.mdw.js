@@ -1,5 +1,9 @@
 import { engine } from 'express-handlebars';
 import hbs_sections from 'express-handlebars-sections';
+import express_handlebars_sections from "express-handlebars-sections";
+
+
+
 export default function (app) {
   app.engine(
       "hbs",
@@ -21,6 +25,7 @@ export default function (app) {
             return new Handlebars.SafeString(text);
           },
         },
+        section: express_handlebars_sections()
       })
   );
   app.set('view engine', 'hbs');

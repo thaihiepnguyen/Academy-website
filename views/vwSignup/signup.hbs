@@ -1,36 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+{{#section 'signup-css'}}
+    <link rel="stylesheet" href="/css/signup.css">
+{{/section}}
 
-<head>
-    <meta charset="UTF-8">
-    <title>E-Commerce Application (20KTPMC)</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/login.css">
-    <link rel="stylesheet" href="/css/bulma.css">
-    <style>
-        * {
-            font-size: 14px;
-        }
-
-        .z-index-1 {
-            z-index: 1;
-        }
-
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-        }
-
-        .margin-top-100 {
-            margin-top: 100px !important;
-        }
-    </style>
-    {{{_sections.css}}}
-</head>
-<body>
 
 <div class="overlay bg-img">
     <div class="content">
@@ -60,24 +31,30 @@
             <div class="field space">
                 <span class="fa fa-lock"></span>
                 <input name="password" type="password" class="pass-key" required placeholder="Password">
-                <span class="show">SHOW</span>
+                <span class="show"><i class="fa fa-eye" aria-hidden="true"></i></span>
             </div>
-            <div class="field space">
-                <span class="fa fa-solid fa-key"></span>
-                <input type="password" class="pass-key" required placeholder="Confirm Password">
-                <span class="show">SHOW</span>
-            </div>
-
-
+<!--            <div class="field space">-->
+<!--                <span class="fa fa-solid fa-key"></span>-->
+<!--                <input type="password" class="pass-key" required placeholder="Confirm Password">-->
+<!--                <span class="show"><i class="fa fa-eye" aria-hidden="true"></i></span>-->
+<!--            </div>-->
 
             <div class="field space">
                 <input type="submit" value="SIGNUP">
             </div>
         </form>
 
-        <div class="signup space">Already have an account?
+        <div class="space">
+            Already have an account?
             <a href="/account/login">Log in</a>
         </div>
+        <br>
+        <p>or sign up with:</p>
+
+
+        <div>
+            <a href=""><i class="fa fa-google" aria-hidden="true"></i>   Sign up with Google</a>
+        </div>
+
     </div>
 </div>
-</body>
