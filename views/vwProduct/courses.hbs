@@ -1,24 +1,29 @@
 <p class="h1">{{this.catName}}</p>
 <div class="d-flex is-flex-wrap-wrap">
-    {{#each this.courses}}
-        <div class="card mr-6 mt-6" style="width: 18rem;">
-            <img src="/imgs/courses/1/{{id}}.jpeg" class="card-img-top" alt="...">
-            <div class="d-flex card-body align-items-start flex-column">
-                <h5 class="card-title font-weight-bold">{{name}}</h5>
-                <p class="card-text">{{tiny_des}}</p>
-                <p class="card-text font-weight-light">{{firstname}} {{lastname}}</p>
+    {{#if this.courses}}
+        {{#each this.courses}}
+            <div class="card mr-6 mt-6" style="width: 18rem;">
+                <img src="/imgs/courses/1/{{id}}.jpeg" class="card-img-top" alt="...">
+                <div class="d-flex card-body align-items-start flex-column">
+                    <h5 class="card-title font-weight-bold">{{name}}</h5>
+                    <p class="card-text">{{tiny_des}}</p>
+                    <p class="card-text font-weight-light">{{firstname}} {{lastname}}</p>
 
-                <div class="mt-auto d-flex justify-content-between align-items-center w-100">
-                    <div class="ratings">
-                        {{#each ratings}}
-                            <i class="fa fa-star {{this}}"></i>
-                        {{/each}}
+                    <div class="mt-auto d-flex justify-content-between align-items-center w-100">
+                        <div class="ratings">
+                            {{#each ratings}}
+                                <i class="fa fa-star {{this}}"></i>
+                            {{/each}}
+                        </div>
+                        <h5 class="review-count">0 Reviews</h5>
                     </div>
-                    <h5 class="review-count">0 Reviews</h5>
                 </div>
             </div>
-        </div>
-    {{/each}}
+        {{/each}}
+    {{else}}
+        <p class="h4 mt-50">{{this.warning}}</p>
+    {{/if}}
+
 </div>
 <script>
 

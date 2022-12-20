@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 export default {
     getLoginPage: (req, res) => {
         res.render('vwlogin/login.hbs', {
-            layout: false,
+            // layout: false,
             hideTagbar: true,
         });
     },
@@ -27,13 +27,11 @@ export default {
 
         if (!isEmailExists) {
             await userService.add(user);
-            res.render('home', {
-                user: user
-            });
+            res.render('vwLogin/login');
         } else {
             res.render('vwSignup/signup', {
                 message: "Email is existed",
-                layout: false,
+                // layout: false,
                 hideTagbar: true,
             });
         }
@@ -41,7 +39,7 @@ export default {
 
     getSignupPage: (req, res) => {
         res.render('vwSignup/signup.hbs', {
-            layout: false,
+            // layout: false,
             hideTagbar: true,
         });
     },

@@ -6,7 +6,8 @@ export default function (app) {
     // res.send('Hello World.');
     res.render("home.hbs", {
       isLogin: req.session.auth,
-      user: req.session.authUser
+      user: req.session.authUser,
+
     });
   });
 
