@@ -15,8 +15,8 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 sessionMdw(app);
-viewMdw(app);
 localsMdw(app);
+viewMdw(app);
 routesMdw(app);
 
 //helper

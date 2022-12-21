@@ -34,10 +34,11 @@ export default {
 
         if (!isEmailExists) {
             await userService.add(user);
-            res.render('vwLogin/login');
+            res.redirect('/account/login');
         } else {
             res.render('vwSignup/signup', {
-                message: "Email is existed"
+                message: "Email is existed",
+                isDefault: true,
             });
         }
     },
@@ -49,46 +50,44 @@ export default {
     },
 
     handleLogin: async (req, res) => {
-        const user = req.body;
-        const rawUser = await userService.findByEmail(req.body.email);
+        const { email, password } = req.body;
+        const userdb = await userService.findByEmail(email);
 
-        if(rawUser == null) {
+        if(userdb == null) {
             return res.render("vwlogin/login.hbs", {
-                err_message: "Invalid email or password."
+                err_message: "Invalid email or password.",
+                isDefault: true,
             });
         }
-        else if(!bcrypt.compareSync(user.password, rawUser.password)) {
+        else if(!bcrypt.compareSync(password, userdb.password)) {
             return res.render("vwlogin/login.hbs", {
-                err_message: "Invalid email or password."
+                err_message: "Invalid email or password.",
+                isDefault: true,
             });
         }
         else{
             req.session.auth = true;
-            req.session.authUser = rawUser;
+            req.session.authUser = userdb;
 
-            res.render('home', {
-                activeTagbarLayout: true,
-                user: req.session.authUser,
-                isLogin: req.session.auth,
-            });
+            const url = req.session.retUrl || '/';
+            res.redirect(url);
         }
     },
 
     getHomeProfilePage: (req, res) => {
-        console.log(req.session.authUser);
         res.render('vwProfile/public_profile.hbs', {
             activeProfileLayout: true,
             // isDefault: true,
-            user: req.session.authUser,
+            // user: req.session.authUser,
         });
     },
 
     handleLogout: (req, res) => {
-
         req.session.auth = false;
         req.session.authUser = null;
 
         const url = req.headers.referer || '/';
+
         res.redirect(url);
     },
 
@@ -108,7 +107,6 @@ export default {
 
         const isSignUp = await userService.findByEmail(userdb.email);
 
-        console.log(isSignUp);
 
         if(isSignUp == null) { // Check sign up
             await userService.add(userdb);

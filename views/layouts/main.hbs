@@ -8,17 +8,28 @@
           integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/bulma.css">
+
     {{{_sections.profile}}}
     {{{_sections.login-css}}}
     {{{_sections.signup-css}}}
 
+    <style>
+        body {
+            font-family: "Poppins", Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.8;
+            font-weight: normal;
+        }
+
+
+    </style>
     <link rel="stylesheet" href="/css/rating.css">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 </head>
 
 <body>
 
-<nav class="navbar" role="navigation" aria-label="main navigation">
+<nav class="navbar shadow p-3 mb-5 bg-white rounded " role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
         <a class="navbar-item" href="/">
             <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
@@ -33,39 +44,35 @@
 
     <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
-            <a class="navbar-item">
+            <a class="navbar-item text-decoration-none" href="/">
                 Home
             </a>
 
-            <a class="navbar-item">
-                Documentation
-            </a>
-
-            <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">
+            <div class="navbar-item has-dropdown is-hoverable text-decoration-none">
+                <a class="navbar-link text-decoration-none">
                     Categories
                 </a>
 
-                <div class="navbar-dropdown">
+                <div class="navbar-dropdown text-decoration-none">
                     {{#each this.categories}}
-                        <a class="navbar-item" href="/courses/byCat/{{id}}">
+                        <a class="navbar-item text-decoration-none" href="/courses/byCat/{{id}}">
                             {{name}}
                         </a>
                     {{/each}}
-                    <a class="navbar-item">
+                    <a class="navbar-item text-decoration-none">
                         All Categories
                     </a>
                 </div>
             </div>
 
-            <div class="level-item">
+            <div class="level-item " style="margin-left: 30px">
                 <div class="field has-addons">
                     <p class="control">
-                        <input class="input" type="text" placeholder="Find a post">
+                        <input class="input" type="text" placeholder="Search for anything">
                     </p>
                     <p class="control">
                         <button class="button">
-                            Search
+                            <i class="fa fa-search" aria-hidden="true"></i>
                         </button>
                     </p>
                 </div>
