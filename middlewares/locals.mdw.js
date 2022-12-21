@@ -7,6 +7,7 @@ export default function (app) {
     next();
   });
   app.use(async function (req, res, next) {
+    // req.session.retUrl = req.originalUrl;
     if (typeof (req.session.auth) === 'undefined') {
       req.session.auth = false;
     }

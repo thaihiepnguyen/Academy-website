@@ -72,29 +72,15 @@ export default {
       },
     ];
   },
-  find5Course() {
-    return [
-      {
-        urlImage: "https://pbs.twimg.com/media/Drm7xx8WoAAenNz.jpg",
-        nameVid: "Cocos2dx Beginner",
-      },
-      {
-        urlImage: "https://pbs.twimg.com/media/Drm7xx8WoAAenNz.jpg",
-        nameVid: "Cocos2dx Medium",
-      },
-      {
-        urlImage: "https://pbs.twimg.com/media/Drm7xx8WoAAenNz.jpg",
-        nameVid: "Cocos2dx Advanced",
-      },
-      {
-        urlImage: "https://pbs.twimg.com/media/Drm7xx8WoAAenNz.jpg",
-        nameVid: "Cocos2d Beginner",
-      },
-      {
-        urlImage: "https://pbs.twimg.com/media/Drm7xx8WoAAenNz.jpg",
-        nameVid: "Cocos2d Medium",
-      },
-    ];
+  async findTop5Courses() {
+    const list = await db("courses")
+        .join('users', 'users.id', 'courses.lecture_id')
+        .select('courses.id', 'users.firstname', 'users.lastname', 'courses.tiny_des', 'courses.name', 'courses.rating' )
+        .orderBy('rating', 'desc')
+        .limit(5)
+        .offset(0);
+
+    return list;
   },
   findComments() {
     return [

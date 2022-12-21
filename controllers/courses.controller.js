@@ -3,6 +3,7 @@ import coursesService from "../services/courses.service.js";
 
 export default {
     findByCatId: async (req, res) => {
+        req.session.retUrl = req.originalUrl;
         const CatId = req.params.id;
 
         const courses = await coursesService.findByCatId(CatId);
@@ -15,10 +16,9 @@ export default {
             }
         }
 
-
         if (courses == null) {
             res.render('vwProduct/courses',{
-                    user: req.session.authUser,
+                    // user: req.session.authUser,
                     catName,
                     activeTagbarLayout: true,
                     warning: `Can not find any courses of ${catName}`
@@ -35,7 +35,7 @@ export default {
         }
 
         res.render('vwProduct/courses', {
-            user: req.session.authUser,
+            // user: req.session.authUser,
             activeTagbarLayout: true,
             courses,
             catName,
