@@ -26,7 +26,9 @@ router.post('/logout', accountController.handleLogout);
 
 router.get('/home_profile', authWithRequiredPermission(0), accountController.getHomeProfilePage);
 
-// router.get('/home_profile/detail', accountController.getHomeProfilePageDetail);
+router.post('/home_profile/patch', accountController.editUserProfile);
+
+//router.get('/home_profile/detail', accountController.getHomeProfilePageDetail);
 
 router.get('/google', passportGoogle.authenticate('google', { scope: ['profile', 'email'] }));
 

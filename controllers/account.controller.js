@@ -68,7 +68,7 @@ export default {
             req.session.auth = true;
             req.session.authUser = userdb;
 
-            const url = req.session.retUrl;
+            const url = req.session.retUrl || '/';
             res.redirect(url);
         }
     },
@@ -77,7 +77,31 @@ export default {
         res.render('vwProfile/public_profile.hbs', {
             activeProfileLayout: true,
             // isDefault: true,
-            // user: req.session.authUser,
+            //user: req.session.authUser,
+        });
+    },
+
+    editUserProfile: async (req, res) => {
+        const user = req.session.authUser;
+
+        const userchanged = {
+            ...req.body,
+            id: user.id,
+            image: user.image,
+            role_id: user.role_id
+        }
+
+        console.log(userchanged);
+
+        await userService.patch(userchanged);
+
+        req.session.authUser = userchanged;
+
+
+        res.render('vwProfile/public_profile.hbs', {
+            activeProfileLayout: true,
+            // isDefault: true,
+            user: req.session.authUser,
         });
     },
 

@@ -9,14 +9,6 @@ export default {
 
         return list;
     },
-    findById: async (id) => {
-        const list = await db('users').where('id', id);
-        if (list.length === 0) {
-            return null;
-        }
-
-        return list[0];
-    },
 
     findByEmail: async (email) => {
         const list = await db('users').where('email', email);
@@ -37,7 +29,7 @@ export default {
 
     patch: (entity) => {
         const id = entity.id;
-        delete entity.id;
+        //delete entity.id;
         return db('users').where('id', id).update(entity);
     }
 }

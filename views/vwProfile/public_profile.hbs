@@ -28,27 +28,32 @@
 <div class="content">
     <!-- basic  -->
     <h5>Basic</h5>
-    <div class="mb-3">
-        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="First name">
-    </div>
-    <div class="mb-3">
-        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Last name">
-    </div>
-    <!-- link  -->
+    <form method="post">
+        <div class="mb-3">
+            <input type="text" class="form-control" id="txtEmail" placeholder="Email" name="email" value="{{user.email}}">
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" id="txtFirstName" placeholder="First name" name="firstname" value="{{user.firstname}}">
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" id="txtLastName" placeholder="Last name" name="lastname" value="{{user.lastname}}">
+        </div>
+        <!-- link  -->
 
-    <h5 class="mb-3">Link</h5>
+        <h5 class="mb-3">Link</h5>
 
-    <div class="mb-3">
-        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Your website">
-    </div>
-    <div class="mb-3">
-        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Github">
-    </div>
-    <div class="mb-3">
-        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Youtube">
-    </div>
-    <div class="mb-3">
-        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Instagram">
-    </div>
-    <button type="button" class="btn btn-dark mt-3">SAVE</button>
+        <div class="mb-3">
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Your website">
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Github">
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Youtube">
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Instagram">
+        </div>
+        <button type="submit" class="btn btn-dark mt-3" formaction="/account/home_profile/patch">SAVE</button>
+    </form>
 </div>
