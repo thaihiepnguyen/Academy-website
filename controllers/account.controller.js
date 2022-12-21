@@ -97,7 +97,7 @@ export default {
         res.redirect(url);
     },
 
-    callback: async (req, res) => {
+    callbackGoogle: async (req, res) => {
         // Successful authentication, redirect home.
 
         const { user } = req;
@@ -113,7 +113,6 @@ export default {
 
         const isSignUp = await userService.findByUsername(userdb.email);
 
-        console.log(isSignUp);
 
         if(isSignUp == null) { // Check sign up
             await userService.add(userdb);
@@ -124,5 +123,32 @@ export default {
 
         const url = '/';
         res.redirect(url);
+    },
+
+    callbackFacebook: async (req, res) => { // not working
+        const { user } = req;
+
+        const userdb = {
+            ...req.body,
+            email: user.emails[0].value,
+            firstname: user._json.name,
+            //lastname: user.name.familyName,
+            //image: user.photos[0].value,
+            role_id: 1,
+        };
+
+        const isSignUp = await userService.findByUsername(userdb.email);
+
+
+        if(isSignUp == null) { // Check sign up
+            await userService.add(userdb);
+        }
+
+        req.session.auth = true;
+        req.session.authUser = userdb;
+
+        req.session.auth = true;
+
+        res.redirect('/');
     }
 }

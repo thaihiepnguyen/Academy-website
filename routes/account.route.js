@@ -1,13 +1,18 @@
 import express from 'express';
 import accountController from "../controllers/account.controller.js";
 import authWithRequiredPermission from '../middlewares/auth.mdw.js';
-import passport from "../utils/passport-setup.js";
+import passportGoogle from "../utils/passport-google-setup.js";
+import passportFacebook from "../utils/passport-facebook-setup.js";
 
 const router = express.Router();
 
-router.use(passport.initialize());
+router.use(passportGoogle.initialize());
 
-router.use(passport.session());
+router.use(passportGoogle.session());
+
+router.use(passportFacebook.initialize());
+
+router.use(passportFacebook.session());
 
 router.get('/login', accountController.getLoginPage);
 
@@ -21,8 +26,12 @@ router.post('/logout', accountController.handleLogout);
 
 router.get('/home_profile', authWithRequiredPermission(0), accountController.getHomeProfilePage);
 
-router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.get('/google', passportGoogle.authenticate('google', { scope: ['profile', 'email'] }));
 
-router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/failed' }), accountController.callback);
+router.get('/google/callback', passportGoogle.authenticate('google', { failureRedirect: '/login' }), accountController.callbackGoogle);
+
+router.get('/facebook', passportFacebook.authenticate('facebook',{scope:'email'}));
+
+router.get('/facebook/callback', passportFacebook.authenticate('facebook', { failureRedirect: '/login' }), accountController.callbackFacebook);
 
 export default router;
