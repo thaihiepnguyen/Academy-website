@@ -1,6 +1,5 @@
 import express from "express";
 import bodyParser from "body-parser";
-
 import viewMdw from "./middlewares/view.mdw.js";
 import localsMdw from "./middlewares/locals.mdw.js";
 import routesMdw from "./middlewares/routes.mdw.js";
@@ -16,8 +15,8 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 sessionMdw(app);
-viewMdw(app);
 localsMdw(app);
+viewMdw(app);
 routesMdw(app);
 
 //helper

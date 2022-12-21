@@ -18,7 +18,7 @@ export default {
         return list[0];
     },
 
-    findByUsername: async (email) => {
+    findByEmail: async (email) => {
         const list = await db('users').where('email', email);
         if (list.length === 0) {
             return null;

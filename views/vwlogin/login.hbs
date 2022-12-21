@@ -1,17 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>E-Commerce Application (20KTPMC)</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{{#section 'login-css'}}
     <link rel="stylesheet" href="/css/login.css">
-    <link rel="stylesheet" href="/css/bulma.css">
+{{/section}}
 
-</head>
-<body>
 <div class="bg-img">
     <div class="content">
         <header>Login</header>
@@ -25,7 +15,7 @@
         <form method="post">
             <div class="field">
                 <span class="fa fa-user"></span>
-                <input name="username" type="text" required placeholder="Email" autofocus>
+                <input name="email" type="text" required placeholder="Email" autofocus>
             </div>
             <div class="field space">
                 <span class="fa fa-lock"></span>
@@ -56,10 +46,8 @@
 <!--                <i class="fab fa-Google"><span>Google</span></i>-->
 <!--            </div>-->
 <!--        </div>-->
-        <div class="signup">Don't have account?
+        <div class="space">Don't have account?
             <a href="/account/signup">Signup Now</a>
         </div>
     </div>
 </div>
-
-</body>

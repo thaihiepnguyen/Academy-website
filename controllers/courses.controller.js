@@ -8,7 +8,23 @@ export default {
         const courses = await coursesService.findByCatId(CatId);
 
         const categories = res.locals.categories;
+        let catName = "";
+        for (let i = 0; i < categories.length; i++) {
+            if (categories[i].id == CatId) {
+                catName = categories[i].name;
+            }
+        }
 
+
+        if (courses == null) {
+            res.render('vwProduct/courses',{
+                    user: req.session.authUser,
+                    catName,
+                    activeTagbarLayout: true,
+                    warning: `Can not find any courses of ${catName}`
+                });
+            return;
+        }
 
         for (let i = 0; i < courses.length; i++) {
             let ratings = ["", "", "", "", ""];
@@ -18,14 +34,9 @@ export default {
             courses[i].ratings = ratings;
         }
 
-        let catName = "";
-        for (let i = 0; i < categories.length; i++) {
-            if (categories[i].id === 1) {
-                catName = categories[i].name;
-            }
-        }
-
         res.render('vwProduct/courses', {
+            user: req.session.authUser,
+            activeTagbarLayout: true,
             courses,
             catName,
         });
