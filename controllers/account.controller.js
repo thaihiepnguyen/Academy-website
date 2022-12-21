@@ -16,7 +16,6 @@ export default {
 
         req.body.password = hash;
 
-
         const user = {
             ...req.body,
             image: null,
@@ -69,7 +68,7 @@ export default {
             req.session.auth = true;
             req.session.authUser = userdb;
 
-            const url = req.session.retUrl || '/';
+            const url = req.session.retUrl;
             res.redirect(url);
         }
     },
