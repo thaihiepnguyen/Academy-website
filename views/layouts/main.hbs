@@ -36,6 +36,24 @@
         .navbar-end .item-style {
             width: 450px;
         }
+
+<!--        dropdown-->
+.dropdown-menu li {
+position: relative;
+}
+.dropdown-menu .dropdown-submenu {
+display: none;
+position: absolute;
+left: 100%;
+top: -7px;
+}
+.dropdown-menu .dropdown-submenu-left {
+right: 100%;
+left: auto;
+}
+.dropdown-menu > li:hover > .dropdown-submenu {
+display: block;
+}
     </style>
     <link rel="stylesheet" href="/css/rating.css">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
@@ -58,6 +76,7 @@
 
     <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
+
             <a class="navbar-item text-decoration-none" href="/">
                 Home
             </a>
@@ -68,11 +87,26 @@
                 </a>
 
                 <div class="navbar-dropdown text-decoration-none">
-                    {{#each this.categories}}
-                        <a class="navbar-item text-decoration-none" href="/courses/byCat/{{id}}">
-                            {{name}}
-                        </a>
-                    {{/each}}
+
+                        <li style="display:block" class="nav-item dropdown is-hoverable">
+                            {{#each this.categories}}
+                            <a href="/courses/byCat/{{id}}" class="nav-link dropdown-item  dropdown-toggle mr-1"role="button" data-toggle="dropdown" aria-expanded="false">
+                                {{name}}
+                            </a>
+                            {{/each}}
+                            <ul style="top:-18%; right:auto; left:100%; position:absolute" class="dropdown-menu dropdown-submenu">
+                                <li>
+                                    {{#each this.topic}}
+                                        <a class="nav-link dropdown-item" href="#">
+                                            {{name}}
+                                        </a>
+                                    {{/each}}
+                                </li>
+
+
+                            </ul>
+                        </li>
+
                     <a class="navbar-item text-decoration-none">
                         All Categories
                     </a>
@@ -193,12 +227,27 @@
                             Categories
                         </h4>
                         <div class="list-group list-group-flush">
-                            {{#each this.categories}}
-                                <a href="/courses/byCat/{{id}}" class="list-group-item list-group-item-action">
-                                    <i class="fa fa-caret-right" aria-hidden="true"></i>
-                                    {{name}}
-                                </a>
-                            {{/each}}
+                            <li style="display:block" class="nav-item dropdown is-hoverable">
+                                {{#each this.categories}}
+                                    <a href="/courses/byCat/{{id}}" class="nav-link dropdown-item  dropdown-toggle mr-1"role="button" data-toggle="dropdown" aria-expanded="false">
+                                        {{name}}
+                                    </a>
+                                {{/each}}
+                                <ul style="position: inherit;left: 10%;border:none" class="dropdown-menu dropdown-submenu">
+                                    <li>
+                                        {{#each this.topic}}
+                                            <a class="nav-link dropdown-item" href="#">
+                                                {{name}}
+                                            </a>
+                                        {{/each}}
+                                    </li>
+
+                                </ul>
+
+                            </li>
+                            <a class="navbar-item text-decoration-none">
+                                All Categories
+                            </a>
                         </div>
                     </div>
                     <div class="card">
