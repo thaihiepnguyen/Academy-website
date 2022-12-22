@@ -7,6 +7,7 @@ export default function (app) {
     next();
   });
   app.use(async function (req, res, next) {
+    
     // req.session.retUrl = req.originalUrl;
     if (typeof (req.session.auth) === 'undefined') {
       req.session.auth = false;
@@ -17,8 +18,13 @@ export default function (app) {
     }
 
     if (req.session.auth) {
+      if (req.session.authUser.image === null) {
+        req.session.authUser.image = '/imgs/avt/0.png';
+      }
       res.locals.auth = req.session.auth;
       res.locals.user = req.session.authUser;
+
+      // console.log(req.session.auth);
     } else {
       res.locals.auth = false;
       res.locals.user = null;

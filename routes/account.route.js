@@ -26,7 +26,9 @@ router.post('/logout', accountController.handleLogout);
 
 router.get('/home_profile', authWithRequiredPermission(0), accountController.getHomeProfilePage);
 
-router.post('/home_profile/patch', accountController.editUserProfile);
+router.post('/home_profile', authWithRequiredPermission(0), accountController.editUserProfile);
+
+// router.post('/home_profile/patch', accountController.editUserProfile);
 
 //router.get('/home_profile/detail', accountController.getHomeProfilePageDetail);
 

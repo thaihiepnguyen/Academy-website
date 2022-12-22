@@ -115,8 +115,10 @@
                 {{#if user}}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                            <p style="margin-right: 20px; font-weight: bold; color: #000">{{user.firstname}} {{user.lastname}}</p>
-                            <img src="/imgs/avt/0.png" alt="avatar" height="30px" width="30px">
+                            <p style="margin-right: 20px; font-weight: bold; color: #000">{{user.firstname}}</p>
+                            <img src={{user.image}} alt="avatar" style="border-radius: 50%;
+                                height: 30px; width: 30px;
+                              min-height: 30px; min-width:30px ">
                         </a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="/account/home_profile">
@@ -219,11 +221,15 @@
 {{/if}}
 
 {{#if this.activeProfileLayout}}
+<form method="post" enctype="multipart/form-data">
     <div class="wrapper d-flex align-items-stretch">
         <nav id="sidebar">
             <div class="p-4 pt-5">
-                <a href="#" class="img logo rounded-circle mb-5" style="background-image: url(public/imgs/logo.jpg);"></a>
-                <h1 style = "color: #000 ; align-content: center;">Name</h1>
+                
+                <a href="#" class="img logo rounded-circle mb-5" style="background-image: url({{user.image}});">
+                </a>
+                <input type="file" name="avt" id="">
+                <h1 style = "color: #000 ; align-content: center;">{{user.firstname}}</h1>
                 <ul class="list-unstyled components mb-5">
 
                     <li class="active">
@@ -257,6 +263,7 @@
             </div>
         </div>
     </div>>
+</form>
 {{/if}}
 
 {{#if isDefault}}
