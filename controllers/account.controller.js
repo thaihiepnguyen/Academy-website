@@ -1,5 +1,6 @@
 import userService from "../services/user.service.js";
 import bcrypt from "bcrypt";
+import multer from 'multer';
 
 export default {
     getLoginPage: (req, res) => {
@@ -68,7 +69,7 @@ export default {
             req.session.auth = true;
             req.session.authUser = userdb;
 
-            const url = req.session.retUrl || '/';
+            const url = req.headers.referer || '/';
             res.redirect(url);
         }
     },
@@ -81,28 +82,56 @@ export default {
         });
     },
 
-    editUserProfile: async (req, res) => {
-        const user = req.session.authUser;
+    editUserProfile: (req, res) => {
+        let type = ""; 
+        const user = res.locals.user;
+        const storage = multer.diskStorage({
+            destination: function (req, file, cb) {
+              cb(null, './public/imgs/avt');
+            },
+            filename: function (req, file, cb) {
+                const typeOfFile = file.originalname.substring(file.originalname.indexOf('.'), file.originalname.length);
+                type = typeOfFile;
+              cb(null, user.id + typeOfFile);
+            }
+          })
+          
+        const upload = multer({ storage });
 
-        const userchanged = {
-            ...req.body,
-            id: user.id,
-            image: user.image,
-            role_id: user.role_id
-        }
+        upload.array('avt', 1)(req,res, async function(err) {
+            if(err) {
+                console.log(err);
+            }
+            
+            const {email, firstname, lastname} = req.body;
 
-        console.log(userchanged);
+            let imageURL = ''; 
+            if (type !== '') {
+                imageURL = '/imgs/avt/' + user.id + type; 
+            } else {
+                imageURL = user.image;
+            }
+            
+            const changedUser = {
+                email: email,
+                firstname: firstname,
+                lastname: lastname,
+                id: user.id,
+                image: imageURL,
+                role_id: user.role_id
+            }
+    
+            await userService.patch(changedUser);
 
-        await userService.patch(userchanged);
-
-        req.session.authUser = userchanged;
-
-
-        res.render('vwProfile/public_profile.hbs', {
-            activeProfileLayout: true,
-            // isDefault: true,
-            user: req.session.authUser,
+            
+            req.session.authUser = changedUser;
+            res.locals.user = changedUser;
+            res.render('vwProfile/public_profile.hbs', {
+                activeProfileLayout: true,
+            });
         });
+
+       
     },
 
     handleLogout: (req, res) => {
@@ -167,5 +196,5 @@ export default {
         req.session.auth = true;
 
         res.redirect('/');
-    }
+    },
 }
