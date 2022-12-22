@@ -11,7 +11,7 @@ export default {
     // where users.id = courses.lecture_id and courses.category_id = 1;
     const list = await db("courses")
         .join('users', 'users.id', 'courses.lecture_id')
-        .select('courses.id', 'users.firstname', 'users.lastname', 'courses.tiny_des', 'courses.name', 'courses.rating' )
+        .select('courses.id', 'users.firstname', 'users.lastname', 'courses.tiny_des', 'courses.name', 'courses.rating', 'courses.price' )
         .where({'courses.category_id': CatId});
     if (list.length === 0) {
       return null;
@@ -75,7 +75,7 @@ export default {
   async findTop5Courses() {
     const list = await db("courses")
         .join('users', 'users.id', 'courses.lecture_id')
-        .select('courses.id', 'users.firstname', 'users.lastname', 'courses.tiny_des', 'courses.name', 'courses.rating' )
+        .select('courses.id', 'users.firstname', 'users.lastname', 'courses.tiny_des', 'courses.name', 'courses.rating', 'courses.price' )
         .orderBy('rating', 'desc')
         .limit(5)
         .offset(0);

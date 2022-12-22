@@ -33,6 +33,9 @@
             width: 100%;
         }
 
+        .navbar-end .item-style {
+            width: 450px;
+        }
     </style>
     <link rel="stylesheet" href="/css/rating.css">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
@@ -79,7 +82,7 @@
             <div class="level-item " style="margin-left: 30px">
                 <div class="field has-addons">
                     <p class="control">
-                        <input class="input" style="font-family: inherit; border-bottom-left-radius: 20px; border-top-left-radius: 20px" type="text" placeholder="Search for anything">
+                        <input class="input" style="font-family: inherit; border-bottom-left-radius: 20px; border-top-left-radius: 20px; padding-right: 180px" type="text" placeholder="Search">
                     </p>
                     <p class="control">
                         <button class="button" style="border-bottom-right-radius: 20px; border-top-right-radius: 20px">
@@ -91,17 +94,39 @@
 
         </div>
 
-        <div class="navbar-end">
+        
+
+        <div class="navbar-end">   
+            <div class="d-flex align-items-center justify-content-between item-style">
+
+                <a class="navbar-item text-decoration-none">
+                    Academy business
+                </a>
+
+                <a class="navbar-item text-decoration-none">
+                    Teach on Academy
+                </a>
+
+                <a class="navbar-item text-decoration-none">
+                    My learning
+                </a>
+            </div>
             <div class="navbar-item">
                 {{#if user}}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                            Welcome, <b>{{user.firstname}} {{user.lastname}}</b>!
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                            <p style="margin-right: 20px; font-weight: bold; color: #000">{{user.firstname}} {{user.lastname}}</p>
+                            <img src="/imgs/avt/0.png" alt="avatar" height="30px" width="30px">
                         </a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="/account/home_profile">
                                 <i class="fa fa-user" aria-hidden="true"></i>
-                                Profile
+                                Edit Profile
+                            </a>
+
+                            <a class="dropdown-item" href="/account/home_profile">
+                                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                Watch List
                             </a>
                             <div class="dropdown-divider"></div>
                             <form id="frmLogout" action="/account/logout" method="post"></form>

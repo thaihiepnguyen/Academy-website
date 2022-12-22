@@ -10,7 +10,7 @@ const app = express();
 // const passport = require('passport');
 // const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -34,7 +34,6 @@ routesMdw(app);
 //   return new Handlebars.SafeString(text);
 // });
 
-const PORT = 3000;
 app.listen(PORT, function () {
   console.log(`E-Commerce App listening at http://localhost:${PORT}`);
 });

@@ -18,7 +18,6 @@ export default {
 
         if (courses == null) {
             res.render('vwProduct/courses',{
-                    // user: req.session.authUser,
                     catName,
                     activeTagbarLayout: true,
                     warning: `Can not find any courses of ${catName}`
@@ -34,8 +33,9 @@ export default {
             courses[i].ratings = ratings;
         }
 
+        console.log(courses);
+
         res.render('vwProduct/courses', {
-            // user: req.session.authUser,
             activeTagbarLayout: true,
             courses,
             catName,
