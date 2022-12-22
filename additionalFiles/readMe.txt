@@ -1,0 +1,1 @@
+Folder này để chứa các file không chạy trong chương trình nhưng cần thiết để chia sẻ
