@@ -8,6 +8,7 @@
           integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/bulma.css">
+    <link rel="stylesheet" href="/css/dropdown.css">
 <!--    <link rel="stylesheet" href="/css/home_profile.css">-->
 
     {{{_sections.profile}}}
@@ -37,23 +38,6 @@
             width: 450px;
         }
 
-<!--        dropdown-->
-.dropdown-menu li {
-position: relative;
-}
-.dropdown-menu .dropdown-submenu {
-display: none;
-position: absolute;
-left: 100%;
-top: -7px;
-}
-.dropdown-menu .dropdown-submenu-left {
-right: 100%;
-left: auto;
-}
-.dropdown-menu > li:hover > .dropdown-submenu {
-display: block;
-}
     </style>
     <link rel="stylesheet" href="/css/rating.css">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
@@ -88,25 +72,22 @@ display: block;
 
                 <div class="navbar-dropdown text-decoration-none">
 
-                        <li style="display:block" class="nav-item dropdown is-hoverable">
-                            {{#each this.categories}}
-                            <a href="/courses/byCat/{{id}}" class="nav-link dropdown-item  dropdown-toggle mr-1"role="button" data-toggle="dropdown" aria-expanded="false">
+                    <li style="display:block" class="nav-item dropdown is-hoverable">
+                        {{#each this.categories}}
+                            <a id="cat {{id}}" href="/courses/byCat/{{id}}" class="nav-link dropdown-item  dropdown-toggle mr-1"role="button" data-toggle="dropdown" aria-expanded="false">
                                 {{name}}
                             </a>
-                            {{/each}}
-                            <ul style="top:-18%; right:auto; left:100%; position:absolute" class="dropdown-menu dropdown-submenu">
+                            <ul id="topic {{id}}" style="top:-18%; right:auto; left:100%; position:absolute; min-height: 100px;min-width: 200px" class="dropdown-menu dropdown-submenu">
                                 <li>
-                                    {{#each this.topic}}
+                                    {{#each topic}}
                                         <a class="nav-link dropdown-item" href="#">
                                             {{name}}
                                         </a>
                                     {{/each}}
                                 </li>
-
-
                             </ul>
-                        </li>
-
+                        {{/each}}
+                    </li>
                     <a class="navbar-item text-decoration-none">
                         All Categories
                     </a>
@@ -241,9 +222,7 @@ display: block;
                                             </a>
                                         {{/each}}
                                     </li>
-
                                 </ul>
-
                             </li>
                             <a class="navbar-item text-decoration-none">
                                 All Categories
@@ -330,6 +309,18 @@ display: block;
         crossorigin="anonymous"></script>
 <script src="/js/login.js"></script>
 <script src="/js/rating.js"></script>
+<script>
+    document.getElementById("cat 2").addEventListener('mouseover', (event) => {
+        document.getElementById("topic 1").style.display = 'none';
+        document.getElementById("topic 2").style.display = 'inline-block';
+    });
+
+    document.getElementById("cat 1").addEventListener('mouseover', (event) => {
+        document.getElementById("topic 2").style.display = 'none';
+        document.getElementById("topic 1").style.display = 'inline-block';
+    });
+
+</script>
 
 
 {{{_sections.handleProfile}}}

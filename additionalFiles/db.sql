@@ -146,6 +146,16 @@ CREATE TABLE courses (
   category_id int DEFAULT NULL,
   lecture_id int DEFAULT NULL,
   rating int DEFAULT NULL,
+  
+  levelCourse varchar(255) DEFAULT NULL,
+  durationCourse int DEFAULT 0,
+  weeklyHours int DEFAULT 0,
+  enrolled int DEFAULT 0,
+  discount int DEFAULT 0,
+  requirements text DEFAULT NULL,
+  overview text DEFAULT NULL,
+  includedItem text DEFAULT NULL,
+  
   PRIMARY KEY (id),
   KEY id_idx (lecture_id),
   KEY id_idx1 (promotion_id),
@@ -155,11 +165,11 @@ CREATE TABLE courses (
   CONSTRAINT FK_Courses_User FOREIGN KEY (lecture_id) REFERENCES users (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO courses VALUES (1,'Python Website Full Tutorial',NULL,'Flask, Authentication, Databases & More','Learn the PHP programming language in this full course / tutorial. The course is designed for new programmers, and will introduce common programming topics using the PHP language.',489000,NULL,NULL,1,1,9,4);
-INSERT INTO courses VALUES (2,'What To Learn To Become a Python Backend Developer',NULL,'Python Backend Developer',NULL,500000,NULL,NULL,1,1,9,5);
-INSERT INTO courses VALUES (3,'The Ultimate Self-Taught Developer Curriculum',NULL,'Developer Curriculum',NULL,600000,NULL,NULL,1,1,9,4);
-INSERT INTO courses VALUES (4,'Full Stack Web Development for Beginners',NULL,'Full Course on HTML, CSS, JavaScript, Node.js, MongoDB',NULL,1000000,NULL,NULL,1,1,10,5);
-INSERT INTO courses VALUES (5,'React State Management',NULL,'Intermediate JavaScript Course',NULL,750000,NULL,NULL,1,1,10,4);
+INSERT INTO courses VALUES (1,'Python Website Full Tutorial',NULL,'Flask, Authentication, Databases & More','Learn the PHP programming language in this full course / tutorial. The course is designed for new programmers, and will introduce common programming topics using the PHP language.',489000,NULL,NULL,1,1,9,4,"",0,0,0,0,"","","");
+INSERT INTO courses VALUES (2,'What To Learn To Become a Python Backend Developer',NULL,'Python Backend Developer',NULL,500000,NULL,NULL,1,1,9,5,"",0,0,0,0,"","","");
+INSERT INTO courses VALUES (3,'The Ultimate Self-Taught Developer Curriculum',NULL,'Developer Curriculum',NULL,600000,NULL,NULL,1,1,9,4,"",0,0,0,0,"","","");
+INSERT INTO courses VALUES (4,'Full Stack Web Development for Beginners',NULL,'Full Course on HTML, CSS, JavaScript, Node.js, MongoDB',NULL,1000000,NULL,NULL,1,1,10,5,"",0,0,0,0,"","","");
+INSERT INTO courses VALUES (5,'React State Management',NULL,'Intermediate JavaScript Course',NULL,750000,NULL,NULL,1,1,10,4,"",0,0,0,0,"","","");
 
 
 DROP TABLE IF EXISTS review;
