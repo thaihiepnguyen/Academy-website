@@ -36,6 +36,8 @@ router.get('/photo', authWithRequiredPermission(0), accountController.getPhotoPa
 
 router.get('/watch_list', authWithRequiredPermission(0), accountController.getWatchListPage);
 
+router.get('/registered_courses', authWithRequiredPermission(0), accountController.getRegisteredCoursesPage);
+
 router.get('/logout', authWithRequiredPermission(0), accountController.getLogOutPage);
 
 // router.post('/home_profile/patch', accountController.editUserProfile);
