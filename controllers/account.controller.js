@@ -1,6 +1,7 @@
 import userService from "../services/user.service.js";
 import bcrypt from "bcrypt";
 import multer from 'multer';
+import * as constants from "constants";
 
 export default {
     getLoginPage: (req, res) => {
@@ -121,18 +122,59 @@ export default {
                 image: imageURL,
                 role_id: user.role_id
             }
+
+            console.log(changedUser);
     
             await userService.patch(changedUser);
 
-            
             req.session.authUser = changedUser;
             res.locals.user = changedUser;
             res.render('vwProfile/public_profile.hbs', {
                 activeProfileLayout: true,
             });
         });
+    },
 
-       
+    getAccountSecurityPage: (req, res) => {
+        res.render('vwProfile/account_security.hbs', {
+            activeProfileLayout: true,
+        });
+    },
+
+    editUserPassword: async (req, res) => {
+        const user = res.locals.user;
+        console.log(user);
+
+        const {email, oldPassword, newPassword, repeatNewPassword} = req.body;
+
+        const userdb = await userService.findByEmail(email);
+
+        if(newPassword != repeatNewPassword || !bcrypt.compareSync(oldPassword, userdb.password)) {
+            return res.render("vwProfile/account_security.hbs", {
+                activeProfileLayout: true,
+                err_message: "Password change failed!"
+            });
+        }
+
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(newPassword, salt);
+
+        const changedUser = {
+            email: email,
+            firstname: userdb.firstname,
+            lastname: userdb.lastname,
+            id: userdb.id,
+            image: userdb.image,
+            role_id: userdb.role_id,
+            password: hash
+        }
+
+        await userService.patch(changedUser);
+
+        return res.render("vwProfile/account_security.hbs", {
+            activeProfileLayout: true,
+            success_message: "Successfully!"
+        });
     },
 
     handleLogout: (req, res) => {
@@ -166,8 +208,10 @@ export default {
             await userService.add(userdb);
         }
 
+        const userOfficial = userService.findByEmail(userdb.email);
+
         req.session.auth = true;
-        req.session.authUser = userdb;
+        req.session.authUser = userOfficial;
 
         const url = '/';
         res.redirect(url);
@@ -192,8 +236,11 @@ export default {
             await userService.add(userdb);
         }
 
+        const userOfficial = userService.findByEmail(userdb.email);
+
+
         req.session.auth = true;
-        req.session.authUser = userdb;
+        req.session.authUser = userOfficial;
 
         req.session.auth = true;
 

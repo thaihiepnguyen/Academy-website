@@ -1,3 +1,16 @@
+{{#section 'profile'}}
+
+    <link rel="stylesheet" href="/css/home_profile.css">
+{{/section}}
+
+{{#section 'handleProfile'}}
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/popper.js"></script>
+    <script src="/js/jquery.min.js"></script>
+{{/section}}
+
+
 <nav style="border: 1px solid #ccc;border-radius: 5px;" class=" navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
 
@@ -9,22 +22,33 @@
             <h1>Account Security</h1>
             <p class="description">Edit your account setting and change your password here</p>
         </div>
-
-
     </div>
 </nav>
 
 <div class="content">
     <div class="mb-3">
-        <label for="formGroupExampleInput" class="form-label">Email</label>
-        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder">
+        <label for="txtEmail" class="form-label">Email</label>
+        <input type="text" class="form-control" id="txtEmail" placeholder="Example input placeholder" name="email" value="{{user.email}}" readonly>
     </div>
     <div class="mb-3">
-        <label for="formGroupExampleInput2" class="form-label">Password</label>
-        <input type="password" class="form-control mb-2" id="formGroupExampleInput2" placeholder="Old Password ">
-        <input type="password" class="form-control mb-2" id="formGroupExampleInput2" placeholder="New Password ">
-        <input type="password" class="form-control mb-2" id="formGroupExampleInput2" placeholder="Again new Password ">
-
+        <label for="txtOldPassword txtNewPassword txtRepeatNewPassword" class="form-label">Password</label>
+        <input type="password" class="form-control mb-2" id="txtOldPassword" placeholder="Old Password " name="oldPassword" value="">
+        <input type="password" class="form-control mb-2" id="txtNewPassword" placeholder="New Password " name="newPassword" value="">
+        <input type="password" class="form-control mb-2" id="txtRepeatNewPassword" placeholder="Again new Password " name="repeatNewPassword" value="">
     </div>
-    <button type="button" class="btn btn-dark mt-3">SAVE</button>
+    {{#if err_message}}
+        <div class="alert alert-warning" role="alert"> {{err_message}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {{/if}}
+    {{#if success_message}}
+        <div class="alert alert-success" role="alert"> {{success_message}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {{/if}}
+    <button type="submit" class="btn btn-dark mt-3" formaction="/account/account_security">SAVE</button>
 </div>

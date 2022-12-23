@@ -14,7 +14,7 @@ CREATE TABLE categories (
   id int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (id)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8  COLLATE=utf8_general_ci;
 
 
 INSERT INTO categories VALUES (1,'Web Development');
@@ -29,7 +29,7 @@ CREATE TABLE links (
   github varchar(255) DEFAULT NULL,
   youtube varchar(255) DEFAULT NULL,
   PRIMARY KEY (user_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  COLLATE=utf8_general_ci;
 
 DROP TABLE IF EXISTS promotion;
 
@@ -39,7 +39,7 @@ CREATE TABLE promotion (
   start_date date DEFAULT NULL,
   end_date date DEFAULT NULL,
   PRIMARY KEY (id)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8  COLLATE=utf8_general_ci;
 
 
 INSERT INTO promotion VALUES (1,'Discount 10%','2022-12-13','2022-12-28');
@@ -51,7 +51,7 @@ CREATE TABLE `role` (
   id int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (id)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8  COLLATE=utf8_general_ci;
 
 INSERT INTO role VALUES (1,'Học viên');
 INSERT INTO role VALUES (2,'Giảng viên');
@@ -65,7 +65,7 @@ CREATE TABLE sessions (
   expired datetime NOT NULL,
   PRIMARY KEY (sid),
   KEY sessions_expired_index (expired)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  COLLATE=utf8_general_ci;
 
 INSERT INTO sessions VALUES ('dL--8WyzTy20EGd32HFEcaNbYS42biQo','{\"auth\": false, \"cookie\": {\"path\": \"/\", \"expires\": null, \"httpOnly\": true, \"originalMaxAge\": null}, \"authUser\": null}','2022-12-23 05:18:22');
 INSERT INTO sessions VALUES ('gQfte8LWQvAZ4PD37huvpEqYatBGS1jc','{\"auth\": false, \"cookie\": {\"path\": \"/\", \"expires\": null, \"httpOnly\": true, \"originalMaxAge\": null}, \"retUrl\": \"/courses/byCat/1\", \"authUser\": null}','2022-12-22 05:57:01');
@@ -84,7 +84,7 @@ CREATE TABLE topics (
   PRIMARY KEY (id),
   KEY FK_Cat_Field_idx (field_id),
   CONSTRAINT FK_Cat_Field FOREIGN KEY (field_id) REFERENCES categories (id)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8  COLLATE=utf8_general_ci;
 
 
 INSERT INTO topics VALUES (1,'Web Front-end Development',1);
@@ -108,7 +108,7 @@ CREATE TABLE users (
   PRIMARY KEY (id),
   KEY id_idx (role_id),
   CONSTRAINT FK_Users_Role FOREIGN KEY (role_id) REFERENCES `role` (id)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8  COLLATE=utf8_general_ci;
 
 
 INSERT INTO users VALUES (1,'maddogmichel@chavezschool.org','qwert123','maddog','michel','public/images/avt/1.png',1);
@@ -153,7 +153,7 @@ CREATE TABLE courses (
   CONSTRAINT FK_Courses_Cat FOREIGN KEY (category_id) REFERENCES topics (id),
   CONSTRAINT FK_Courses_Pro FOREIGN KEY (promotion_id) REFERENCES promotion (id),
   CONSTRAINT FK_Courses_User FOREIGN KEY (lecture_id) REFERENCES users (id)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8  COLLATE=utf8_general_ci;
 
 INSERT INTO courses VALUES (1,'Python Website Full Tutorial',NULL,'Flask, Authentication, Databases & More','Learn the PHP programming language in this full course / tutorial. The course is designed for new programmers, and will introduce common programming topics using the PHP language.',489000,NULL,NULL,1,1,9,4);
 INSERT INTO courses VALUES (2,'What To Learn To Become a Python Backend Developer',NULL,'Python Backend Developer',NULL,500000,NULL,NULL,1,1,9,5);
@@ -172,7 +172,7 @@ CREATE TABLE review (
   KEY FK_Review_Course_idx (course_id),
   CONSTRAINT FK_Review_Course FOREIGN KEY (course_id) REFERENCES courses (id),
   CONSTRAINT FK_Review_User FOREIGN KEY (user_id) REFERENCES users (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  COLLATE=utf8_general_ci;
 
 DROP TABLE IF EXISTS video;
 
@@ -186,7 +186,7 @@ CREATE TABLE video (
   PRIMARY KEY (id),
   KEY FK_Video_Courses_idx (course_id),
   CONSTRAINT FK_Video_Courses FOREIGN KEY (course_id) REFERENCES courses (id)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8  COLLATE=utf8_general_ci;
 DROP TABLE IF EXISTS watch_list;
 
 CREATE TABLE watch_list (
@@ -196,4 +196,4 @@ CREATE TABLE watch_list (
   KEY FK_Video_Courses_idx (course_id),
   CONSTRAINT FK_WatchList_Courses FOREIGN KEY (course_id) REFERENCES courses (id),
   CONSTRAINT FK_WatchList_Users FOREIGN KEY (user_id) REFERENCES users (id)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8  COLLATE=utf8_general_ci;

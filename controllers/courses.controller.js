@@ -33,7 +33,7 @@ export default {
             courses[i].ratings = ratings;
         }
 
-        console.log(courses);
+        //console.log(courses);
 
         res.render('vwProduct/courses', {
             activeTagbarLayout: true,

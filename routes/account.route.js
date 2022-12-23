@@ -28,6 +28,10 @@ router.get('/home_profile', authWithRequiredPermission(0), accountController.get
 
 router.post('/home_profile', authWithRequiredPermission(0), accountController.editUserProfile);
 
+router.get('/account_security', authWithRequiredPermission(0), accountController.getAccountSecurityPage);
+
+router.post('/account_security', authWithRequiredPermission(0), accountController.editUserPassword);
+
 // router.post('/home_profile/patch', accountController.editUserProfile);
 
 //router.get('/home_profile/detail', accountController.getHomeProfilePageDetail);
