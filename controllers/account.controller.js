@@ -104,7 +104,7 @@ export default {
                 console.log(err);
             }
             
-            const {email, firstname, lastname} = req.body;
+            const { email, firstname, lastname } = req.body;
 
             let imageURL = ''; 
             if (type !== '') {
@@ -124,15 +124,12 @@ export default {
     
             await userService.patch(changedUser);
 
-            
             req.session.authUser = changedUser;
             res.locals.user = changedUser;
             res.render('vwProfile/public_profile.hbs', {
                 activeProfileLayout: true,
             });
         });
-
-       
     },
 
     handleLogout: (req, res) => {

@@ -12,13 +12,8 @@ router.get("/detail", async function (req, res) {
     isDefault: true,
     basicInfo: list,
     videosL: videoList,
-    // courseList: courseList,
     reviewsList: getReviews,
   });
-  //console.log(getReviews);
-  //console.log(courseList);
-  //console.log(list);
-  //console.log(videoList);
 });
 
 export default router;

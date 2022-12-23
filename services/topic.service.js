@@ -6,7 +6,7 @@ export default {
         if (list.length === 0) {
             return null;
         }
-        console.log(list)
+        // console.log(list)
 
         return list;
     },

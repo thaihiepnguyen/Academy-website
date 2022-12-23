@@ -2,18 +2,30 @@ import categoryService from '../services/category.service.js';
 import topicService from '../services/topic.service.js';
 export default function (app) {
   app.use(async function (req, res, next) {
+    const topic = await topicService.findAll();
+    res.locals.topic = topic;
+    console.log(topic);
+    // res.locals.user = req.session.authUser;
+    next();
+  });
+  app.use(async function (req, res, next) {
     const categories = await categoryService.findAll();
+
+    // add topics into categories.
+    for (let category of categories) {
+      let arrayOfTopic = [];
+      for (let item of res.locals.topic) {
+        if (category.id === item.field_id) {
+          arrayOfTopic.push(item);
+        }
+      }
+      category.topic = arrayOfTopic;
+    }
+
     res.locals.categories = categories;
     // res.locals.user = req.session.authUser;
     next();
   });
-   app.use(async function (req, res, next) {
-     const topic = await topicService.findAll();
-     res.locals.topic = topic;
-     console.log(topic);
-     // res.locals.user = req.session.authUser;
-     next();
-   });
   app.use(async function (req, res, next) {
     
     // req.session.retUrl = req.originalUrl;
