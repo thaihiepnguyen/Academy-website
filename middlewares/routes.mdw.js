@@ -2,6 +2,7 @@ import productUserRoute from '../routes/product-user.route.js';
 import accountRoute from '../routes/account.route.js';
 import coursesRoute from "../routes/courses.route.js";
 import coursesService from "../services/courses.service.js";
+
 export default function (app) {
   app.get("/", async function (req, res) {
     const courses = await coursesService.findTop5Courses();
