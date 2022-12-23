@@ -207,3 +207,12 @@ CREATE TABLE watch_list (
   CONSTRAINT FK_WatchList_Courses FOREIGN KEY (course_id) REFERENCES courses (id),
   CONSTRAINT FK_WatchList_Users FOREIGN KEY (user_id) REFERENCES users (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE registered_courses (
+                            user_id int NOT NULL AUTO_INCREMENT,
+                            course_id int NOT NULL,
+                            PRIMARY KEY (user_id,course_id),
+                            KEY FK_Users_Courses_idx (course_id),
+                            CONSTRAINT FK_RegisteredCourses_Courses FOREIGN KEY (course_id) REFERENCES courses (id),
+                            CONSTRAINT FK_RegisteredCourses_Users FOREIGN KEY (user_id) REFERENCES users (id)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

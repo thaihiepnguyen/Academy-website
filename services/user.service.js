@@ -47,7 +47,7 @@ export default {
     },
 
     findRegisteredCourses: async (id) => {
-        const list = await db('register_courses')
+        const list = await db('registered_courses')
             .join('courses','course_id','id')
             .where('user_id', id);
 
