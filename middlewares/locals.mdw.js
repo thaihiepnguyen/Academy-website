@@ -1,4 +1,5 @@
 import categoryService from '../services/category.service.js';
+import topicService from '../services/topic.service.js';
 export default function (app) {
   app.use(async function (req, res, next) {
     const categories = await categoryService.findAll();
@@ -6,6 +7,13 @@ export default function (app) {
     // res.locals.user = req.session.authUser;
     next();
   });
+   app.use(async function (req, res, next) {
+     const topic = await topicService.findAll();
+     res.locals.topic = topic;
+     console.log(topic);
+     // res.locals.user = req.session.authUser;
+     next();
+   });
   app.use(async function (req, res, next) {
     
     // req.session.retUrl = req.originalUrl;

@@ -7,7 +7,7 @@ export default knexObj({
     port: 3306,
     user: "root",
     database: "academy-db",
-    password: "reallyStrongPwd123",
+    password: "1234",
     //reallyStrongPwd123
   },
 });

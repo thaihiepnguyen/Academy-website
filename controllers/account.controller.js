@@ -66,6 +66,7 @@ export default {
             });
         }
         else{
+
             req.session.auth = true;
             req.session.authUser = userdb;
 
@@ -140,6 +141,7 @@ export default {
 
         const url = req.headers.referer || '/';
         res.redirect(url);
+
     },
 
     callbackGoogle: async (req, res) => {
