@@ -135,7 +135,6 @@ export default {
     },
 
     handleLogout: (req, res) => {
-
         req.session.auth = false;
         req.session.authUser = null;
 
