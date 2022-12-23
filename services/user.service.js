@@ -32,5 +32,17 @@ export default {
         const id = entity.id;
         //delete entity.id;
         return db('users').where('id', id).update(entity);
+    },
+
+    findWatchList: async (id) => {
+        const list = await db('watch_list')
+            .join('courses','course_id','id')
+            .where('user_id', id);
+
+        if (list.length === 0) {
+            return null;
+        }
+
+        return list;
     }
 }

@@ -183,9 +183,22 @@ export default {
         });
     },
 
-    getWatchListPage: (req, res) => {
+    getWatchListPage: async (req, res) => {
+        const user = res.locals.user;
+
+        const courses = await userService.findWatchList(user.id);
+
+        for (let i = 0; i < courses.length; i++) {
+            let ratings = ["", "", "", "", ""];
+            for (let j = 0; j < courses[i].rating; j++) {
+                ratings[j] = "rating-color";
+            }
+            courses[i].ratings = ratings;
+        }
+
         return res.render("vwProfile/watch_list.hbs", {
-            activeProfileLayout: true
+            activeProfileLayout: true,
+            courses
         });
     },
 
