@@ -79,9 +79,10 @@
                     <div class="navbar-dropdown text-decoration-none">
 
 
-                    <li style="display:block" class="nav-item dropdown is-hoverable">
-                        {{#each this.categories}}
-                            <a id="cat {{id}}" href="/courses/byCat/{{id}}" class="dropdown-item  dropdown-toggle mr-1">
+                        <li style="display:block" class="nav-item dropdown is-hoverable">
+                            {{#each this.categories}}
+                            <a id="cat {{id}}" href="/courses/byCat/{{id}}"
+                                class="dropdown-item  dropdown-toggle mr-1">
 
                                 {{name}}
                             </a>
@@ -231,21 +232,25 @@
                             Categories
                         </h4>
                         <div class="list-group  ">
-                            <li style="display:block" class="list-group-item nav-item dropdown is-hoverable">
+                            <li style="display:block"
+                                class="list-group-item nav-item dropdown is-hoverable">
                                 {{#each this.categories}}
 
-                                    <a id="cat {{id}}" href="/courses/byCat/{{id}}" class="nav-link dropdown-item  dropdown-toggle mr-1">
-                                        {{name}}
-                                    </a>
-                                    <ul id="topic {{id}}" style="position: inherit;left: 10%;border:none ; min-height: 100px;min-width: 200p" class="dropdown-menu ">
-                                        <li class="list-group-item">
-                                            {{#each topic}}
-                                                <a class="nav-link dropdown-item" href="#">
-                                                    {{name}}
-                                                </a>
-                                            {{/each}}
-                                        </li>
-                                    </ul>
+                                <a id="cat {{id}}" href="/courses/byCat/{{id}}"
+                                    class="nav-link dropdown-item  dropdown-toggle mr-1">
+                                    {{name}}
+                                </a>
+                                <ul id="topic {{id}}"
+                                    style="position: inherit;left: 10%;border:none ; min-height: 100px;min-width: 200p"
+                                    class="dropdown-menu ">
+                                    <li class="list-group-item">
+                                        {{#each topic}}
+                                        <a class="nav-link dropdown-item" href="#">
+                                            {{name}}
+                                        </a>
+                                        {{/each}}
+                                    </li>
+                                </ul>
                                 {{/each}}
 
 
@@ -275,7 +280,11 @@
     </div>
     {{/if}}
 
-
+    {{#if this.activeProfileLayout}}
+    <form method="post">
+        <div class="wrapper d-flex align-items-stretch">
+            <nav id="sidebar">
+                <div class="p-4 pt-5">
                     <li class="active">
                         <a href="/account/home_profile">Profile public</a>
                     </li>
@@ -294,7 +303,7 @@
                     <li>
                         <a href="/account/logout">Logout</a>
                     </li>
-                </ul>
+                    </ul>
 
                     <a href="#" class="img logo rounded-circle mb-5"
                         style="background-image: url({{user.image}});">
