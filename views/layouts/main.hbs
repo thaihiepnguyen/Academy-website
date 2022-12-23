@@ -78,12 +78,10 @@
 
                     <div class="navbar-dropdown text-decoration-none">
 
-
                         <li style="display:block" class="nav-item dropdown is-hoverable">
                             {{#each this.categories}}
                             <a id="cat {{id}}" href="/courses/byCat/{{id}}"
                                 class="dropdown-item  dropdown-toggle mr-1">
-
                                 {{name}}
                             </a>
                             <ul id="topic {{id}}"
@@ -235,7 +233,6 @@
                             <li style="display:block"
                                 class="list-group-item nav-item dropdown is-hoverable">
                                 {{#each this.categories}}
-
                                 <a id="cat {{id}}" href="/courses/byCat/{{id}}"
                                     class="nav-link dropdown-item  dropdown-toggle mr-1">
                                     {{name}}
@@ -252,7 +249,6 @@
                                     </li>
                                 </ul>
                                 {{/each}}
-
 
 
                             </li>
@@ -285,25 +281,6 @@
         <div class="wrapper d-flex align-items-stretch">
             <nav id="sidebar">
                 <div class="p-4 pt-5">
-                    <li class="active">
-                        <a href="/account/home_profile">Profile public</a>
-                    </li>
-                    <li>
-                        <a href="/account/photo">Photo</a>
-                    </li>
-                    <li>
-                        <a href="/account/account_security">Account Security</a>
-                    </li>
-                    <li>
-                        <a href="/account/watch_list">Watch list</a>
-                    </li>
-                    <li>
-                        <a href="/account/registered_courses">Registered courses</a>
-                    </li>
-                    <li>
-                        <a href="/account/logout">Logout</a>
-                    </li>
-                    </ul>
 
                     <a href="#" class="img logo rounded-circle mb-5"
                         style="background-image: url({{user.image}});">
@@ -325,7 +302,7 @@
                             <a href="/account/watch_list">Watch list</a>
                         </li>
                         <li>
-                            <a href="/account/register_course">Registered courses</a>
+                            <a href="/account/registered_courses">Registered courses</a>
                         </li>
                         <li>
                             <a href="/account/logout">Logout</a>
@@ -366,12 +343,10 @@
             document.getElementById("topic 1").style.display = 'none';
             document.getElementById("topic 2").style.display = 'inline-block';
         });
-
         document.getElementById("cat 1").addEventListener('mouseover', (event) => {
             document.getElementById("topic 2").style.display = 'none';
             document.getElementById("topic 1").style.display = 'inline-block';
         });
-
     </script>
 
 
