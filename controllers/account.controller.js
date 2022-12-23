@@ -202,6 +202,25 @@ export default {
         });
     },
 
+    getRegisteredCoursesPage: async (req, res) => {
+        const user = res.locals.user;
+
+        const courses = await userService.findRegisteredCourses(user.id);
+
+        for (let i = 0; i < courses.length; i++) {
+            let ratings = ["", "", "", "", ""];
+            for (let j = 0; j < courses[i].rating; j++) {
+                ratings[j] = "rating-color";
+            }
+            courses[i].ratings = ratings;
+        }
+
+        return res.render("vwProfile/registered_courses.hbs", {
+            activeProfileLayout: true,
+            courses
+        });
+    },
+
     getLogOutPage: (req, res) => {
         req.session.auth = false;
         req.session.authUser = null;

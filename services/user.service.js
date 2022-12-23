@@ -44,5 +44,17 @@ export default {
         }
 
         return list;
+    },
+
+    findRegisteredCourses: async (id) => {
+        const list = await db('register_courses')
+            .join('courses','course_id','id')
+            .where('user_id', id);
+
+        if (list.length === 0) {
+            return null;
+        }
+
+        return list;
     }
 }
