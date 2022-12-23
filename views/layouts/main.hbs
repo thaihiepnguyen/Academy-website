@@ -74,7 +74,7 @@
 
                     <li style="display:block" class="nav-item dropdown is-hoverable">
                         {{#each this.categories}}
-                            <a id="cat {{id}}" href="/courses/byCat/{{id}}" class="nav-link dropdown-item  dropdown-toggle mr-1"role="button" data-toggle="dropdown" aria-expanded="false">
+                            <a id="cat {{id}}" href="/courses/byCat/{{id}}" class="dropdown-item  dropdown-toggle mr-1">
                                 {{name}}
                             </a>
                             <ul id="topic {{id}}" style="top:-18%; right:auto; left:100%; position:absolute; min-height: 100px;min-width: 200px" class="dropdown-menu dropdown-submenu">
@@ -203,30 +203,33 @@
         <div class="container-fluid margin-top-100">
             <div class="row">
                 <div class="col-sm-3">
-                    <div class="card mb-3">
+                    <div class="card mb-3 ">
+
                         <h4 class="card-header">
                             Categories
                         </h4>
-                        <div class="list-group list-group-flush">
-                            <li style="display:block" class="nav-item dropdown is-hoverable">
+                        <div class="list-group  ">
+                            <li style="display:block" class="list-group-item nav-item dropdown is-hoverable">
                                 {{#each this.categories}}
-                                    <a href="/courses/byCat/{{id}}" class="nav-link dropdown-item  dropdown-toggle mr-1"role="button" data-toggle="dropdown" aria-expanded="false">
+                                    <a id="cat {{id}}" href="/courses/byCat/{{id}}" class="nav-link dropdown-item  dropdown-toggle mr-1">
                                         {{name}}
                                     </a>
+                                    <ul id="topic {{id}}" style="position: inherit;left: 10%;border:none ; min-height: 100px;min-width: 200p" class="dropdown-menu ">
+                                        <li class="list-group-item">
+                                            {{#each topic}}
+                                                <a class="nav-link dropdown-item" href="#">
+                                                    {{name}}
+                                                </a>
+                                            {{/each}}
+                                        </li>
+                                    </ul>
                                 {{/each}}
-                                <ul style="position: inherit;left: 10%;border:none" class="dropdown-menu dropdown-submenu">
-                                    <li>
-                                        {{#each this.topic}}
-                                            <a class="nav-link dropdown-item" href="#">
-                                                {{name}}
-                                            </a>
-                                        {{/each}}
-                                    </li>
-                                </ul>
+
+
                             </li>
-                            <a class="navbar-item text-decoration-none">
+                            <li class="list-group-item text-decoration-none">
                                 All Categories
-                            </a>
+                            </li>
                         </div>
                     </div>
                     <div class="card">
