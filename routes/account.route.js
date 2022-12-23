@@ -32,6 +32,12 @@ router.get('/account_security', authWithRequiredPermission(0), accountController
 
 router.post('/account_security', authWithRequiredPermission(0), accountController.editUserPassword);
 
+router.get('/photo', authWithRequiredPermission(0), accountController.getPhotoPage);
+
+router.get('/watch_list', authWithRequiredPermission(0), accountController.getWatchListPage);
+
+router.get('/logout', authWithRequiredPermission(0), accountController.getLogOutPage);
+
 // router.post('/home_profile/patch', accountController.editUserProfile);
 
 //router.get('/home_profile/detail', accountController.getHomeProfilePageDetail);

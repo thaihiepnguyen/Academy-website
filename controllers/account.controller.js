@@ -177,6 +177,26 @@ export default {
         });
     },
 
+    getPhotoPage: (req, res) => {
+        return res.render("vwProfile/photo.hbs", {
+            activeProfileLayout: true
+        });
+    },
+
+    getWatchListPage: (req, res) => {
+        return res.render("vwProfile/watch_list.hbs", {
+            activeProfileLayout: true
+        });
+    },
+
+    getLogOutPage: (req, res) => {
+        req.session.auth = false;
+        req.session.authUser = null;
+
+        const url = req.headers.referer || '/';
+        res.redirect(url);
+    },
+
     handleLogout: (req, res) => {
 
         req.session.auth = false;
