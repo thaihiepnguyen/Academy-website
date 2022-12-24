@@ -51,7 +51,9 @@ export default {
     },
 
     handleLogin: async (req, res) => {
+
         const { email, password } = req.body;
+
         const userdb = await userService.findByEmail(email);
 
         if(userdb == null) {
@@ -77,8 +79,10 @@ export default {
     },
 
     getHomeProfilePage: (req, res) => {
+        res.locals.active_pf = "active";
         res.render('vwProfile/public_profile.hbs', {
             activeProfileLayout: true,
+
             // isDefault: true,
             //user: req.session.authUser,
         });
@@ -129,15 +133,20 @@ export default {
 
             req.session.authUser = changedUser;
             res.locals.user = changedUser;
+
             res.render('vwProfile/public_profile.hbs', {
                 activeProfileLayout: true,
             });
         });
     },
 
+
+
     getAccountSecurityPage: (req, res) => {
+        res.locals.active_sc = "active";
         res.render('vwProfile/account_security.hbs', {
             activeProfileLayout: true,
+
         });
     },
 
@@ -178,16 +187,23 @@ export default {
     },
 
     getPhotoPage: (req, res) => {
+    res.locals.active_pt = "active";
         return res.render("vwProfile/photo.hbs", {
-            activeProfileLayout: true
+            activeProfileLayout: true,
         });
     },
 
     getWatchListPage: async (req, res) => {
+        res.locals.active_wl = "active";
         const user = res.locals.user;
 
         const courses = await userService.findWatchList(user.id);
-
+        if(courses == null){
+        return res.render("vwProfile/watch_list.hbs", {
+                    activeProfileLayout: true,
+                    message_no_watch_list : "No your watch list",
+                });
+        }
         for (let i = 0; i < courses.length; i++) {
             let ratings = ["", "", "", "", ""];
             for (let j = 0; j < courses[i].rating; j++) {
@@ -196,6 +212,7 @@ export default {
             courses[i].ratings = ratings;
         }
 
+
         return res.render("vwProfile/watch_list.hbs", {
             activeProfileLayout: true,
             courses
@@ -203,10 +220,16 @@ export default {
     },
 
     getRegisteredCoursesPage: async (req, res) => {
+    res.locals.active_rc = "active";
         const user = res.locals.user;
 
         const courses = await userService.findRegisteredCourses(user.id);
-
+        if(courses == null){
+                return res.render("vwProfile/registered_courses.hbs", {
+                            activeProfileLayout: true,
+                            message_no_registered_courses : "No registered courses"
+                        });
+                }
         for (let i = 0; i < courses.length; i++) {
             let ratings = ["", "", "", "", ""];
             for (let j = 0; j < courses[i].rating; j++) {
@@ -222,17 +245,21 @@ export default {
     },
 
     getLogOutPage: (req, res) => {
+    res.locals.active_lg = "active";
         req.session.auth = false;
         req.session.authUser = null;
 
-        const url = req.headers.referer || '/';
-        res.redirect(url);
+        return res.render("vwProfile/logout.hbs", {
+                    activeProfileLayout: true,
+
+        });
     },
 
     handleLogout: (req, res) => {
 
         req.session.auth = false;
         req.session.authUser = null;
+
 
         const url = req.headers.referer || '/';
         res.redirect(url);

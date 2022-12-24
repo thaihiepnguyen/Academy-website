@@ -13,11 +13,12 @@
 <nav style="border: 1px solid #ccc;border-radius: 5px;" class=" navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
 
-        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary"
+                style="background-color: #000; border-color: #000; opacity: 80%">
             <i class="fa fa-bars"></i>
             <span class="sr-only">Toggle Menu</span>
         </button>
-        <div class="content_profile">
+        <div class="content_profile" style="text-align: center;">
             <h1>Logout</h1>
             <p class="description">Logout your account</p>
         </div>
@@ -26,6 +27,9 @@
 </nav>
 
 <div class="content">
-    <h5>Do you want to sign out of your account?</h5>
-    <button type="button" class="btn btn-dark mt-3">Logout</button>
+    <h5 class="mt-3">Do you want to log out of your account?</h5>
+
+    <button type="button" class="btn btn-dark mt-3">
+        <a href="javascript: $('#frmLogout').submit();">Logout</a>
+        </button>
 </div>

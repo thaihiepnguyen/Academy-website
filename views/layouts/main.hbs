@@ -224,37 +224,35 @@
         <div class="container-fluid margin-top-100">
             <div class="row">
                 <div class="col-sm-3">
-                    <div class="card mb-3 ">
+                    <div class="card mb-3">
 
                         <h4 class="card-header">
                             Categories
                         </h4>
-                        <div class="list-group  ">
-                            <li style="display:block"
-                                class="list-group-item nav-item dropdown is-hoverable">
+                        <div style="display:block" class="list-group list-group-flush">
+
+                            <li style="display:block" class="nav-item dropdown is-hoverable">
                                 {{#each this.categories}}
-                                <a id="cat {{id}}" href="/courses/byCat/{{id}}"
-                                    class="nav-link dropdown-item  dropdown-toggle mr-1">
-                                    {{name}}
-                                </a>
-                                <ul id="topic {{id}}"
-                                    style="position: inherit;left: 10%;border:none ; min-height: 100px;min-width: 200p"
-                                    class="dropdown-menu ">
-                                    <li class="list-group-item">
-                                        {{#each topic}}
-                                        <a class="nav-link dropdown-item" href="#">
-                                            {{name}}
-                                        </a>
-                                        {{/each}}
-                                    </li>
-                                </ul>
+                                    <a id="cat {{id}}" href="/courses/byCat/{{id}}"
+                                       class="dropdown-item  dropdown-toggle mr-1">
+                                        {{name}}
+                                    </a>
+                                    <ul id="topic {{id}}"
+                                        style="top:-18%; right:auto; left:100%; position:absolute;"
+                                        class="dropdown-menu dropdown-submenu">
+                                        <li>
+                                            {{#each topic}}
+                                                <a class="nav-link dropdown-item" href="#">
+                                                    {{name}}
+                                                </a>
+                                            {{/each}}
+                                        </li>
+                                    </ul>
                                 {{/each}}
-
-
                             </li>
-                            <li class="list-group-item text-decoration-none">
+                            <a class="navbar-item text-decoration-none">
                                 All Categories
-                            </li>
+                            </a>
                         </div>
                     </div>
                     <div class="card">
@@ -277,7 +275,7 @@
     {{/if}}
 
     {{#if this.activeProfileLayout}}
-    <form method="post">
+    <form method="post" >
         <div class="wrapper d-flex align-items-stretch">
             <nav id="sidebar">
                 <div class="p-4 pt-5">
@@ -287,24 +285,24 @@
                     </a>
                     <input type="file" name="avt" id="">
                     <h1 style="color: #000 ; align-content: center;">{{user.firstname}}</h1>
-                    <ul class="list-unstyled components mb-5">
+                    <ul  id ="activeProfile" class="list-unstyled components mb-5">
 
-                        <li class="active">
+                        <li class="prf_btn {{active_pf}}">
                             <a href="/account/home_profile">Profile public</a>
                         </li>
-                        <li>
+                        <li class = "prf_btn {{active_pt}} ">
                             <a href="/account/photo">Photo</a>
                         </li>
-                        <li>
+                        <li class = "prf_btn {{active_sc}}">
                             <a href="/account/account_security">Account Security</a>
                         </li>
-                        <li>
+                        <li class = "prf_btn  {{active_wl}}">
                             <a href="/account/watch_list">Watch list</a>
                         </li>
-                        <li>
+                        <li class = "prf_btn {{active_rc}}">
                             <a href="/account/registered_courses">Registered courses</a>
                         </li>
-                        <li>
+                        <li class = "prf_btn {{active_lg}}">
                             <a href="/account/logout">Logout</a>
                         </li>
                     </ul>
@@ -321,6 +319,7 @@
             </div>
         </div>>
     </form>
+
     {{/if}}
 
     {{#if isDefault}}
@@ -348,7 +347,9 @@
             document.getElementById("topic 1").style.display = 'inline-block';
         });
     </script>
+        <script src="/js/active_profile.js">
 
+    </script>
 
     {{{_sections.handleProfile}}}
 </body>
