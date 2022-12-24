@@ -13,7 +13,6 @@ export default function (app) {
   app.use(async function (req, res, next) {
     const topic = await topicService.findAll();
     res.locals.topic = topic;
-    console.log(topic);
     // res.locals.user = req.session.authUser;
     next();
   });

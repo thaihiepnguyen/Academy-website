@@ -23,8 +23,6 @@ export default function (app) {
 			courses[i].ratings = ratings;
 		}
 
-		console.error(res.locals.user);
-
 		res.render("home.hbs", {
 			activeTagbarLayout: true,
 			activeSliderLayout: true,

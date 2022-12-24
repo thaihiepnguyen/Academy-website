@@ -10,13 +10,21 @@ export default {
         return list;
     },
 
+    findById: async (id) => {
+        const list = await db('users')
+            .where('id', id);
+        if (list.length === 0) {
+            return null;
+        }
+        return list[0];
+    },
+
     findByEmail: async (email) => {
         const list = await db('users')
             .where('email', email);
         if (list.length === 0) {
             return null;
         }
-        console.log(list[0]);
         return list[0];
     },
 

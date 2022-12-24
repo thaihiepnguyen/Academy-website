@@ -2,7 +2,7 @@ import db from "../utils/db.js";
 
 export default {
   findByCatId: async (CatId) => {
-    const list = await db("courses")
+    const list = await db('courses')
         .join('users', 'users.id', 'courses.lecture_id')
         .select('courses.id', 'users.firstname', 'users.lastname', 'courses.tiny_des', 'courses.name', 'courses.rating', 'courses.price' )
         .where({'courses.category_id': CatId});

@@ -73,7 +73,7 @@ export default {
             req.session.auth = true;
             req.session.authUser = userdb;
 
-            const url = req.headers.referer || '/';
+            const url = '/';
             res.redirect(url);
         }
     },
@@ -82,65 +82,34 @@ export default {
         res.locals.active_pf = "active";
         res.render('vwProfile/public_profile.hbs', {
             activeProfileLayout: true,
-
-            // isDefault: true,
-            //user: req.session.authUser,
         });
     },
 
-    editUserProfile: (req, res) => {
-        let type = ""; 
+    editUserProfile:async (req, res) => {
         const user = res.locals.user;
-        const storage = multer.diskStorage({
-            destination: function (req, file, cb) {
-              cb(null, './public/imgs/avt');
-            },
-            filename: function (req, file, cb) {
-                const typeOfFile = file.originalname.substring(file.originalname.indexOf('.'), file.originalname.length);
-                type = typeOfFile;
-              cb(null, user.id + typeOfFile);
-            }
-          })
-          
-        const upload = multer({ storage });
 
-        upload.array('avt', 1)(req,res, async function(err) {
-            if(err) {
-                console.log(err);
-            }
-            
-            const {email, firstname, lastname} = req.body;
+        const {email, firstname, lastname} = req.body;
 
-            let imageURL = ''; 
-            if (type !== '') {
-                imageURL = '/imgs/avt/' + user.id + type; 
-            } else {
-                imageURL = user.image;
-            }
-            
-            const changedUser = {
-                email: email,
-                firstname: firstname,
-                lastname: lastname,
-                id: user.id,
-                image: imageURL,
-                role_id: user.role_id
-            }
+        const changedUser = {
+            email: email,
+            firstname: firstname,
+            lastname: lastname,
+            id: user.id,
+        };
 
-            console.log(changedUser);
-    
-            await userService.patch(changedUser);
+        await userService.patch(changedUser);
 
-            req.session.authUser = changedUser;
-            res.locals.user = changedUser;
+        const updatedUser = await userService.findById(user.id);
 
-            res.render('vwProfile/public_profile.hbs', {
-                activeProfileLayout: true,
-            });
+        req.session.authUser = updatedUser
+        res.locals.user = updatedUser;
+
+        res.render('vwProfile/public_profile.hbs', {
+            activeProfileLayout: true,
+            active_pf: "active",
+            success_message: "Successfully!"
         });
     },
-
-
 
     getAccountSecurityPage: (req, res) => {
         res.locals.active_sc = "active";
@@ -152,15 +121,13 @@ export default {
 
     editUserPassword: async (req, res) => {
         const user = res.locals.user;
-        console.log(user);
 
         const {email, oldPassword, newPassword, repeatNewPassword} = req.body;
 
-        const userdb = await userService.findByEmail(email);
-
-        if(newPassword != repeatNewPassword || !bcrypt.compareSync(oldPassword, userdb.password)) {
+        if(newPassword != repeatNewPassword || !bcrypt.compareSync(oldPassword, user.password)) {
             return res.render("vwProfile/account_security.hbs", {
                 activeProfileLayout: true,
+                active_sc: "active",
                 err_message: "Password change failed!"
             });
         }
@@ -169,25 +136,25 @@ export default {
         const hash = bcrypt.hashSync(newPassword, salt);
 
         const changedUser = {
-            email: email,
-            firstname: userdb.firstname,
-            lastname: userdb.lastname,
-            id: userdb.id,
-            image: userdb.image,
-            role_id: userdb.role_id,
+            id: user.id,
             password: hash
         }
 
         await userService.patch(changedUser);
 
+        const updatedUser = await userService.findById(user.id);
+        req.session.authUser = updatedUser
+        res.locals.user = updatedUser;
+
         return res.render("vwProfile/account_security.hbs", {
             activeProfileLayout: true,
+            active_sc: "active",
             success_message: "Successfully!"
         });
     },
 
     getPhotoPage: (req, res) => {
-    res.locals.active_pt = "active";
+        res.locals.active_pt = "active";
         return res.render("vwProfile/photo.hbs", {
             activeProfileLayout: true,
         });
@@ -220,7 +187,7 @@ export default {
     },
 
     getRegisteredCoursesPage: async (req, res) => {
-    res.locals.active_rc = "active";
+        res.locals.active_rc = "active";
         const user = res.locals.user;
 
         const courses = await userService.findRegisteredCourses(user.id);
@@ -245,13 +212,12 @@ export default {
     },
 
     getLogOutPage: (req, res) => {
-    res.locals.active_lg = "active";
+        res.locals.active_lg = "active";
         req.session.auth = false;
         req.session.authUser = null;
 
         return res.render("vwProfile/logout.hbs", {
-                    activeProfileLayout: true,
-
+            activeProfileLayout: true,
         });
     },
 
@@ -317,7 +283,6 @@ export default {
 
         const userOfficial = userService.findByEmail(userdb.email);
 
-
         req.session.auth = true;
         req.session.authUser = userOfficial;
 
@@ -325,4 +290,50 @@ export default {
 
         res.redirect('/');
     },
+    uploadPhoto: (req, res) => {
+        const user = res.locals.user;
+        let type = "";
+
+        const storage = multer.diskStorage({
+            destination: function (req, file, cb) {
+                cb(null, './public/imgs/avt');
+            },
+            filename: function (req, file, cb) {
+                const typeOfFile = file.originalname.substring(file.originalname.indexOf('.'), file.originalname.length);
+                type = typeOfFile;
+                cb(null, user.id + typeOfFile);
+            }
+        });
+
+        const upload = multer({ storage });
+
+        upload.array('avt', 1)(req,res, async function(err) {
+            if(err) {
+                console.log(err);
+            }
+
+            let imageURL = '';
+            if (type !== '') {
+                imageURL = '/imgs/avt/' + user.id + type;
+            } else {
+                imageURL = user.image;
+            }
+
+            const changedUser = {
+                id: user.id, // key is necessary :))
+                image: imageURL,
+            }
+
+            await userService.patch(changedUser);
+
+            req.session.authUser.image = changedUser.image;
+            res.locals.user.image = changedUser.image;
+
+            res.render('vwProfile/photo.hbs', {
+                activeProfileLayout: true,
+                active_pt: "active",
+                success_message: "Successfully!"
+            });
+        });
+    }
 }
