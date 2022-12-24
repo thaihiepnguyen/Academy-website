@@ -103,21 +103,26 @@
                     </div>
                 </div>
 
-                <div class="level-item " style="margin-left: 30px">
-                    <div class="field has-addons">
-                        <p class="control">
-                            <input class="input"
-                                style="font-family: inherit; border-bottom-left-radius: 20px; border-top-left-radius: 20px; padding-right: 180px"
-                                type="text" placeholder="Search">
-                        </p>
-                        <p class="control">
-                            <button class="button"
-                                style="border-bottom-right-radius: 20px; border-top-right-radius: 20px">
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                            </button>
-                        </p>
-                    </div>
+
+                <div class="level-item" style="margin-left: 30px">
+                    <form method="post" action="/courses/search">
+                        <div class="field has-addons">
+                            <p class="control">
+                                <input class="input"
+                                       style="font-family: inherit; border-bottom-left-radius: 20px; border-top-left-radius: 20px; padding-right: 180px"
+                                       type="text" placeholder="Search" id="txtKey" name="key" value="">
+                            </p>
+                            <p class="control">
+                                <button class="button"
+                                        style="border-bottom-right-radius: 20px; border-top-right-radius: 20px" type="submit">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </button>
+
+                            </p>
+                        </div>
+                    </form>
                 </div>
+
 
             </div>
 
@@ -238,7 +243,7 @@
                                     {{name}}
                                 </a>
                                 <ul id="topic {{id}}"
-                                    style="position: inherit;left: 10%;border:none ; min-height: 100px;min-width: 200p"
+                                    style="position: inherit;left: 10%;border:none ; min-height: 100px;min-width: 200px"
                                     class="dropdown-menu ">
                                     <li class="list-group-item">
                                         {{#each topic}}
@@ -327,7 +332,7 @@
     {{{body}}}
     {{/if}}
 
-
+Ss
 
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"

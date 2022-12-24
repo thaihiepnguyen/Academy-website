@@ -1,4 +1,5 @@
 import coursesService from "../services/courses.service.js";
+import * as constants from "constants";
 
 
 export default {
@@ -33,12 +34,36 @@ export default {
             courses[i].ratings = ratings;
         }
 
-        //console.log(courses);
-
         res.render('vwProduct/courses', {
             activeTagbarLayout: true,
             courses,
             catName,
+        });
+    },
+
+    fullTextSearch: async (req, res) => {
+
+        const key = req.body.key;
+
+        const courses = await coursesService.findByFullTextSearch(key);
+        let catName = "";
+
+        if (courses == null) {
+            return res.render('vwProduct/courses',{
+                catName,
+                activeTagbarLayout: true,
+                warning: `Can not find any courses of ${key}`
+            });
+        }
+
+        const length = courses.length;
+
+        console.log(courses);
+
+        res.render('vwProduct/courses', {
+            activeTagbarLayout: true,
+            courses,
+            catName: `Find ${length} results`,
         });
     }
 }

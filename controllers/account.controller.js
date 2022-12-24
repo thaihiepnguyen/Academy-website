@@ -188,12 +188,14 @@ export default {
 
         const courses = await userService.findWatchList(user.id);
 
-        for (let i = 0; i < courses.length; i++) {
-            let ratings = ["", "", "", "", ""];
-            for (let j = 0; j < courses[i].rating; j++) {
-                ratings[j] = "rating-color";
+        if (courses != null) {
+            for (let i = 0; i < courses.length; i++) {
+                let ratings = ["", "", "", "", ""];
+                for (let j = 0; j < courses[i].rating; j++) {
+                    ratings[j] = "rating-color";
+                }
+                courses[i].ratings = ratings;
             }
-            courses[i].ratings = ratings;
         }
 
         return res.render("vwProfile/watch_list.hbs", {
@@ -207,12 +209,14 @@ export default {
 
         const courses = await userService.findRegisteredCourses(user.id);
 
-        for (let i = 0; i < courses.length; i++) {
-            let ratings = ["", "", "", "", ""];
-            for (let j = 0; j < courses[i].rating; j++) {
-                ratings[j] = "rating-color";
+        if (courses != null) {
+            for (let i = 0; i < courses.length; i++) {
+                let ratings = ["", "", "", "", ""];
+                for (let j = 0; j < courses[i].rating; j++) {
+                    ratings[j] = "rating-color";
+                }
+                courses[i].ratings = ratings;
             }
-            courses[i].ratings = ratings;
         }
 
         return res.render("vwProfile/registered_courses.hbs", {

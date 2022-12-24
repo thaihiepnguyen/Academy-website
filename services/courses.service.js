@@ -66,6 +66,7 @@ export default {
       },
     ];
   },
+
   async findTop5Courses() {
     const list = await db("courses")
         .join('users', 'users.id', 'courses.lecture_id')
@@ -79,6 +80,7 @@ export default {
     }
     return list;
   },
+
   findComments() {
     return [
       {
@@ -93,4 +95,22 @@ export default {
       },
     ];
   },
+
+  async findByFullTextSearch(key) {
+    const list = await db('courses')
+        .select('courses.id','courses.name','courses.thumbnail',
+            'courses.tiny_des','courses.full_des','courses.price',
+            'courses.last_modify','courses.price','courses.status',
+            'courses.category_id','courses.lecture_id','courses.promotion_id',
+            'courses.rating','categories.name')
+        .join('categories','category_id','categories.id')
+        .whereRaw('MATCH(courses.name) AGAINST(?)', key)
+        .orWhereRaw('MATCH(categories.name) AGAINST(?)', key)
+
+    if (list.length === 0) {
+      return null;
+    }
+
+    return list;
+  }
 };
