@@ -34,15 +34,13 @@ router.post('/account_security', authWithRequiredPermission(0), accountControlle
 
 router.get('/photo', authWithRequiredPermission(0), accountController.getPhotoPage);
 
+router.post('/photo', authWithRequiredPermission(0), accountController.uploadPhoto);
+
 router.get('/watch_list', authWithRequiredPermission(0), accountController.getWatchListPage);
 
 router.get('/registered_courses', authWithRequiredPermission(0), accountController.getRegisteredCoursesPage);
 
 router.get('/logout', authWithRequiredPermission(0), accountController.getLogOutPage);
-
-// router.post('/home_profile/patch', accountController.editUserProfile);
-
-//router.get('/home_profile/detail', accountController.getHomeProfilePageDetail);
 
 router.get('/google', passportGoogle.authenticate('google', { scope: ['profile', 'email'] }));
 

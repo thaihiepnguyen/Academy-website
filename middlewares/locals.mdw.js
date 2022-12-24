@@ -1,10 +1,18 @@
 import categoryService from '../services/category.service.js';
 import topicService from '../services/topic.service.js';
 export default function (app) {
+  app.use(async function(req, res, next) {
+    res.locals.active_pf = "";
+    res.locals.active_pt = "";
+    res.locals.active_sc = "";
+    res.locals.active_wl = "";
+    res.locals.active_rc = "";
+    res.locals.active_lg = "";
+    next();
+  });
   app.use(async function (req, res, next) {
     const topic = await topicService.findAll();
     res.locals.topic = topic;
-    console.log(topic);
     // res.locals.user = req.session.authUser;
     next();
   });

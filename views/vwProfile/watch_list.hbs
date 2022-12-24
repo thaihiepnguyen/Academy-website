@@ -3,21 +3,19 @@
 {{/section}}
 
 {{#section 'handleProfile'}}
-    <script src="/js/bootstrap.min.js"></script>
     <script src="/js/main.js"></script>
-    <script src="/js/popper.js"></script>
-    <script src="/js/jquery.min.js"></script>
 {{/section}}
 
 
 <nav style="border: 1px solid #ccc;border-radius: 5px;" class=" navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
 
-        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary"
+                style="background-color: #000; border-color: #000; opacity: 80%">
             <i class="fa fa-bars"></i>
             <span class="sr-only">Toggle Menu</span>
         </button>
-        <div class="content_profile">
+        <div class="content_profile" style="text-align: center;">
             <h1>Watch list</h1>
 <!--            video course -->
             <p class="description">The course you already love</p>
@@ -27,6 +25,12 @@
 
 <div class="content">
     <div class="d-flex is-flex-wrap-wrap">
+        {{#if message_no_watch_list}}
+            <div class="mt-3">
+                {{message_no_watch_list}}
+
+            </div>
+        {{/if}}
         {{#if this.courses}}
             {{#each this.courses}}
                 <div class="card mr-6 mt-6 d-flex flex-column" style="width: 18rem;">

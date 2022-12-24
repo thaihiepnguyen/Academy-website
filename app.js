@@ -1,5 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
+import morgan from "morgan";
 import viewMdw from "./middlewares/view.mdw.js";
 import localsMdw from "./middlewares/locals.mdw.js";
 import routesMdw from "./middlewares/routes.mdw.js";
@@ -11,6 +12,7 @@ const app = express();
 // const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 const PORT = process.env.PORT || 3000;
+app.use(morgan('tiny'));
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 
