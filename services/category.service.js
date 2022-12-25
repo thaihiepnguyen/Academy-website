@@ -9,9 +9,6 @@ export default {
             return null;
         }
 
-
-        console.log(list)
-
         return list;
     },
 }

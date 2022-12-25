@@ -1,5 +1,5 @@
 import coursesService from "../services/courses.service.js";
-
+import * as constants from "constants";
 
 export default {
     findByCatId: async (req, res) => {
@@ -18,10 +18,10 @@ export default {
 
         if (courses == null) {
             res.render('vwProduct/courses',{
-                    catName,
-                    activeTagbarLayout: true,
-                    warning: `Can not find any courses of ${catName}`
-                });
+                catName,
+                activeTagbarLayout: true,
+                warning: `Can not find any courses of ${catName}`
+            });
             return;
         }
 
@@ -33,12 +33,51 @@ export default {
             courses[i].ratings = ratings;
         }
 
-        //console.log(courses);
-
         res.render('vwProduct/courses', {
             activeTagbarLayout: true,
             courses,
             catName,
         });
-    }
-}
+    },
+
+    fullTextSearch: async (req, res) => {
+        //
+        let key = req.query.key;
+        const curPage = req.query.page || 1;
+        //
+        // if(key.length !== 0) {
+        //     req.session.key = key;
+        // }
+
+        const limit = 2;
+
+        const offset = (curPage - 1) * limit;
+
+        const total = await coursesService.countByFullTextSearch(key);
+        const nPages = Math.ceil(total / limit);
+
+        const pageNumbers = [];
+        for (let i = 1; i <= nPages; i++) {
+            pageNumbers.push({
+                value: i,
+                isCurrent: i === +curPage,
+                key: key
+            });
+        }
+
+        const courses = await coursesService.findByFullTextSearch(key, limit, offset);
+        let catName = "";
+
+        if (courses == null) {
+            return res.render('vwProduct/courses',{
+                activeTagbarLayout: true,
+                warning: `Can not find any courses of ${key}`
+            });
+        }
+
+        res.render('vwProduct/courses', {
+            activeTagbarLayout: true,
+            courses,
+            pageNumbers: pageNumbers
+        });
+    }}

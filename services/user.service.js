@@ -10,13 +10,21 @@ export default {
         return list;
     },
 
+    findById: async (id) => {
+        const list = await db('users')
+            .where('id', id);
+        if (list.length === 0) {
+            return null;
+        }
+        return list[0];
+    },
+
     findByEmail: async (email) => {
         const list = await db('users')
             .where('email', email);
         if (list.length === 0) {
             return null;
         }
-
         return list[0];
     },
 
@@ -32,5 +40,29 @@ export default {
         const id = entity.id;
         //delete entity.id;
         return db('users').where('id', id).update(entity);
+    },
+
+    findWatchList: async (id) => {
+        const list = await db('watch_list')
+            .join('courses','course_id','id')
+            .where('user_id', id);
+
+        if (list.length === 0) {
+            return null;
+        }
+
+        return list;
+    },
+
+    findRegisteredCourses: async (id) => {
+        const list = await db('registered_courses')
+            .join('courses','course_id','id')
+            .where('user_id', id);
+
+        if (list.length === 0) {
+            return null;
+        }
+
+        return list;
     }
 }

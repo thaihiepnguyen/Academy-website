@@ -34,9 +34,11 @@
     "express-handlebars-sections": "^1.0.1",
     "express-session": "^1.17.3",
     "knex": "^2.3.0",
+    "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "mysql2": "^2.3.3",
     "nodemon": "^2.0.20",
+    "numeral": "^2.0.6",
     "passport": "^0.6.0",
     "passport-facebook": "^3.0.0",
     "passport-google-oauth20": "^2.0.0"

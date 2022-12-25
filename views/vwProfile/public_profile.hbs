@@ -3,10 +3,7 @@
 {{/section}}
 
 {{#section 'handleProfile'}}
-    <script src="/js/bootstrap.min.js"></script>
     <script src="/js/main.js"></script>
-    <script src="/js/popper.js"></script>
-    <script src="/js/jquery.min.js"></script>
 {{/section}}
 
 
@@ -23,27 +20,31 @@
     </div>
 </div>
 
-<div class="content " style="margin-top: 60px;">
-    <!-- basic  -->
-    <h5>Basic</h5>
-        <div class="mb-3">
-            <input type="text" class="form-control" id="txtEmail" placeholder="Email" name="email" value="{{user.email}}">
-        </div>
-        <div class="mb-3">
-            <input type="text" class="form-control" id="txtFirstName" placeholder="First name" name="firstname" value="{{user.firstname}}">
-        </div>
-        <div class="mb-3">
-            <input type="text" class="form-control" id="txtLastName" placeholder="Last name" name="lastname" value="{{user.lastname}}">
-        </div>
-        <!-- link  -->
 
-        <h5 class="mb-3">Link</h5>
+<form method="post" >
+    <div class="content " style="margin-top: 60px;">
+        <!-- basic  -->
+        <h5>Basic</h5>
+            <div class="mb-3">
+                <input type="text" class="form-control" id="txtEmail" placeholder="Email" name="email" value="{{user.email}}">
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" id="txtFirstName" placeholder="First name" name="firstname" value="{{user.firstname}}">
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" id="txtLastName" placeholder="Last name" name="lastname" value="{{user.lastname}}">
+            </div>
+            <!-- link  -->
 
-        <div class="mb-3">
-            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Faceboook">
-        </div>
-        <div class="mb-3">
-            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Google">
-        </div>
-        <button type="submit" class="btn btn-dark mt-3" >SAVE</button>
-</div>
+            <h5 class="mb-3">Link</h5>
+
+            <div class="mb-3">
+                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Faceboook">
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Google">
+            </div>
+            <button type="submit" class="btn btn-dark mt-3" >SAVE</button>
+    </div>
+
+</form>

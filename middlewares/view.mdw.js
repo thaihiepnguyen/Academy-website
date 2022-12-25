@@ -1,7 +1,7 @@
 import { engine } from 'express-handlebars';
 import hbs_sections from 'express-handlebars-sections';
 import express_handlebars_sections from "express-handlebars-sections";
-
+import numeral from 'numeral';
 
 
 export default function (app) {
@@ -24,6 +24,9 @@ export default function (app) {
             text = text.replace(/(\r\n|\n|\r)/gm, "<br>");
             return new Handlebars.SafeString(text);
           },
+            format_number(val) {
+                return numeral(val).format('0,0');
+            }
         },
         section: express_handlebars_sections()
       })

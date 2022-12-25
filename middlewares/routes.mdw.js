@@ -1,7 +1,9 @@
 import productUserRoute from "../routes/product-user.route.js";
 import accountRoute from "../routes/account.route.js";
 import coursesRoute from "../routes/courses.route.js";
+import adminRoute from "../routes/admin.route.js";
 import coursesService from "../services/courses.service.js";
+
 export default function (app) {
   app.get("/", async function (req, res) {
     const courses = await coursesService.findTop5Courses();
@@ -21,8 +23,6 @@ export default function (app) {
       courses[i].ratings = ratings;
     }
 
-    console.error(res.locals.user);
-
     res.render("home.hbs", {
       activeTagbarLayout: true,
       activeSliderLayout: true,
@@ -33,5 +33,6 @@ export default function (app) {
   app.use("/account", accountRoute);
   app.use("/products", productUserRoute);
   app.use("/courses", coursesRoute);
+  app.use("/admin", adminRoute);
   app.use("/details", coursesRoute);
 }

@@ -4,5 +4,9 @@ import detailsController from "../controllers/details.controller.js";
 const router = express.Router();
 
 router.get("/byCat/:id", productController.findByCatId);
+
+router.get('/search/', productController.fullTextSearch);
+
+//router.post('/search', productController.fullTextSearch);
 router.get("/:id", detailsController.findDetailOfCourse);
 export default router;

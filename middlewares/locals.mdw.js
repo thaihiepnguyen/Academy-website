@@ -1,17 +1,28 @@
 import categoryService from '../services/category.service.js';
 import topicService from '../services/topic.service.js';
 export default function (app) {
+  app.use(async function(req, res, next) {
+    if (typeof (req.session.key) !== 'undefined')   {
+      console.log("test");
+      res.locals.key = req.session.key;
+    }
+    res.locals.active_pf = "";
+    res.locals.active_pt = "";
+    res.locals.active_sc = "";
+    res.locals.active_wl = "";
+    res.locals.active_rc = "";
+    res.locals.active_lg = "";
+    next();
+  });
   app.use(async function (req, res, next) {
     const topic = await topicService.findAll();
     res.locals.topic = topic;
-    console.log(topic);
-    // res.locals.user = req.session.authUser;
     next();
   });
   app.use(async function (req, res, next) {
     const categories = await categoryService.findAll();
 
-    // add topics into categories.
+    // add an array of topics into each category.
     for (let category of categories) {
       let arrayOfTopic = [];
       for (let item of res.locals.topic) {
@@ -23,12 +34,9 @@ export default function (app) {
     }
 
     res.locals.categories = categories;
-    // res.locals.user = req.session.authUser;
     next();
   });
   app.use(async function (req, res, next) {
-    
-    // req.session.retUrl = req.originalUrl;
     if (typeof (req.session.auth) === 'undefined') {
       req.session.auth = false;
     }
@@ -43,8 +51,6 @@ export default function (app) {
       }
       res.locals.auth = req.session.auth;
       res.locals.user = req.session.authUser;
-
-      // console.log(req.session.auth);
     } else {
       res.locals.auth = false;
       res.locals.user = null;
