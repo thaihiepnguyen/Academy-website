@@ -5,5 +5,7 @@ const router = express.Router();
 
 router.get('/byCat/:id', productController.findByCatId);
 
-router.post('/search', productController.fullTextSearch);
+router.get('/search/', productController.fullTextSearch);
+
+//router.post('/search', productController.fullTextSearch);
 export default router;

@@ -17,6 +17,27 @@
             </div>
         </div>
         {{/each}}
+        <nav aria-label="...">
+            <ul class="pagination">
+                <li class="page-item disabled">
+                    <span class="page-link">Previous</span>
+                </li>
+                {{#each this.pageNumbers}}
+                    {{#if isCurrent}}
+                        <li class="page-item active" aria-current="page">
+                            <span class="page-link">{{value}}</span>
+                        </li>
+                    {{else}}
+                        <li class="page-item">
+                            <a class="page-link" href="/courses/search/?key={{key}}&page={{value}}">{{value}}</a>
+                        </li>
+                    {{/if}}
+                {{/each}}
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
     {{else}}
         <p class="h4 mt-50">{{this.warning}}</p>
     {{/if}}

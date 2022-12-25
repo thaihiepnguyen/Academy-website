@@ -1,9 +1,7 @@
 import coursesService from "../services/courses.service.js";
 import * as constants from "constants";
 
-
-export default {
-    findByCatId: async (req, res) => {
+export default {findByCatId: async (req, res) => {
         req.session.retUrl = req.originalUrl;
         const CatId = req.params.id;
 
@@ -19,10 +17,10 @@ export default {
 
         if (courses == null) {
             res.render('vwProduct/courses',{
-                    catName,
-                    activeTagbarLayout: true,
-                    warning: `Can not find any courses of ${catName}`
-                });
+                catName,
+                activeTagbarLayout: true,
+                warning: `Can not find any courses of ${catName}`
+            });
             return;
         }
 
@@ -42,10 +40,36 @@ export default {
     },
 
     fullTextSearch: async (req, res) => {
+        let key = req.query.key;
 
-        const key = req.body.key;
+        console.log(key);
 
-        const courses = await coursesService.findByFullTextSearch(key);
+        if(key.length != 0) {
+            req.session.key = key;
+            console.log("YES");
+        }
+        else
+            key = req.session.key;
+
+        console.log("KEY");
+        console.log(key);
+
+        const limit = 2;
+        const curPage = req.query.page || 1;
+        const offset = (curPage - 1) * limit;
+
+        const total = await coursesService.countByFullTextSearch(key);
+        const nPages = Math.ceil(total / limit);
+
+        const pageNumbers = [];
+        for (let i = 1; i <= nPages; i++) {
+            pageNumbers.push({
+                value: i,
+                isCurrent: i === +curPage
+            });
+        }
+
+        const courses = await coursesService.findByFullTextSearch(key, limit, offset);
         let catName = "";
 
         if (courses == null) {
@@ -56,14 +80,11 @@ export default {
             });
         }
 
-        const length = courses.length;
-
-        console.log(courses);
-
         res.render('vwProduct/courses', {
             activeTagbarLayout: true,
             courses,
-            catName: `Find ${length} results`,
+            key:key,
+            catName:null,
+            pageNumbers: pageNumbers
         });
-    }
-}
+    }}
