@@ -51,9 +51,7 @@ export default {
     },
 
     handleLogin: async (req, res) => {
-
         const { email, password } = req.body;
-
         const userdb = await userService.findByEmail(email);
 
         if(userdb == null) {
@@ -124,7 +122,9 @@ export default {
 
         const {email, oldPassword, newPassword, repeatNewPassword} = req.body;
 
-        if(newPassword != repeatNewPassword || !bcrypt.compareSync(oldPassword, user.password)) {
+        const userdb = await userService.findByEmail(email);
+
+        if(newPassword != repeatNewPassword || !bcrypt.compareSync(oldPassword, userdb.password)) {
             return res.render("vwProfile/account_security.hbs", {
                 activeProfileLayout: true,
                 active_sc: "active",
@@ -166,10 +166,10 @@ export default {
 
         const courses = await userService.findWatchList(user.id);
         if(courses == null){
-        return res.render("vwProfile/watch_list.hbs", {
-                    activeProfileLayout: true,
-                    message_no_watch_list : "No your watch list",
-                });
+            return res.render("vwProfile/watch_list.hbs", {
+                activeProfileLayout: true,
+                message_no_watch_list : "No your watch list",
+            });
         }
         for (let i = 0; i < courses.length; i++) {
             let ratings = ["", "", "", "", ""];
@@ -192,11 +192,11 @@ export default {
 
         const courses = await userService.findRegisteredCourses(user.id);
         if(courses == null){
-                return res.render("vwProfile/registered_courses.hbs", {
-                            activeProfileLayout: true,
-                            message_no_registered_courses : "No registered courses"
-                        });
-                }
+            return res.render("vwProfile/registered_courses.hbs", {
+                activeProfileLayout: true,
+                message_no_registered_courses : "No registered courses"
+            });
+        }
         for (let i = 0; i < courses.length; i++) {
             let ratings = ["", "", "", "", ""];
             for (let j = 0; j < courses[i].rating; j++) {
@@ -216,16 +216,14 @@ export default {
         req.session.auth = false;
         req.session.authUser = null;
 
-        return res.render("vwProfile/logout.hbs", {
-            activeProfileLayout: true,
-        });
+        const url = req.headers.referer || '/';
+        res.redirect(url);
     },
 
     handleLogout: (req, res) => {
 
         req.session.auth = false;
         req.session.authUser = null;
-
 
         const url = req.headers.referer || '/';
         res.redirect(url);
@@ -283,6 +281,7 @@ export default {
 
         const userOfficial = userService.findByEmail(userdb.email);
 
+
         req.session.auth = true;
         req.session.authUser = userOfficial;
 
@@ -290,6 +289,7 @@ export default {
 
         res.redirect('/');
     },
+
     uploadPhoto: (req, res) => {
         const user = res.locals.user;
         let type = "";

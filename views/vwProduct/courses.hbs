@@ -9,14 +9,37 @@
                 </div>
                 <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title font-weight-bolder">{{name}}</h5>
+                    <h5 class="card-title">{{name}}</h5>
                     <p class="card-text">{{tiny_des}}</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    <p class="card-text"><small class="text-muted">{{last_modify}}</small></p>
                 </div>
                 </div>
             </div>
         </div>
         {{/each}}
+        <form action="" method="get">
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li class="page-item disabled">
+                        <span class="page-link">Previous</span>
+                    </li>
+                    {{#each this.pageNumbers}}
+                        {{#if isCurrent}}
+                            <li class="page-item active" aria-current="page">
+                                <span class="page-link">{{value}}</span>
+                            </li>
+                        {{else}}
+                            <li class="page-item">
+                                <a class="page-link" href="/courses/search/?key={{key}}&page={{value}}">{{value}}</a>
+                            </li>
+                        {{/if}}
+                    {{/each}}
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </form>
     {{else}}
         <p class="h4 mt-50">{{this.warning}}</p>
     {{/if}}
