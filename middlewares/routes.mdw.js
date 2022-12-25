@@ -1,5 +1,5 @@
-import productUserRoute from '../routes/product-user.route.js';
-import accountRoute from '../routes/account.route.js';
+import productUserRoute from "../routes/product-user.route.js";
+import accountRoute from "../routes/account.route.js";
 import coursesRoute from "../routes/courses.route.js";
 import coursesService from "../services/courses.service.js";
 export default function (app) {
@@ -7,8 +7,8 @@ export default function (app) {
     const courses = await coursesService.findTop5Courses();
 
     if (courses == null) {
-      res.render('home',{
-        warning: `Can not find any courses`
+      res.render("home", {
+        warning: `Can not find any courses`,
       });
       return;
     }
@@ -26,11 +26,12 @@ export default function (app) {
     res.render("home.hbs", {
       activeTagbarLayout: true,
       activeSliderLayout: true,
-      courses
+      courses,
     });
   });
 
   app.use("/account", accountRoute);
   app.use("/products", productUserRoute);
   app.use("/courses", coursesRoute);
+  app.use("/details", coursesRoute);
 }
