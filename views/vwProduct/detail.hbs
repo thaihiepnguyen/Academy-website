@@ -14,32 +14,32 @@
   crossorigin="anonymous"
 ></script>
 <script src="https://twitter.github.io/typeahead.js/js/handlebars.js"></script>
-<img src={{basicInfo.0.urlImage}} class="imageShow" />
+<img src={{basicInfo.0.thumbnail}} class="imageShow" />
 
 <div class="row">
   <div class="col" style="text-align: left; background-color: #385DBD;">
     <text
       style="padding: 2rem; color: #75E6DA; font-weight: bold; font-size: x-large;"
     >
-      {{basicInfo.0.nameCourse}}
+      {{basicInfo.0.name}}
     </text>
     <br />
     <text style="padding: 2rem; color: #D4F1F4">
       Level:
-      {{basicInfo.0.level}}
+      {{basicInfo.0.levelCourse}}
     </text>
   </div>
   <div class="col" style="text-align: center; background-color: #385DBD;">
     <div class="row">
       <text style="color: #75E6DA; font-weight: bold;">
         Duration:
-        {{basicInfo.0.duration}}
+        {{basicInfo.0.durationCourse}}
         months
       </text>
       <br />
       <text style="color: #75E6DA; font-weight: bold;">
         Weekly study:
-        {{basicInfo.0.weekly}}
+        {{basicInfo.0.weeklyHours}}
         hours
       </text>
     </div>
@@ -87,17 +87,17 @@
               for only:
               <text
                 style="font-weight: bold; text-decoration: line-through;"
-              >{{basicInfo.0.price}}$</text>
+              >{{basicInfo.0.price}}đ</text>
               <text
                 style="color: #0057FF; font-weight: bold; font-size: large;"
               >
-                {{basicInfo.0.discountTo}}$</text></text>
+                {{basicInfo.0.discountTo}}đ</text></text>
           {{else}}
             <text style="font-weight: bold; font-size: large;">
               for only:
               <text
                 style="color: #0057FF; font-size: large;"
-              >{{basicInfo.0.price}}$</text></text>
+              >{{basicInfo.0.price}}đ</text></text>
           {{/if}}
         </div>
         <br />
