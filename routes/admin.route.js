@@ -42,19 +42,36 @@ router.post("/categories/del", async function (req, res) {
 		const ret = await categoryModel.del(id);
 		return res.redirect("/admin/categories");
 	} else {
-		// res.locals.lcErr_message = "This category has coures, not allowed to be removed.";
-		// console.log("hello world");
 		req.session.err_message = "This category has coures, not allowed to be removed.";
 		req.session.flag = true;
 		res.redirect(req.headers.referer);
-		// res.render("vwAdmin/vwCategory/edit", {
-		// 	activeTagbarLayout: true,
-		// 	err_message: "This category has coures, not allowed to be removed.",
-		// });
 	}
 });
 router.post("/categories/patch", async function (req, res) {
 	const ret = await categoryModel.patch(req.body);
 	res.redirect("/admin/categories");
+});
+
+router.get("/courses", async function (req, res) {
+	const list = await courseModel.findAll();
+	res.render("vwAdmin/vwCourse/index", {
+		activeTagbarLayout: true,
+		courses: list,
+	});
+});
+router.post("/courses/del", async function (req, res) {
+	// const id = req.body.id || 0;
+	// const courseList = await courseModel.findByCatId(id);
+	// req.session.flag = false;
+	// if (courseList === null) {
+	// 	const ret = await categoryModel.del(id);
+	// 	return res.redirect("/admin/categories");
+	// } else {
+	// 	req.session.err_message = "This category has coures, not allowed to be removed.";
+	// 	req.session.flag = true;
+	// 	res.redirect(req.headers.referer);
+	// }
+	const ret = await courseModel.del(+req.body.id);
+	res.redirect(req.headers.referer);
 });
 export default router;

@@ -14,6 +14,8 @@ export default function (app) {
 		res.locals.active_lg = "";
 		res.locals.flag = req.session.flag;
 		res.locals.err_message = req.session.err_message;
+		req.session.flag = null;
+		req.session.err_message = null;
 		next();
 	});
 	app.use(async function (req, res, next) {
