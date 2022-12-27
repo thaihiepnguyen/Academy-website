@@ -45,6 +45,14 @@ export default {
 
     return list;
   },
+  sendReviews: async (userID, idCourse, reviewContent) => {
+    const list = await db("review").insert({
+      user_id: userID,
+      course_id: idCourse,
+      comment: reviewContent,
+    });
+    return null;
+  },
   findGeneralData() {
     return [
       {

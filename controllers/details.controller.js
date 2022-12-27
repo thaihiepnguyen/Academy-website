@@ -4,13 +4,21 @@ export default {
     //req.session.retUrl = req.originalUrl;
     const courseId = req.params.id;
     const data1 = await coursesService.findDetails(courseId);
+    const isLogged = req.session.auth;
     //console.log(data1);
     console.log("controller ne");
-    res.render("vwProduct/detail.hbs", { isDefault: true, basicInfo: data1 });
+    res.render("vwProduct/detail.hbs", {
+      isDefault: true,
+      basicInfo: data1,
+      logged: isLogged,
+    });
   },
   sendReview: async (req, res) => {
     const { reviewContent } = req.body;
-    console.log(reviewContent);
-    return true;
+    const courseId = req.params.id;
+    const userId = res.locals.user.id;
+    coursesService.sendReviews(userId, courseId, reviewContent);
+    const url = "http://localhost:3000" + "/details/" + courseId;
+    res.redirect(url);
   },
 };
