@@ -8,4 +8,9 @@ export default {
     console.log("controller ne");
     res.render("vwProduct/detail.hbs", { isDefault: true, basicInfo: data1 });
   },
+  sendReview: async (req, res) => {
+    const { reviewContent } = req.body;
+    console.log(reviewContent);
+    return true;
+  },
 };

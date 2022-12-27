@@ -193,18 +193,17 @@
       />
     </div>
     <div class="col-11">
-      <form>
+      <form method="post">
         <div class="form-group">
           {{! <label for="exampleInputEmail1"> </label> }}
           <input
             type="text"
             class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
             placeholder="Enter your comment"
+            name="reviewContent"
           />
+          <button type="submit" class="btn btn-primary">Submit</button>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
     {{! <div class="col-1"> test1</div> }}
@@ -234,3 +233,6 @@
     {{/each}}
   </div>
 </div>
+<script>
+  function test(){ console.log("OK"); }
+</script>
