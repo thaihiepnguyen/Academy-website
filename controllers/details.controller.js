@@ -4,6 +4,7 @@ export default {
     //req.session.retUrl = req.originalUrl;
     const courseId = req.params.id;
     const data1 = await coursesService.findDetails(courseId);
+    const reviews = await coursesService.getReviews(courseId);
     const isLogged = req.session.auth;
     //console.log(data1);
     console.log("controller ne");
@@ -11,6 +12,7 @@ export default {
       isDefault: true,
       basicInfo: data1,
       logged: isLogged,
+      reviewsList: reviews,
     });
   },
   sendReview: async (req, res) => {

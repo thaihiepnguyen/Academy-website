@@ -53,6 +53,17 @@ export default {
     });
     return null;
   },
+  getReviews: async (idCourse) => {
+    const list1 = await db("review")
+      .join("users", "users.id", "review.user_id")
+      .select("users.lastname", "users.image", "review.comment")
+      .where({ "review.course_id": idCourse });
+    if (list1.length === 0) {
+      return null;
+    }
+
+    return list1;
+  },
   findGeneralData() {
     return [
       {
@@ -145,14 +156,14 @@ export default {
 
   async countByFullTextSearch(key) {
     const list = await db("courses")
-        .join("categories", "category_id", "categories.id")
-        .join("users", "lecture_id", "users.id")
-        .whereRaw("MATCH(courses.name) AGAINST(?)", key)
-        .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)
-        .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
-        .orWhereRaw("MATCH(users.firstname) AGAINST(?)", key)
-        .orWhereRaw("MATCH(users.lastname) AGAINST(?)", key)
-        .count({ amount: 'courses.id' });;
+      .join("categories", "category_id", "categories.id")
+      .join("users", "lecture_id", "users.id")
+      .whereRaw("MATCH(courses.name) AGAINST(?)", key)
+      .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)
+      .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
+      .orWhereRaw("MATCH(users.firstname) AGAINST(?)", key)
+      .orWhereRaw("MATCH(users.lastname) AGAINST(?)", key)
+      .count({ amount: "courses.id" });
 
     return list[0].amount;
   },
