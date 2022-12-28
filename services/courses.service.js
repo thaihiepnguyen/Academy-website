@@ -145,10 +145,14 @@ export default {
 
   async countByFullTextSearch(key) {
     const list = await db("courses")
-      .join("categories", "category_id", "categories.id")
-      .whereRaw("MATCH(courses.name) AGAINST(?)", key)
-      .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
-      .count({ amount: "courses.id" });
+        .join("categories", "category_id", "categories.id")
+        .join("users", "lecture_id", "users.id")
+        .whereRaw("MATCH(courses.name) AGAINST(?)", key)
+        .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)
+        .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
+        .orWhereRaw("MATCH(users.firstname) AGAINST(?)", key)
+        .orWhereRaw("MATCH(users.lastname) AGAINST(?)", key)
+        .count({ amount: 'courses.id' });;
 
     return list[0].amount;
   },
@@ -171,8 +175,12 @@ export default {
         "courses.rating"
       )
       .join("categories", "category_id", "categories.id")
+      .join("users", "lecture_id", "users.id")
       .whereRaw("MATCH(courses.name) AGAINST(?)", key)
+      .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)
       .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
+      .orWhereRaw("MATCH(users.firstname) AGAINST(?)", key)
+      .orWhereRaw("MATCH(users.lastname) AGAINST(?)", key)
       .limit(limit)
       .offset(offset);
 
