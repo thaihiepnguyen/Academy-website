@@ -31,7 +31,7 @@
       </text>
     </div>
     <div class="col" style="text-align: center; background-color: #385DBD;">
-      <div class="row">
+      <div class="row" style="margin-top: 0.5%;">
         <text style="color: #75E6DA; font-weight: bold;">
           Duration:
           {{basicInfo.0.durationCourse}}
@@ -61,14 +61,13 @@
             {{/if}}
           {{/each}}
           <text style="color: #05445E; font-weight:bold">
-            {{basicInfo.0.numberOfStars}}
-            <text> stars - </text>
-            {{basicInfo.0.reviews}}
-            <text> reviews</text>
+            -
+            {{basicInfo.0.rating}}
+            <text> stars </text>
           </text>
         </div>
         <p style="white-space: pre-line;">
-          <b>{{basicInfo.0.shortInfo}}</b>
+          <b>{{basicInfo.0.tiny_des}}</b>
         </p>
       </div>
       <div class="col" style="border-left: 1px solid black;">
