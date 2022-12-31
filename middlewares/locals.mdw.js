@@ -3,7 +3,6 @@ import topicService from '../services/topic.service.js';
 export default function (app) {
   app.use(async function(req, res, next) {
     if (typeof (req.session.key) !== 'undefined')   {
-      console.log("test");
       res.locals.key = req.session.key;
     }
     res.locals.active_pf = "";
