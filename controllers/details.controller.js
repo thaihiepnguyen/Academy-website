@@ -5,6 +5,7 @@ export default {
     const courseId = req.params.id;
     const data1 = await coursesService.findDetails(courseId);
     const reviews = await coursesService.getReviews(courseId);
+    const clips = await coursesService.getClips(courseId);
     const isLogged = req.session.auth;
     //console.log(data1);
     let ratings = [false, false, false, false, false];
@@ -17,6 +18,7 @@ export default {
       basicInfo: data1,
       logged: isLogged,
       reviewsList: reviews,
+      videosL: clips,
     });
   },
   sendReview: async (req, res) => {

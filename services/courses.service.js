@@ -64,6 +64,16 @@ export default {
 
     return list1;
   },
+  getClips: async (idCourse) => {
+    const clipList = await db("video")
+      .select("course_id", "thumbnail", "source", "name", "type", "time")
+      .where({ course_id: idCourse });
+    if (clipList.length === 0) {
+      return null;
+    }
+
+    return clipList;
+  },
   findGeneralData() {
     return [
       {
