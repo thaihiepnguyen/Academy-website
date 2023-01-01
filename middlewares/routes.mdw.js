@@ -2,11 +2,11 @@ import productUserRoute from "../routes/product-user.route.js";
 import accountRoute from "../routes/account.route.js";
 import coursesRoute from "../routes/courses.route.js";
 import adminRoute from "../routes/admin.route.js";
-import coursesService from "../services/courses.service.js";
+import coursesController from "../controllers/courses.controller.js";
 
 export default function (app) {
   app.get("/", async function (req, res) {
-    const courses = await coursesService.findTop5Courses();
+    const courses = await coursesController.findTop5Courses();
 
     if (courses == null) {
       res.render("home", {
@@ -18,7 +18,7 @@ export default function (app) {
     for (let i = 0; i < courses.length; i++) {
       let ratings = ["", "", "", "", ""];
       for (let j = 0; j < courses[i].rating; j++) {
-        ratings[j] = "rating-color";
+        ratings[j] = "rating-color"; // rating-color is a css class.
       }
       courses[i].ratings = ratings;
     }
