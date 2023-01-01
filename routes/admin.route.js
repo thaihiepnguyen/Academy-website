@@ -2,6 +2,9 @@ import express from "express";
 import bcrypt from "bcryptjs";
 
 import adminController from "../controllers/admin.controller.js";
+import categoryModel from "../services/category.service.js";
+import courseModel from "../services/courses.service.js";
+import userModel from "../services/user.service.js";
 
 const router = express.Router();
 //=================================================MANAGE CATEGORY=================================================
