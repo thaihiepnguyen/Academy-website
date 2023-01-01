@@ -5,21 +5,14 @@ export default {
     const courseId = req.params.id;
     const data1 = await coursesService.findDetails(courseId);
     const reviews = await coursesService.getReviews(courseId);
-    const clips = await coursesService.getClips(courseId);
     const isLogged = req.session.auth;
     //console.log(data1);
-    let ratings = [false, false, false, false, false];
-    console.log(data1);
-    // for (let j = 0; j < data1["0"].rating; j++) {
-    //   ratings[j] = true;
-    // }
-    //data1.stars = ratings;
+    console.log("controller ne");
     res.render("vwProduct/detail.hbs", {
       isDefault: true,
       basicInfo: data1,
       logged: isLogged,
       reviewsList: reviews,
-      videosL: clips,
     });
   },
   sendReview: async (req, res) => {
