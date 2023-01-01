@@ -1,5 +1,6 @@
 import categoryService from "../services/category.service.js";
 import topicService from "../services/topic.service.js";
+import userService from "../services/user.service.js";
 export default function (app) {
 	app.use(async function (req, res, next) {
 		if (typeof req.session.key !== "undefined") {
@@ -16,6 +17,10 @@ export default function (app) {
 		res.locals.err_message = req.session.err_message;
 		req.session.flag = null;
 		req.session.err_message = null;
+		next();
+	});
+	app.use(async function (req, res, next) {
+		res.locals.lcUsersRole = await userService.findAllWithRole();
 		next();
 	});
 	app.use(async function (req, res, next) {

@@ -1,8 +1,11 @@
 import express from "express";
 import categoryModel from "../services/category.service.js";
 import courseModel from "../services/courses.service.js";
+import userModel from "../services/user.service.js";
 
 const router = express.Router();
+//=================================================MANAGE CATEGORY=================================================
+//=================================================================================================================
 router.get("/categories", async function (req, res) {
 	const list = await categoryModel.findAll();
 
@@ -51,7 +54,8 @@ router.post("/categories/patch", async function (req, res) {
 	const ret = await categoryModel.patch(req.body);
 	res.redirect("/admin/categories");
 });
-
+//=================================================MANAGE COURSE=================================================
+//===============================================================================================================
 router.get("/courses", async function (req, res) {
 	const list = await courseModel.findAll();
 	res.render("vwAdmin/vwCourse/index", {
@@ -60,18 +64,22 @@ router.get("/courses", async function (req, res) {
 	});
 });
 router.post("/courses/del", async function (req, res) {
-	// const id = req.body.id || 0;
-	// const courseList = await courseModel.findByCatId(id);
-	// req.session.flag = false;
-	// if (courseList === null) {
-	// 	const ret = await categoryModel.del(id);
-	// 	return res.redirect("/admin/categories");
-	// } else {
-	// 	req.session.err_message = "This category has coures, not allowed to be removed.";
-	// 	req.session.flag = true;
-	// 	res.redirect(req.headers.referer);
-	// }
 	const ret = await courseModel.del(+req.body.id);
 	res.redirect(req.headers.referer);
+});
+//=================================================MANAGE USER===================================================
+//===============================================================================================================
+router.get("/users", async function (req, res) {
+	// const list = await userModel.findAll();
+
+	res.render("vwAdmin/vwUser/index", {
+		activeTagbarLayout: true,
+		// users: list,
+	});
+});
+router.get("/users/add", function (req, res) {
+	res.render("vwAdmin/vwUser/add", {
+		activeTagbarLayout: true,
+	});
 });
 export default router;

@@ -15,7 +15,7 @@
     </h4>
 
     <form action="/admin/courses/del" method="post" id="frmDelItem">
-        <input type="text" id="txtDelProID" name="id">
+        <input type="hidden" id="txtDelProID" name="id">
     </form>
 
     <table class="table table-hover">
@@ -35,8 +35,8 @@
                 <td scope="row" class="text-center">{{id}}</td>
                 <td>{{name}}</td>
                 <td>{{format_number price}}</td>
-                <td>{{rating}}<i class="fa fa-star" style="color:rgba(228, 228, 22, 0.675)"
-                        aria-hidden="true"></i></td>
+                <td class="text-center">{{rating}}<i class="fa fa-star"
+                        style="color:rgba(228, 228, 22, 0.675)" aria-hidden="true"></i></td>
                 <td>{{tiny_des}}</td>
                 <td class="text-right">
                     <a data-id="{{id}}" class=" btn btn-sm btn-danger delItem" href="javascript:;"
