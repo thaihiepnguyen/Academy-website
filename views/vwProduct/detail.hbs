@@ -61,7 +61,7 @@
             {{/if}}
           {{/each}}
           <text style="color: #05445E; font-weight:bold">
-            {{basicInfo.0.numberOfStars}}
+            {{basicInfo.0.rating}}
             <text> stars - </text>
             {{basicInfo.0.reviews}}
             <text> reviews</text>
@@ -130,32 +130,34 @@
       <div class="col">
         <text class="importanceBlue">Videos</text>
         {{#each videosL}}
-          <div class="row">
-            <div class="col">
-              <img src={{this.urlImage}} />
+          <a href={{this.source}} style="text-decoration: none">
+            <div class="row">
+              <div class="col">
+                <img src={{this.thumbnail}} />
+              </div>
+              <div class="col">
+                {{#if this.free}}
+                  <div style="margin-top:15%; height: 100%;">
+                    <div style="color: #2638D8; font-weight:bold">Free</div>
+                    <b>{{this.name}}</b>
+                    <br />
+                    <div
+                      style="color: #7EB0C6; font-weight: bold;"
+                    >{{this.time}}</div>
+                  </div>
+                {{else}}
+                  <div style="margin-top:17%; height: 100%;">
+                    <b>{{this.name}}</b>
+                    <br />
+                    <div
+                      style="color: #7EB0C6; font-weight: bold;"
+                    >{{this.time}}</div>
+                  </div>
+                {{/if}}
+              </div>
             </div>
-            <div class="col">
-              {{#if this.free}}
-                <div style="margin-top:15%; height: 100%;">
-                  <div style="color: #2638D8; font-weight:bold">Free</div>
-                  <b>{{this.nameVid}}</b>
-                  <br />
-                  <div
-                    style="color: #7EB0C6; font-weight: bold;"
-                  >{{this.videoLength}}</div>
-                </div>
-              {{else}}
-                <div style="margin-top:17%; height: 100%;">
-                  <b>{{this.nameVid}}</b>
-                  <br />
-                  <div
-                    style="color: #7EB0C6; font-weight: bold;"
-                  >{{this.videoLength}}</div>
-                </div>
-              {{/if}}
-            </div>
-          </div>
-          <br />
+            <br />
+          </a>
         {{/each}}
       </div>
     </div>
@@ -189,6 +191,10 @@
     {{! Comment section }}
     <br />
     <br />
+    <div class="importanceBlue">
+      Reviews
+    </div>
+    <br />
     {{#if logged}}
       <div class="row">
         <div class="col-1">
@@ -215,11 +221,11 @@
         </div>
         {{! <div class="col-1"> test1</div> }}
       </div>
+    {{else}}
+      <div class="row" style="text-align: center;">
+        <text><b>LOGIN TO COMMENT</b></text>
+      </div>
     {{/if}}
-    <br />
-    <div class="importanceBlue">
-      Reviews
-    </div>
     <br />
     <div class="row">
       {{#each reviewsList}}

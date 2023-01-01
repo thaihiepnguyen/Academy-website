@@ -70,6 +70,21 @@ export default {
 
     return list1;
   },
+  getClips: async (idCourse) => {
+    const list2 = await db("video")
+      .select(
+        "video.thumbnail",
+        "video.source",
+        "video.name",
+        "video.type",
+        "video.time"
+      )
+      .where({ "video.course_id": idCourse });
+    if (list2.length === 0) {
+      return null;
+    }
+    return list2;
+  },
   findGeneralData() {
     return [
       {
