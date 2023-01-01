@@ -318,6 +318,14 @@ ALTER TABLE `courses`
   ADD KEY `id_idx2` (`category_id`);
 ALTER TABLE `courses` ADD FULLTEXT KEY `name` (`name`);
 
+alter table `academy-db`.users
+add fulltext(firstname);
+
+alter table `academy-db`.users
+add fulltext(lastname);
+
+alter table `academy-db`.courses
+add fulltext(tiny_des);
 --
 -- Indexes for table `links`
 --

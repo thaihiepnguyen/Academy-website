@@ -33,11 +33,17 @@ export default {
       courses[i].ratings = ratings;
     }
 
+    // console.log(courses[0]);
+
     res.render("vwProduct/courses", {
       activeTagbarLayout: true,
       courses,
       catName,
     });
+  },
+
+  findTop5Courses: async (req, res) => {
+    return coursesService.findTop5Courses();
   },
 
   fullTextSearch: async (req, res) => {

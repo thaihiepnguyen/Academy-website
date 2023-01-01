@@ -1,8 +1,7 @@
 import express from "express";
 import bcrypt from "bcryptjs";
-import categoryModel from "../services/category.service.js";
-import courseModel from "../services/courses.service.js";
-import userModel from "../services/user.service.js";
+
+import adminController from "../controllers/admin.controller.js";
 
 const router = express.Router();
 //=================================================MANAGE CATEGORY=================================================
@@ -66,7 +65,6 @@ router.get("/courses", async function (req, res) {
 });
 router.post("/courses/del", async function (req, res) {
 	const ret = await courseModel.del(+req.body.id);
-	console.log(ret);
 	res.redirect(req.headers.referer);
 });
 //=================================================MANAGE USER===================================================

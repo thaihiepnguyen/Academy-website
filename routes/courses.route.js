@@ -9,5 +9,7 @@ router.get("/search/", productController.fullTextSearch);
 
 //router.post('/search', productController.fullTextSearch);
 router.get("/:id", detailsController.findDetailOfCourse);
+
 router.post("/:id", detailsController.sendReview);
+
 export default router;
