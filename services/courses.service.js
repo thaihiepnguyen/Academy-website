@@ -45,6 +45,35 @@ export default {
 
     return list;
   },
+  sendReviews: async (userID, idCourse, reviewContent) => {
+    const list = await db("review").insert({
+      user_id: userID,
+      course_id: idCourse,
+      comment: reviewContent,
+    });
+    return null;
+  },
+  getReviews: async (idCourse) => {
+    const list1 = await db("review")
+      .join("users", "users.id", "review.user_id")
+      .select("users.lastname", "users.image", "review.comment")
+      .where({ "review.course_id": idCourse });
+    if (list1.length === 0) {
+      return null;
+    }
+
+    return list1;
+  },
+  getClips: async (idCourse) => {
+    const clipList = await db("video")
+      .select("course_id", "thumbnail", "source", "name", "type", "time")
+      .where({ course_id: idCourse });
+    if (clipList.length === 0) {
+      return null;
+    }
+
+    return clipList;
+  },
   findGeneralData() {
     return [
       {
@@ -138,8 +167,12 @@ export default {
   async countByFullTextSearch(key) {
     const list = await db("courses")
       .join("categories", "category_id", "categories.id")
+      .join("users", "lecture_id", "users.id")
       .whereRaw("MATCH(courses.name) AGAINST(?)", key)
+      .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)
       .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
+      .orWhereRaw("MATCH(users.firstname) AGAINST(?)", key)
+      .orWhereRaw("MATCH(users.lastname) AGAINST(?)", key)
       .count({ amount: "courses.id" });
 
     return list[0].amount;
@@ -163,8 +196,12 @@ export default {
         "courses.rating"
       )
       .join("categories", "category_id", "categories.id")
+      .join("users", "lecture_id", "users.id")
       .whereRaw("MATCH(courses.name) AGAINST(?)", key)
+      .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)
       .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
+      .orWhereRaw("MATCH(users.firstname) AGAINST(?)", key)
+      .orWhereRaw("MATCH(users.lastname) AGAINST(?)", key)
       .limit(limit)
       .offset(offset);
 

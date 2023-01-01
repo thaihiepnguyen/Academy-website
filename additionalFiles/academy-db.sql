@@ -53,7 +53,7 @@ INSERT INTO `categories` (`id`, `name`) VALUES
 CREATE TABLE `courses` (
   `id` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `thumbnail` varchar(100) DEFAULT NULL,
+  `thumbnail` varchar(255) DEFAULT NULL,
   `tiny_des` varchar(1023) DEFAULT NULL,
   `full_des` text,
   `price` bigint(20) DEFAULT NULL,
@@ -268,12 +268,15 @@ INSERT INTO `users` (`id`, `email`, `password`, `firstname`, `lastname`, `image`
 CREATE TABLE `video` (
   `id` int(11) NOT NULL,
   `course_id` int(11) DEFAULT NULL,
+  `thumbnail` varchar(255) DEFAULT NULL,
   `source` varchar(100) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
   `time` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
+INSERT INTO `video`(`id`, `course_id`, `thumbnail`, `source`, `name`, `type`, `time`) VALUES
+(0,6, 'https://i.insider.com/602ee9e3d3ad27001837f2af?width=1200&format=jpeg', 'https://drive.google.com/file/d/1He5zXduec-59InN7fgujwIBGGgQKpufF/view?usp=share_link', 'Rick roll 1', 'mp4', '3:32'),
+(1,6, 'https://i.insider.com/602ee9e3d3ad27001837f2af?width=1200&format=jpeg', 'https://drive.google.com/file/d/1He5zXduec-59InN7fgujwIBGGgQKpufF/view?usp=share_link', 'Rick roll 2', 'mp4', '3:32');
 -- --------------------------------------------------------
 
 --

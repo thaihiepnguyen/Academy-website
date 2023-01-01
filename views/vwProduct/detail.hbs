@@ -14,223 +14,241 @@
   crossorigin="anonymous"
 ></script>
 <script src="https://twitter.github.io/typeahead.js/js/handlebars.js"></script>
-<img src={{basicInfo.0.thumbnail}} class="imageShow" />
 
-<div class="row">
-  <div class="col" style="text-align: left; background-color: #385DBD;">
-    <text
-      style="padding: 2rem; color: #75E6DA; font-weight: bold; font-size: x-large;"
-    >
-      {{basicInfo.0.name}}
-    </text>
-    <br />
-    <text style="padding: 2rem; color: #D4F1F4">
-      Level:
-      {{basicInfo.0.levelCourse}}
-    </text>
-  </div>
-  <div class="col" style="text-align: center; background-color: #385DBD;">
-    <div class="row">
-      <text style="color: #75E6DA; font-weight: bold;">
-        Duration:
-        {{basicInfo.0.durationCourse}}
-        months
+<div style="padding: 1% 5%;">
+  <img src={{basicInfo.0.thumbnail}} class="imageShow" />
+  <div class="row">
+    <div class="col" style="text-align: left; background-color: #385DBD;">
+      <text
+        style="padding: 2rem; color: #75E6DA; font-weight: bold; font-size: x-large;"
+      >
+        {{basicInfo.0.name}}
       </text>
       <br />
-      <text style="color: #75E6DA; font-weight: bold;">
-        Weekly study:
-        {{basicInfo.0.weeklyHours}}
-        hours
+      <text style="padding: 2rem; color: #D4F1F4">
+        Level:
+        {{basicInfo.0.levelCourse}}
       </text>
     </div>
-  </div>
-</div>
-{{! Short description }}
-<div class="row" style="padding-left: 2%;">
-  <div class="row">
-    <br />
-    <div class="col">
-      <br />
-      <div style="display: inline-block;">
-        {{#each basicInfo.0.stars}}
-          {{#if this}}
-            <div class="fa fa-star" style="color: yellow"></div>
-          {{else}}
-            <div class="fa fa-star"></div>
-          {{/if}}
-        {{/each}}
-        <text style="color: #05445E; font-weight:bold">
-          {{basicInfo.0.numberOfStars}}
-          <text> stars - </text>
-          {{basicInfo.0.reviews}}
-          <text> reviews</text>
+    <div class="col" style="text-align: center; background-color: #385DBD;">
+      <div class="row" style="margin-top: 0.5%;">
+        <text style="color: #75E6DA; font-weight: bold;">
+          Duration:
+          {{basicInfo.0.durationCourse}}
+          months
+        </text>
+        <br />
+        <text style="color: #75E6DA; font-weight: bold;">
+          Weekly study:
+          {{basicInfo.0.weeklyHours}}
+          hours
         </text>
       </div>
-      <p style="white-space: pre-line;">
-        <b>{{basicInfo.0.shortInfo}}</b>
-      </p>
-    </div>
-    <div class="col" style="border-left: 1px solid black;">
-      <div class="row" style="display: inline;">
-        <div
-          style="color: #189AB4; font-weight: bold; text-align: center;"
-        >{{basicInfo.0.enrolled}}
-          enrolled</div>
-        <br />
-        <div style="margin-left: 20%;">
-          <button
-            class="btn btn-primary w-25"
-            style="background-color: #05445E; color: #D4F1F4; font-weight: bold;"
-          >Enroll now</button>
-          {{#if basicInfo.0.discountTo}}
-            <text style="font-weight: bold; font-size: large;">
-              for only:
-              <text
-                style="font-weight: bold; text-decoration: line-through;"
-              >{{basicInfo.0.price}}đ</text>
-              <text
-                style="color: #0057FF; font-weight: bold; font-size: large;"
-              >
-                {{basicInfo.0.discountTo}}đ</text></text>
-          {{else}}
-            <text style="font-weight: bold; font-size: large;">
-              for only:
-              <text
-                style="color: #0057FF; font-size: large;"
-              >{{basicInfo.0.price}}đ</text></text>
-          {{/if}}
-        </div>
-        <br />
-      </div>
     </div>
   </div>
-  {{! Detail description }}
-  <br />
-  <div class="row">
-    <div class="col">
-      <div style="color: #20499A">Last updated: </div>
-      <div class="row" style="background-color: #D3E0F9;">
-        <text class="importanceBlue">Requirements</text>
+  {{! Short description }}
+  <div class="row" style="padding-left: 2%;">
+    <div class="row">
+      <br />
+      <div class="col">
+        <br />
+        <div style="display: inline-block;">
+          {{#each basicInfo.0.stars}}
+            {{#if this}}
+              <div class="fa fa-star" style="color: yellow"></div>
+            {{else}}
+              <div class="fa fa-star"></div>
+            {{/if}}
+          {{/each}}
+          <text style="color: #05445E; font-weight:bold">
+            -
+            {{basicInfo.0.rating}}
+            <text> stars </text>
+          </text>
+        </div>
         <p style="white-space: pre-line;">
-          {{basicInfo.0.requirements}}
-        </p>
-        <text class="importanceBlue">Overview</text>
-        <p style="white-space: pre-line;">
-          {{basicInfo.0.overview}}
-        </p>
-        <text class="importanceBlue">What are included</text>
-        <p style="white-space: pre-line;">
-          {{basicInfo.0.overview}}
+          <b>{{basicInfo.0.tiny_des}}</b>
         </p>
       </div>
-
-      {{! Get clips }}
-    </div>
-    <div class="col">
-      <text class="importanceBlue">Videos</text>
-      {{#each videosL}}
-        <div class="row">
-          <div class="col">
-            <img src={{this.urlImage}} />
-          </div>
-          <div class="col">
-            {{#if this.free}}
-              <div style="margin-top:15%; height: 100%;">
-                <div style="color: #2638D8; font-weight:bold">Free</div>
-                <b>{{this.nameVid}}</b>
-                <br />
-                <div
-                  style="color: #7EB0C6; font-weight: bold;"
-                >{{this.videoLength}}</div>
-              </div>
+      <div class="col" style="border-left: 1px solid black;">
+        <div class="row" style="display: inline;">
+          <div
+            style="color: #189AB4; font-weight: bold; text-align: center;"
+          >{{basicInfo.0.enrolled}}
+            enrolled</div>
+          <br />
+          <div style="margin-left: 20%;">
+            <button
+              class="btn btn-primary w-25"
+              style="background-color: #05445E; color: #D4F1F4; font-weight: bold;"
+            >Enroll now</button>
+            {{#if basicInfo.0.discountTo}}
+              <text style="font-weight: bold; font-size: large;">
+                for only:
+                <text
+                  style="font-weight: bold; text-decoration: line-through;"
+                >{{basicInfo.0.price}}đ</text>
+                <text
+                  style="color: #0057FF; font-weight: bold; font-size: large;"
+                >
+                  {{basicInfo.0.discountTo}}đ</text></text>
             {{else}}
-              <div style="margin-top:17%; height: 100%;">
-                <b>{{this.nameVid}}</b>
-                <br />
-                <div
-                  style="color: #7EB0C6; font-weight: bold;"
-                >{{this.videoLength}}</div>
-              </div>
+              <text style="font-weight: bold; font-size: large;">
+                for only:
+                <text
+                  style="color: #0057FF; font-size: large;"
+                >{{basicInfo.0.price}}đ</text></text>
             {{/if}}
           </div>
+          <br />
         </div>
-        <br />
+      </div>
+    </div>
+    {{! Detail description }}
+    <br />
+    <div class="row">
+      <div class="col">
+        <div style="color: #20499A">Last updated: </div>
+        <div class="row" style="background-color: #D3E0F9;">
+          <text class="importanceBlue">Requirements</text>
+          <p style="white-space: pre-line;">
+            {{basicInfo.0.requirements}}
+          </p>
+          <text class="importanceBlue">Overview</text>
+          <p style="white-space: pre-line;">
+            {{basicInfo.0.overview}}
+          </p>
+          <text class="importanceBlue">What are included</text>
+          <p style="white-space: pre-line;">
+            {{basicInfo.0.overview}}
+          </p>
+        </div>
+
+        {{! Get clips }}
+      </div>
+      <div class="col">
+        <text class="importanceBlue">Videos</text>
+        {{#each videosL}}
+          <a href={{this.source}} style="text-decoration: none;">
+            <div class="row">
+              <div class="col">
+                <img src={{this.thumbnail}} />
+              </div>
+              <div class="col">
+                {{#if this.free}}
+                  <div style="margin-top:15%; height: 100%;">
+                    <div style="color: #2638D8; font-weight:bold">Free</div>
+                    <b>{{this.name}}</b>
+                    <br />
+                    <div
+                      style="color: #7EB0C6; font-weight: bold;"
+                    >{{this.time}}</div>
+                  </div>
+                {{else}}
+                  <div style="margin-top:17%; height: 100%;">
+                    <b>{{this.name}}</b>
+                    <br />
+                    <div
+                      style="color: #7EB0C6; font-weight: bold;"
+                    >{{this.time}}</div>
+                  </div>
+                {{/if}}
+              </div>
+            </div>
+            <br />
+          </a>
+        {{/each}}
+      </div>
+    </div>
+
+    {{! Get 5 course }}
+    <div class="importanceBlue">
+      Related courses:
+    </div>
+    <div class="row">
+      {{#each courseList}}
+        <div class="col">
+          <div class="card" style="width: 70%">
+            <img
+              class="card-img-top"
+              src={{this.urlImage}}
+              alt="Card image cap"
+            />
+            <div class="card-body">
+              <p
+                class="card-text"
+                style="text-align: center; font-weight: bold;"
+              >
+                {{this.nameVid}}
+              </p>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+
+    {{! Comment section }}
+    <br />
+    <br />
+    <div class="importanceBlue">
+      Reviews
+    </div>
+    <br />
+    {{#if logged}}
+      <div class="row">
+        <div class="col-1">
+          <img
+            src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp"
+            class="img-thumbnail"
+          />
+        </div>
+        <div class="col-11">
+          <form method="post">
+            {{! <label for="exampleInputEmail1"> </label> }}
+            <div class="input-group mb-3" style="margin-top: 2%">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter your comment"
+                name="reviewContent"
+              />
+              <div class="input-group-append">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        {{! <div class="col-1"> test1</div> }}
+      </div>
+    {{else}}
+      <div class="row" style="text-align: center;">
+        <text>
+          LOGIN TO COMMENT
+        </text>
+      </div>
+    {{/if}}
+    <br />
+    <div class="row">
+      {{#each reviewsList}}
+        <div class="row">
+          <div class="col-1">
+            <img src={{this.image}} class="img-thumbnail" />
+          </div>
+          <div class="col-11">
+            <div class="row" style="font-weight: bold;">
+              {{this.lastname}}
+            </div>
+            <div class="row">
+              <p style="white-space: pre-line;">
+                {{this.comment}}
+              </p>
+            </div>
+          </div>
+        </div>
       {{/each}}
     </div>
   </div>
-
-  {{! Get 5 course }}
-  <div class="importanceBlue">
-    Related courses:
-  </div>
-  <div class="row">
-    {{#each courseList}}
-      <div class="col">
-        <div class="card" style="width: 70%">
-          <img
-            class="card-img-top"
-            src={{this.urlImage}}
-            alt="Card image cap"
-          />
-          <div class="card-body">
-            <p class="card-text" style="text-align: center; font-weight: bold;">
-              {{this.nameVid}}
-            </p>
-          </div>
-        </div>
-      </div>
-    {{/each}}
-  </div>
-
-  {{! Comment section }}
-  <br />
-  <br />
-  <div class="row">
-    <div class="col-1">
-      <img
-        src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp"
-        class="img-thumbnail"
-      />
-    </div>
-    <div class="col-11">
-      <form>
-        <div class="form-group">
-          {{! <label for="exampleInputEmail1"> </label> }}
-          <input
-            type="text"
-            class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            placeholder="Enter your comment"
-          />
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-    </div>
-    {{! <div class="col-1"> test1</div> }}
-  </div>
-  <br />
-  <div class="importanceBlue">
-    Reviews
-  </div>
-  <br />
-  <div class="row">
-    {{#each reviewsList}}
-      <div class="row">
-        <div class="col-1">
-          <img src={{this.urlImage}} class="img-thumbnail" />
-        </div>
-        <div class="col-11">
-          <div class="row" style="font-weight: bold;">
-            {{this.username}}
-          </div>
-          <div class="row">
-            <p style="white-space: pre-line;">
-              {{this.contentReview}}
-            </p>
-          </div>
-        </div>
-      </div>
-    {{/each}}
-  </div>
+  <script>
+    function test(){ console.log("OK"); }
+  </script>
 </div>

@@ -8,9 +8,6 @@ import sessionMdw from "./middlewares/session.mdw.js";
 
 const app = express();
 
-// const passport = require('passport');
-// const GoogleStrategy = require('passport-google-oauth20').Strategy;
-
 const PORT = process.env.PORT || 3000;
 app.use(morgan('tiny'));
 app.use(express.static("public"));
