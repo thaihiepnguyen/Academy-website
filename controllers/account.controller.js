@@ -231,61 +231,49 @@ export default {
     },
 
     callbackGoogle: async (req, res) => {
-        // Successful authentication, redirect home.
-
-        const { user } = req;
-
-        const userdb = {
-            ...req.body,
-            email: user.emails[0].value,
-            firstname: user.name.givenName,
-            lastname: user.name.familyName,
-            image: user.photos[0].value,
-            role_id: 1,
-        };
-
-        const isSignUp = await userService.findByEmail(userdb.email);
-
-
-        if(isSignUp == null) { // Check sign up
-            await userService.add(userdb);
-        }
-
-        const userOfficial = userService.findByEmail(userdb.email);
-
-        req.session.auth = true;
-        req.session.authUser = userOfficial;
-
-        const url = '/';
-        res.redirect(url);
-    },
-
-    callbackFacebook: async (req, res) => { // not working
         const { user } = req;
 
         const userdb = {
             ...req.body,
             email: user.emails[0].value,
             firstname: user._json.name,
-            //lastname: user.name.familyName,
-            //image: user.photos[0].value,
+            lastname: user.name.familyName,
+            image: user.photos[0].value,
             role_id: 1,
         };
 
-        const isSignUp = await userService.findByEmail(userdb.email);
+        const userOfficial = await userService.findByEmail(userdb.email);
 
 
-        if(isSignUp == null) { // Check sign up
+        if(userOfficial == null) {
             await userService.add(userdb);
         }
-
-        const userOfficial = userService.findByEmail(userdb.email);
-
-
         req.session.auth = true;
-        req.session.authUser = userOfficial;
+        req.session.authUser = await userService.findByEmail(userdb.email);
 
+        res.redirect('/');
+    },
+
+    callbackFacebook: async (req, res) => {
+        const { user } = req;
+
+        const userdb = {
+            ...req.body,
+            email: user.emails[0].value,
+            firstname: user._json.name,
+            lastname: user.name.familyName,
+            image: user.photos[0].value,
+            role_id: 1,
+        };
+
+        const userOfficial = await userService.findByEmail(userdb.email);
+
+
+        if(userOfficial == null) {
+            await userService.add(userdb);
+        }
         req.session.auth = true;
+        req.session.authUser = await userService.findByEmail(userdb.email);
 
         res.redirect('/');
     },

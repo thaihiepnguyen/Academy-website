@@ -41,6 +41,10 @@
         .navbar-end .item-style {
             width: 450px;
         }
+
+        .my-drop {
+
+        }
     </style>
     <link rel="stylesheet" href="/css/rating.css">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900"
@@ -85,7 +89,7 @@
                             </a>
                             <ul id="topic {{id}}"
                                 style="top:-19.5%; right:auto; left:100%; position:absolute; min-height: 100px;min-width: 200px; border:none; border-top: 2px solid #ddd; border-radius: 0px"
-                                class="dropdown-menu dropdown-submenu navbar-dropdown">
+                                class="dropdown-menu dropdown-submenu navbar-dropdown my-drop" >
                                 <li>
                                     {{#each topic}}
                                         <a class="nav-link dropdown-item" href="#">
@@ -151,7 +155,7 @@
                                 height: 30px; width: 30px;
                               min-height: 30px; min-width:30px ">
                         </a>
-                        <div class="dropdown-menu">
+                        <div class="dropdown-menu" style="left: -60px; top:125%">
                             <a class="dropdown-item" href="/account/home_profile">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                                 Edit Profile

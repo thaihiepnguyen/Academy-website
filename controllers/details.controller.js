@@ -6,8 +6,8 @@ export default {
 
     const data1 = await coursesService.findDetails(courseId);
     const reviews = await coursesService.getReviews(courseId);
-    const clips = await coursesService.getClips(courseId);
     const isLogged = req.session.auth;
+
 
     let ratings = [false, false, false, false, false];
     for (let j = 0; j < data1[0].rating; j++) {
@@ -19,7 +19,6 @@ export default {
       basicInfo: data1,
       logged: isLogged,
       reviewsList: reviews,
-      videosL: clips,
     });
   },
   sendReview: async (req, res) => {
