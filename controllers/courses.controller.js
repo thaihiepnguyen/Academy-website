@@ -49,6 +49,9 @@ export default {
   fullTextSearch: async (req, res) => {
     //
     let key = req.query.key;
+
+
+    console.log(key)
     const curPage = req.query.page || 1;
     //
     // if(key.length !== 0) {
@@ -59,10 +62,33 @@ export default {
 
     const offset = (curPage - 1) * limit;
 
+
     const total = await coursesService.countByFullTextSearch(key);
     const nPages = Math.ceil(total / limit);
 
+    // console.log(nPages);
+    // console.log(curPage);
+
+    let isEnableNext = null;
+    let isEnablePrevious = null;
+    // console.log(isEnableNext);
+    if (+curPage !== nPages) {
+      isEnableNext = {
+        next: +curPage + 1,
+        key: key,
+      };
+    }
+
+    if (+curPage !== 1) {
+      isEnablePrevious = {
+        previous: +curPage - 1,
+        key: key,
+      };
+    }
+
+
     const pageNumbers = [];
+
     for (let i = 1; i <= nPages; i++) {
       pageNumbers.push({
         value: i,
@@ -88,7 +114,9 @@ export default {
     res.render("vwProduct/courses", {
       activeTagbarLayout: true,
       courses,
-      pageNumbers: pageNumbers,
+      pageNumbers,
+      isEnableNext,
+      isEnablePrevious
     });
   },
 };

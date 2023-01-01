@@ -20,9 +20,15 @@
         <form action="" method="get">
             <nav aria-label="...">
                 <ul class="pagination">
-                    <li class="page-item disabled">
-                        <span class="page-link">Previous</span>
-                    </li>
+                    {{#if isEnablePrevious}}
+                        <li class="page-item">
+                            <a class="page-link" href="/courses/search/?key={{isEnablePrevious.key}}&page={{isEnablePrevious.previous}}">Previous</a>
+                        </li>
+                        {{else}}
+                        <li class="page-item disabled">
+                            <span class="page-link">Previous</span>
+                        </li>
+                    {{/if}}
                     {{#each this.pageNumbers}}
                         {{#if isCurrent}}
                             <li class="page-item active" aria-current="page">
@@ -30,13 +36,19 @@
                             </li>
                         {{else}}
                             <li class="page-item">
-                                <a class="page-link" href="/courses/search/?key={{key}}&page={{value}}">{{value}}</a>
+                                <a class="page-link" href="/courses/search/?key={{key}}&page={{this.value}}">{{value}}</a>
                             </li>
                         {{/if}}
                     {{/each}}
-                    <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                    </li>
+                    {{# if isEnableNext}}
+                        <li class="page-item">
+                            <a class="page-link" href="/courses/search/?key={{isEnableNext.key}}&page={{isEnableNext.next}}">Next</a>
+                        </li>
+                        {{else}}
+                        <li class="page-item disabled">
+                            <span class="page-link">Next</span>
+                        </li>
+                    {{/if }}
                 </ul>
             </nav>
         </form>
