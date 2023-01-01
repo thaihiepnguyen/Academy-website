@@ -1,0 +1,55 @@
+{{#section "js"}}
+<script>
+    $('.delItem').on("click", function (e) {
+        const id = $(this).data("id");
+        $('#txtDelProID').val(id);
+        $('#frmDelItem').submit();
+    });
+</script>
+{{/section}}
+
+
+<div class="card">
+    <h4 class="card-header">
+        Courses
+    </h4>
+
+    <form action="/admin/courses/del" method="post" id="frmDelItem">
+        <input type="hidden" id="txtDelProID" name="id">
+    </form>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th class="text-center">#</th>
+                <th>Courses</th>
+                <th>Price</th>
+                <th>Rating</th>
+                <th>TinyDes</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each this.courses}}
+            <tr>
+                <td scope="row" class="text-center">{{id}}</td>
+                <td>{{name}}</td>
+                <td>{{format_number price}}</td>
+                <td class="text-center">{{rating}}<i class="fa fa-star"
+                        style="color:rgba(228, 228, 22, 0.675)" aria-hidden="true"></i></td>
+                <td>{{tiny_des}}</td>
+                <td class="text-right">
+                    <a data-id="{{id}}" class=" btn btn-sm btn-danger delItem" href="javascript:;"
+                        role="button">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <div class="card-footer text-muted">
+        Footer
+    </div>
+</div>
