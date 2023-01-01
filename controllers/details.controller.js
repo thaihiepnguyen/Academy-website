@@ -9,10 +9,11 @@ export default {
     const isLogged = req.session.auth;
     //console.log(data1);
     let ratings = [false, false, false, false, false];
-    for (let j = 0; j < data1[0].rating; j++) {
-      ratings[j] = true;
-    }
-    data1[0].stars = ratings;
+    console.log(data1);
+    // for (let j = 0; j < data1["0"].rating; j++) {
+    //   ratings[j] = true;
+    // }
+    //data1.stars = ratings;
     res.render("vwProduct/detail.hbs", {
       isDefault: true,
       basicInfo: data1,
