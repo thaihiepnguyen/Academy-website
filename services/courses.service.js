@@ -15,6 +15,8 @@ export default {
         "users.firstname",
         "users.lastname",
         "courses.tiny_des",
+        "courses.full_des",
+        // "categories.name",
         "courses.name",
         "courses.rating",
         "courses.price"
@@ -24,6 +26,8 @@ export default {
     if (list.length === 0) {
       return null;
     }
+
+    console.log(list);
 
     return list;
   },

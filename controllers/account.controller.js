@@ -275,6 +275,7 @@ export default {
         req.session.auth = true;
         req.session.authUser = await userService.findByEmail(userdb.email);
 
+
         res.redirect('/');
     },
 
