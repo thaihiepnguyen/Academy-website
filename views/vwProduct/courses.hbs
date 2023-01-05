@@ -1,43 +1,42 @@
+{{#section '-css'}}
+    <link rel="stylesheet" href="/css/courses.css">
+{{/section}}
+
 <p class="h1">{{this.catName}}</p>
+
 <div class="d-flex is-flex-wrap-wrap">
     {{#if this.courses}}
         {{#each this.courses}}
-        <div class="card" style="width: 100%; margin-bottom: 30px; margin-top: 30px">
-            <div class="row no-gutters">
-                <div class="col-md-4">
-                <img src="/imgs/courses/1/{{id}}.jpeg" alt="{{id}}">
-                </div>
-                <div class="col-md-6">
-                    <div class="card-body d-flex flex-column justify-content-between" style="height: 100%">
-                        <div>
+            <div class="card" style="width: 100%; margin-bottom: 30px; margin-top: 30px">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="/imgs/courses/1/{{id}}.jpeg" alt="{{id}}">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
                             <h5 class="card-title font-weight-bold">{{name}}</h5>
                             <p class="card-text">{{tiny_des}}</p>
-                            <p class="card-text font-weight-light">{{firstname}} {{lastname}}</p>
-                        </div>
-
-                        <div style="display: flex">
-                            <div class="ratings">
-                                {{#each ratings}}
-                                    <small class="fa fa-star {{this}}"></small>
-                                {{/each}}
+                            <p class="card-text"><small class="text-muted">{{last_modify}}</small></p>
+                            <div class="d-flex justify-content-between align-items-center w-100">
+                                <div style="display: flex">
+                                    <div class="ratings">
+                                        {{#each ratings}}
+                                            <small class="fa fa-star {{this}}"></small>
+                                        {{/each}}
+                                    </div>
+                                    <small class="review-count">(0)</small>
+                                </div>
+<!--                                <div>-->
+<!--                                    &lt;!&ndash;                                like&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <i style="color: red; font-size:1.2rem" class="fa fa-heart"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    &lt;!&ndash;                                don't like&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <i style="display:none ;font-size:1.2rem" class="fa fa-heart"></i>&ndash;&gt;-->
+<!--                                </div>-->
                             </div>
-                            <small class="review-count">(0)</small>
-                        </div>
-<!--                        <p class="card-text">{{full_des}}</p>-->
-<!--                        <p class="card-text"><small class="text-muted">{{last_modify}}</small></p>-->
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="card-body d-flex flex-column justify-content-between align-items-end" style="height: 100%">
-                        <h5 class="card-title font-weight-bold">{{format_number price}} VND</h5>
-
-                        <div>
-                            <i style="color: red; font-size:1.2rem" class="fa fa-heart"></i>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         {{/each}}
         <form action="" method="get">
             <nav aria-label="...">
@@ -46,7 +45,7 @@
                         <li class="page-item">
                             <a class="page-link" href="/courses/search/?key={{isEnablePrevious.key}}&page={{isEnablePrevious.previous}}">Previous</a>
                         </li>
-                        {{else}}
+                    {{else}}
                         <li class="page-item disabled">
                             <span class="page-link">Previous</span>
                         </li>
@@ -66,7 +65,7 @@
                         <li class="page-item">
                             <a class="page-link" href="/courses/search/?key={{isEnableNext.key}}&page={{isEnableNext.next}}">Next</a>
                         </li>
-                        {{else}}
+                    {{else}}
                         <li class="page-item disabled">
                             <span class="page-link">Next</span>
                         </li>

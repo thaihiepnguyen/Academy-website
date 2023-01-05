@@ -49,11 +49,9 @@ export default {
             // console.log("hello world");
             req.session.err_message = "This category has coures, not allowed to be removed.";
             req.session.flag = true;
-            res.redirect(req.headers.referer);
-            // res.render("vwAdmin/vwCategory/edit", {
-            // 	activeTagbarLayout: true,
-            // 	err_message: "This category has coures, not allowed to be removed.",
-            // });
+
+            const url = req.headers.referer || '/';
+            res.redirect(url);
         }
     },
     patchCategories: async (req, res) => {

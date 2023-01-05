@@ -144,12 +144,17 @@
 }
 .facebook:hover{
     background: #7395d8;
-    text-decoration: none;
 }
-.Google:hover{
-    background: #fe9dbd;
-        text-decoration: none;
 
+.facebook:hover a{
+   text-decoration: none;
+}
+.Google:hover {
+    background: #fe9dbd;
+}
+
+.Google:hover a {
+    text-decoration: none;
 }
 .links i{
     font-size: 17px;

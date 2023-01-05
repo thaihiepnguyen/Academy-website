@@ -1,5 +1,4 @@
 import coursesService from "../services/courses.service.js";
-import * as constants from "constants";
 
 export default {
   findByCatId: async (req, res) => {
@@ -49,25 +48,15 @@ export default {
   fullTextSearch: async (req, res) => {
     //
     let key = req.query.key;
-
-
-    console.log(key)
     const curPage = req.query.page || 1;
-    //
-    // if(key.length !== 0) {
-    //     req.session.key = key;
-    // }
 
     const limit = 2;
 
     const offset = (curPage - 1) * limit;
 
-
     const total = await coursesService.countByFullTextSearch(key);
     const nPages = Math.ceil(total / limit);
 
-    // console.log(nPages);
-    // console.log(curPage);
 
     let isEnableNext = null;
     let isEnablePrevious = null;
@@ -86,9 +75,7 @@ export default {
       };
     }
 
-
     const pageNumbers = [];
-
     for (let i = 1; i <= nPages; i++) {
       pageNumbers.push({
         value: i,
@@ -114,9 +101,9 @@ export default {
     res.render("vwProduct/courses", {
       activeTagbarLayout: true,
       courses,
-      pageNumbers,
       isEnableNext,
-      isEnablePrevious
+      isEnablePrevious,
+      pageNumbers,
     });
   },
 };
