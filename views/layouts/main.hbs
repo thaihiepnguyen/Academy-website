@@ -9,11 +9,11 @@
           crossorigin="anonymous">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!--    <link rel="stylesheet" href="/css/bulma.css">-->
     {{{_sections.login-css}}}
     {{{_sections.profile}}}
     {{{_sections.signup-css}}}
     {{{_sections.otp-css}}}
+    {{{_sections.home-css}}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="/css/dropdown.css">
 
@@ -47,6 +47,8 @@
             background-color: #fff; !important;
             color: #485fc7;
         }
+
+
 
     </style>
     <link rel="stylesheet" href="/css/rating.css" />
@@ -99,13 +101,13 @@
                 <div class="navbar-dropdown text-decoration-none">
                     <li style="display:block" class="nav-item dropdown is-hoverable">
                         {{#each this.categories}}
-                            <a id="cat {{id}}" href="/courses/byCat/{{id}}"
+                            <a id="cat {{id}}"  href="/courses/byCat/{{id}}"
                                class="dropdown-item  dropdown-toggle mr-1">
                                 {{name}}
                             </a>
                             <ul id="topic {{id}}"
-                                style="top:-19.5%; right:auto; left:100%; position:absolute; min-height: 100px;min-width: 200px; border:none; border-top: 2px solid #ddd; border-radius: 0px"
-                                class="dropdown-menu dropdown-submenu navbar-dropdown my-drop" >
+                                style="top:-9.5%; right:auto; left:100%; position:absolute; min-height: 100px;min-width: 250px; border:none; border-top: 2px solid #ddd; border-radius: 0px"
+                                class="dropdown-menu dropdown-submenu navbar-dropdown " >
                                 <li>
                                     {{#each topic}}
                                         <a class="nav-link dropdown-item" href="#">
@@ -125,7 +127,7 @@
                     <div class="field has-addons" style="border: none ">
                         <p class="control" style="height: 45px !important;">
                             <input class="input"
-                                   style="border: 1px solid #dbdbdb;max-height: 40px;
+                                   style="width: 300px;border: 1px solid #dbdbdb;max-height: 40px;
                                    font-family: inherit; border-bottom-left-radius: 20px; border-top-left-radius: 20px;
                                             "
                                    type="text" placeholder="Search" id="txtKey" name="key" value="">
@@ -399,12 +401,27 @@
     //     }); }); });
 </script>
 <script>
-    document.getElementById("cat 2").addEventListener('mouseover', (event) =>
-    { document.getElementById("topic 1").style.display = 'none';
-        document.getElementById("topic 2").style.display = 'inline-block'; });
     document.getElementById("cat 1").addEventListener('mouseover', (event) =>
     { document.getElementById("topic 2").style.display = 'none';
+        document.getElementById("topic 3").style.display = 'none';
+        document.getElementById("topic 4").style.display = 'none';
         document.getElementById("topic 1").style.display = 'inline-block'; });
+    document.getElementById("cat 2").addEventListener('mouseover', (event) =>
+    { document.getElementById("topic 1").style.display = 'none';
+        document.getElementById("topic 3").style.display = 'none';
+        document.getElementById("topic 4").style.display = 'none';
+        document.getElementById("topic 2").style.display = 'inline-block'; });
+    document.getElementById("cat 3").addEventListener('mouseover', (event) =>
+    { document.getElementById("topic 1").style.display = 'none';
+        document.getElementById("topic 2").style.display = 'none';
+        document.getElementById("topic 4").style.display = 'none';
+        document.getElementById("topic 3").style.display = 'inline-block';
+    });
+    document.getElementById("cat 4").addEventListener('mouseover', (event) =>
+    { document.getElementById("topic 1").style.display = 'none';
+        document.getElementById("topic 2").style.display = 'none';
+        document.getElementById("topic 3").style.display = 'none';
+        document.getElementById("topic 4").style.display = 'inline-block'; });
 </script>
 
 {{{_sections.handleProfile}}}

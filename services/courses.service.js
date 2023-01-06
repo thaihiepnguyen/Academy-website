@@ -1,6 +1,12 @@
 import db from "../utils/db.js";
 
 export default {
+  findCoursesById: async (id) => {
+    const courses = await db('courses').where('id', id);
+
+    console.log(courses[0]);
+    return courses[0];
+  },
   findAll() {
     return db("courses");
   },

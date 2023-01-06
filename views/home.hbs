@@ -1,5 +1,6 @@
 {{#section 'home-css'}}
     <link rel="stylesheet" href="/css/bulma.css">
+    <link rel="stylesheet" href="/css/home.css">
 {{/section}}
 
 
@@ -7,7 +8,7 @@
 <div class="d-flex is-flex-wrap-wrap">
     {{#if this.courses}}
         {{#each this.courses}}
-            <div class="card mr-6 mt-6 d-flex flex-column" style="width: 18rem;margin-right: 20px !important;">
+            <a href="/courses/detail/{{id}}" class="card mr-6 mt-6 d-flex flex-column courses" style="width: 18rem;margin-right: 20px !important;">
                 <img src="/imgs/courses/1/{{id}}.jpeg" class="card-img-top" alt="...">
                 <div class="d-flex card-body align-items-start flex-column">
                     <h5 class="card-title font-weight-bold">{{name}}</h5>
@@ -35,7 +36,7 @@
                     </div>
 
                 </div>
-            </div>
+            </a>
         {{/each}}
     {{else}}
         <p class="h4 mt-50">{{this.warning}}</p>

@@ -106,4 +106,17 @@ export default {
       pageNumbers,
     });
   },
+
+  getDetailPage: async (req, res) => {
+    const id = req.params.id;
+    console.log(id);
+
+    const courses = await coursesService.findCoursesById(id);
+
+    console.log(courses);
+    res.render('vwProduct/details.hbs', {
+      courses: courses,
+      isDefault: true
+    })
+  }
 };

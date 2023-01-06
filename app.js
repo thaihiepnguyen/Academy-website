@@ -1,6 +1,5 @@
 import express from "express";
 import bodyParser from "body-parser";
-import nodemailer from "nodemailer";
 import morgan from "morgan";
 import viewMdw from "./middlewares/view.mdw.js";
 import localsMdw from "./middlewares/locals.mdw.js";
