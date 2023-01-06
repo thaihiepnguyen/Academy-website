@@ -8,7 +8,7 @@ export default {
     const isLogged = req.session.auth;
     const data2 = await coursesService.getClips(courseId);
     let data3 = null;
-    if (res.locals.user.id) {
+    if (res.locals.user != null) {
       data3 = await coursesService.rollInThis(res.locals.user.id, courseId);
     }
     let show = true;

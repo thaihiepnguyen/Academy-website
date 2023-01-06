@@ -13,21 +13,31 @@ router.get("/:id", detailsController.findDetailOfCourse);
 
 router.post("/:id", detailsController.sendReview);
 router.post("/add/:id", async function (req, res) {
-  console.log("lol");
-  const courseId = req.params.id;
-  const userId = res.locals.user.id;
-  coursesService.rollInCourse(userId, courseId);
-  const url = "/details/" + courseId;
-  res.redirect(url);
-  //res.redirect(req.headers.referer);
+  //console.log("lol");
+  if (res.locals.user != null) {
+    const courseId = req.params.id;
+    const userId = res.locals.user.id;
+    coursesService.rollInCourse(userId, courseId);
+    const url = "/details/" + courseId;
+    res.redirect(url);
+  } else {
+    coursesService.rollInCourse(userId, courseId);
+    const url = "/details/" + courseId;
+    res.redirect(url);
+  }
 });
 router.post("/del/:id", async function (req, res) {
-  console.log("lol");
-  const courseId = req.params.id;
-  const userId = res.locals.user.id;
-  coursesService.unrollInCourse(userId, courseId);
-  const url = "/details/" + courseId;
-  res.redirect(url);
-  //res.redirect(req.headers.referer);
+  //console.log("lol");
+  if (res.locals.user != null) {
+    const courseId = req.params.id;
+    const userId = res.locals.user.id;
+    coursesService.unrollInCourse(userId, courseId);
+    const url = "/details/" + courseId;
+    res.redirect(url);
+  } else {
+    coursesService.rollInCourse(userId, courseId);
+    const url = "/details/" + courseId;
+    res.redirect(url);
+  }
 });
 export default router;

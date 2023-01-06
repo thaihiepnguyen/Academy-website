@@ -52,18 +52,30 @@ export default {
     return list;
   },
   unrollInCourse: async (userID, idCourse) => {
-    return db("registered_courses")
+    const deleteRecord = await db("registered_courses")
       .where({
         "registered_courses.user_id": userID,
         "registered_courses.course_id": idCourse,
       })
       .del();
+    const numberEnrolled = await db("registered_courses")
+      .count(`user_id`)
+      .where({ course_id: idCourse });
+    const updateEnrolled = await db("courses")
+      .where({ id: idCourse })
+      .update({ enrolled: numberEnrolled[0]["count(`user_id`)"] });
   },
   rollInCourse: async (userID, idCourse) => {
     const list = await db("registered_courses").insert({
       user_id: userID,
       course_id: idCourse,
     });
+    const numberEnrolled = await db("registered_courses")
+      .count(`user_id`)
+      .where({ course_id: idCourse });
+    const updateEnrolled = await db("courses")
+      .where({ id: idCourse })
+      .update({ enrolled: numberEnrolled[0]["count(`user_id`)"] });
     return null;
   },
   rollInThis: async (userID, idCourse) => {
