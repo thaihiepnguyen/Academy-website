@@ -5,12 +5,15 @@ import nodemailer from "nodemailer";
 
 export default {
     getLoginPage: (req, res) => {
+        const role = req.params.role;
         res.render('vwlogin/login.hbs', {
             isDefault: true,
+            role: role
         });
     },
 
     handleSignup: async (req, res) => {
+        const role = req.params.role;
         const rawPass = req.session.userBuffer.password;
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(rawPass, salt);
@@ -27,12 +30,12 @@ export default {
             const user = {
                 ...req.session.userBuffer,
                 image: null,
-                role_id: 1,
+                role_id: role,
             };
 
             await userService.add(user);
 
-            res.redirect('/account/login');
+            res.redirect('/account/login/' + role);
         } else {
             // sai otp
 
@@ -51,6 +54,7 @@ export default {
     },
 
     handleLogin: async (req, res) => {
+        const role = req.params.role;
         const { email, password } = req.body;
         const userdb = await userService.findByEmail(email);
 
@@ -61,6 +65,11 @@ export default {
             });
         }
         else if(!bcrypt.compareSync(password, userdb.password)) {
+            return res.render("vwlogin/login.hbs", {
+                err_message: "Invalid email or password.",
+                isDefault: true,
+            });
+        } else if (userdb.role_id !== role) {
             return res.render("vwlogin/login.hbs", {
                 err_message: "Invalid email or password.",
                 isDefault: true,
@@ -326,6 +335,7 @@ export default {
     },
 
     sendVerifyMail: async (req, res) => {
+        const role = req.params.role;
         req.session.userBuffer = req.body;
         const { email } = req.body;
 
@@ -358,12 +368,14 @@ export default {
 
             res.render('vwSignup/otp.hbs', {
                 isDefault: true,
-                email: email
+                email: email,
+                role: role
             });
         } else {
             res.render('vwSignup/signup', {
                 message: "Email is existed",
                 isDefault: true,
+                role: role
             });
         }
     }

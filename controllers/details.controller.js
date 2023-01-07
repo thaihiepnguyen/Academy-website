@@ -1,8 +1,5 @@
 import coursesService from "../services/courses.service.js";
 export default {
-
-
-
   findDetailOfCourse: async (req, res) => {
     //req.session.retUrl = req.originalUrl;
     const courseId = req.params.id;
