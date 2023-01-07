@@ -1,4 +1,9 @@
+{{#section '-css'}}
+    <link rel="stylesheet" href="/css/courses.css">
+{{/section}}
+
 <p class="h1">{{this.catName}}</p>
+
 <div class="d-flex is-flex-wrap-wrap">
     {{#if this.courses}}
         {{#each this.courses}}
@@ -9,9 +14,27 @@
                 </div>
                 <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title">{{name}}</h5>
+                    <h5 class="card-title font-weight-bold">{{name}}</h5>
                     <p class="card-text">{{tiny_des}}</p>
                     <p class="card-text"><small class="text-muted">{{last_modify}}</small></p>
+                    <div class="d-flex justify-content-between align-items-center w-100">
+                        <div style="display: flex">
+                            <div class="ratings">
+                                {{#each ratings}}
+                                    <small class="fa fa-star {{this}}"></small>
+                                {{/each}}
+                            </div>
+                            <small class="review-count">(0)</small>
+                        </div>
+                        <div>
+                            <!--                                like-->
+                            <i style="color: red; font-size:1.2rem" class="fa fa-heart"></i>
+                            <!--                                don't like-->
+                            <i style="display:none ;font-size:1.2rem" class="fa fa-heart"></i>
+                        </div>
+
+
+                    </div>
                 </div>
                 </div>
             </div>
@@ -20,9 +43,15 @@
         <form action="" method="get">
             <nav aria-label="...">
                 <ul class="pagination">
-                    <li class="page-item disabled">
-                        <span class="page-link">Previous</span>
-                    </li>
+                    {{#if isEnablePrevious}}
+                        <li class="page-item">
+                            <a class="page-link" href="/courses/search/?key={{isEnablePrevious.key}}&page={{isEnablePrevious.previous}}">Previous</a>
+                        </li>
+                        {{else}}
+                        <li class="page-item disabled">
+                            <span class="page-link">Previous</span>
+                        </li>
+                    {{/if}}
                     {{#each this.pageNumbers}}
                         {{#if isCurrent}}
                             <li class="page-item active" aria-current="page">
@@ -30,13 +59,19 @@
                             </li>
                         {{else}}
                             <li class="page-item">
-                                <a class="page-link" href="/courses/search/?key={{key}}&page={{value}}">{{value}}</a>
+                                <a class="page-link" href="/courses/search/?key={{key}}&page={{this.value}}">{{value}}</a>
                             </li>
                         {{/if}}
                     {{/each}}
-                    <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                    </li>
+                    {{# if isEnableNext}}
+                        <li class="page-item">
+                            <a class="page-link" href="/courses/search/?key={{isEnableNext.key}}&page={{isEnableNext.next}}">Next</a>
+                        </li>
+                        {{else}}
+                        <li class="page-item disabled">
+                            <span class="page-link">Next</span>
+                        </li>
+                    {{/if }}
                 </ul>
             </nav>
         </form>
