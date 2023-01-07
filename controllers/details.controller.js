@@ -1,13 +1,21 @@
 import coursesService from "../services/courses.service.js";
+import userService from "../services/user.service.js";
 export default {
   findDetailOfCourse: async (req, res) => {
     //req.session.retUrl = req.originalUrl;
     const courseId = req.params.id;
+    const user = res.locals.user;
 
     const data1 = await coursesService.findDetails(courseId);
     const reviews = await coursesService.getReviews(courseId);
     const isLogged = req.session.auth;
     const data2 = await coursesService.getClips(courseId);
+    const courses = await userService.checkCourseInWatchList(user.id, courseId);
+
+    if(courses.length > 0) {
+      courses.check = true;
+    }
+
     for (let i = 0; i < data2.length; i++) {
       data2[i].source = "/details/" + courseId + "/" + data2[i].id;
       console.log(data2[i].source);
@@ -32,8 +40,11 @@ export default {
       logged: isLogged,
       reviewsList: reviews,
       videosL: data2,
+      courses,
+      courseId
     });
   },
+
   sendReview: async (req, res) => {
     const { rate, reviewContent } = req.body;
     console.log(reviewContent);
@@ -45,6 +56,7 @@ export default {
     const url = "/details/" + courseId;
     res.redirect(url);
   },
+
   viewClip: async (req, res) => {
     const courseId = req.params.courseId;
     const videoId = req.params.videoId;
