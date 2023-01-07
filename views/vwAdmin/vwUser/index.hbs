@@ -1,39 +1,58 @@
-<div class="card">
-    <h4 class="card-header">
-        Manage Users
-        <a class="btn btn-sm btn-outline-primary" href="/admin/users/add" role="button">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-            Add Lecturer
-        </a>
-    </h4>
+<form method="post">
+    <div class="card">
+        <h4 class="card-header">
+            Manage Users
+            <a class="btn btn-sm btn-outline-primary" href="/admin/users/add" role="button">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                Add Lecturer
+            </a>
+        </h4>
 
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th class="text-center">#</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>&nbsp;</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each lcUsersRole}}
-            <tr>
-                <td scope="row" class="text-center">{{id}}</td>
-                <td>{{email}}</td>
-                <td>{{role}}</td>
-                <td class="text-right">
-                    <a class="btn btn-sm btn-primary" href="/admin/users/edit?id={{id}}"
-                        role="button" title="Edit">
-                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                    </a>
-                </td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center">#</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each lcUsersRole}}
+                <tr>
+                    <td scope="row" class="text-center">{{id}}</td>
+                    <td>{{email}}</td>
+                    <td>{{role}}</td>
+                    <td class="text-center">
 
-    <div class="card-footer text-muted">
-        Footer
+                        {{#if enable}}
+                        <button type="submit" class="btn btn-sm btn-primary btn-danger"
+                            formaction="/admin/users/lock/{{id}}">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                        </button>
+                        {{else}}
+                        <button type="submit" class="btn btn-sm btn-primary btn-success"
+                            formaction="/admin/users/unlock/{{id}}">
+                            <i class="fa fa-unlock" aria-hidden="true"></i>
+                        </button>
+                        {{/if}}
+
+
+                    </td>
+                    <td class="text-right">
+                        <a class="btn btn-sm btn-primary" href="/admin/users/edit?id={{id}}"
+                            role="button" title="Edit">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+        <div class="card-footer text-muted">
+            Footer
+        </div>
     </div>
-</div>
+</form>

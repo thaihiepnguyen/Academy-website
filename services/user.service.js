@@ -46,6 +46,12 @@ export default {
 		delete entity.id;
 		return db("users").where("id", id).update(entity);
 	},
+	lockUser: (id) => {
+		return db("users").where("id", id).update({ enable: 0 });
+	},
+	unlockUser: (id) => {
+		return db("users").where("id", id).update({ enable: 1 });
+	},
 
 	findWatchList: async (id) => {
 		const list = await db("watch_list").join("courses", "course_id", "id").where("user_id", id);

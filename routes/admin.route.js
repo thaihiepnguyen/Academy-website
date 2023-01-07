@@ -138,4 +138,12 @@ router.post("/users/del/:id", async function (req, res) {
 	const ret = await userModel.del(+req.params.id);
 	res.redirect(req.headers.referer);
 });
+router.post("/users/lock/:id", async function (req, res) {
+	await userModel.lockUser(+req.params.id);
+	res.redirect("/admin/users");
+});
+router.post("/users/unlock/:id", async function (req, res) {
+	await userModel.unlockUser(+req.params.id);
+	res.redirect(req.headers.referer);
+});
 export default router;
