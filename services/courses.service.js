@@ -28,6 +28,13 @@ export default {
     return list;
   },
   findDetails: async (idCourse) => {
+    const averageStar = await db("review")
+      .avg("rating")
+      .where({ course_id: idCourse });
+    //console.log(averageStar[0]["avg(`rating`)"]);
+    const updateStar = await db("courses")
+      .where({ id: idCourse })
+      .update({ rating: averageStar[0]["avg(`rating`)"] });
     const list = await db("courses")
       .select(
         "courses.thumbnail",
@@ -98,13 +105,7 @@ export default {
       comment: reviewContent,
       rating: ratingStar,
     });
-    const averageStar = await db("review")
-      .avg("rating")
-      .where({ course_id: idCourse });
-    //console.log(averageStar[0]["avg(`rating`)"]);
-    const updateStar = await db("courses")
-      .where({ id: idCourse })
-      .update({ rating: averageStar[0]["avg(`rating`)"] });
+
     return null;
   },
   getReviews: async (idCourse) => {
