@@ -1,7 +1,6 @@
 import userService from "../services/user.service.js";
 import bcrypt from "bcrypt";
 import multer from 'multer';
-import * as constants from "constants";
 
 export default {
     getLoginPage: (req, res) => {
@@ -24,30 +23,57 @@ export default {
             role_id: 1,
         };
 
-        const entity = await userService.findAll();
-        let isEmailExists = false;
+        const isEmailExists = await userService.findByEmail(user.email);
 
-        for (let item of entity) {
-            if (item.email === user.email) {
-                isEmailExists = true;
-            }
-        }
+        // if (isEmailExists == null) {
+        //     await userService.add(user);
+        //     res.render('vwSignup/otp.hbs', {
+        //         isDefault: true,
+        //         email: user.email
+        //     });
+        // } else {
+        //     res.render('vwSignup/signup', {
+        //         message: "Email is existed",
+        //         isDefault: true,
+        //     });
+        // }
 
-        if (!isEmailExists) {
-            await userService.add(user);
-            res.redirect('/account/login');
-        } else {
+        if (isEmailExists) {
             res.render('vwSignup/signup', {
                 message: "Email is existed",
                 isDefault: true,
             });
+            await userService.add(user);
+            res.render('vwSignup/otp.hbs', {
+                isDefault: true,
+                email: user.email
+            });
         }
+
+        const OTP =otpGenerator(6, {
+            digits: true,
+            lowerCaseAlphabets: false,
+            upperCaseAlphabets: false,
+            specialChars: false
+        })
+
+
     },
 
     getSignupPage: (req, res) => {
         res.render('vwSignup/signup.hbs', {
             isDefault: true,
         });
+    },
+
+    getOTPSignupPage: (req, res) => {
+        res.render('vwSignup/otp.hbs', {
+            isDefault: true,
+        });
+    },
+
+    handleOTPSignup: (req, res) => {
+
     },
 
     handleLogin: async (req, res) => {
@@ -122,6 +148,14 @@ export default {
 
         const {email, oldPassword, newPassword, repeatNewPassword} = req.body;
 
+        if(email == "" || oldPassword == "" ||repeatNewPassword == "") {
+            return res.render("vwProfile/account_security.hbs", {
+                activeProfileLayout: true,
+                active_sc: "active",
+                err_message: "You need to enter full box!"
+            });
+        }
+
         const userdb = await userService.findByEmail(email);
 
         if(newPassword != repeatNewPassword || !bcrypt.compareSync(oldPassword, userdb.password)) {
@@ -182,8 +216,30 @@ export default {
 
         return res.render("vwProfile/watch_list.hbs", {
             activeProfileLayout: true,
-            courses
+            courses,
         });
+    },
+
+    deleteWatchListPage: async (req, res) => {
+
+        const course_id = req.params.id;
+        const user_id = req.session.authUser.id;
+
+        await userService.deleteCourseInWatchList(user_id, course_id);
+
+        const url = req.headers.referer || '/';
+        res.redirect(url);
+    },
+
+    addWatchListPage: async (req, res) => {
+
+        const course_id = req.params.id;
+        const user_id = req.session.authUser.id;
+
+        await userService.addCourseInWatchList(user_id, course_id);
+
+        const url = req.headers.referer || '/';
+        res.redirect(url);
     },
 
     getRegisteredCoursesPage: async (req, res) => {
@@ -231,49 +287,60 @@ export default {
     },
 
     callbackGoogle: async (req, res) => {
+        // Successful authentication, redirect home.
+
         const { user } = req;
+
+        //console.log(user);
 
         const userdb = {
             ...req.body,
             email: user.emails[0].value,
-            firstname: user._json.name,
+            firstname: user.name.givenName,
             lastname: user.name.familyName,
             image: user.photos[0].value,
             role_id: 1,
         };
 
-        const userOfficial = await userService.findByEmail(userdb.email);
+        const isSignUp = await userService.findByEmail(userdb.email);
 
-
-        if(userOfficial == null) {
+        if(isSignUp == null) { // Check sign up
             await userService.add(userdb);
         }
+
         req.session.auth = true;
         req.session.authUser = await userService.findByEmail(userdb.email);
 
-        res.redirect('/');
+        const url = '/';
+        res.redirect(url);
     },
 
-    callbackFacebook: async (req, res) => {
+    callbackFacebook: async (req, res) => { // not working
         const { user } = req;
 
         const userdb = {
             ...req.body,
             email: user.emails[0].value,
             firstname: user._json.name,
-            lastname: user.name.familyName,
-            image: user.photos[0].value,
+            //lastname: user.name.familyName,
+            //image: user.photos[0].value,
             role_id: 1,
         };
 
-        const userOfficial = await userService.findByEmail(userdb.email);
+        const isSignUp = await userService.findByEmail(userdb.email);
 
 
-        if(userOfficial == null) {
+        if(isSignUp == null) { // Check sign up
             await userService.add(userdb);
         }
+
+        const userOfficial = userService.findByEmail(userdb.email);
+
+
         req.session.auth = true;
-        req.session.authUser = await userService.findByEmail(userdb.email);
+        req.session.authUser = userOfficial;
+
+        req.session.auth = true;
 
         res.redirect('/');
     },

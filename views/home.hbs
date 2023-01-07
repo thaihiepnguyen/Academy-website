@@ -26,13 +26,18 @@
                                 <small class="review-count">(0)</small>
                             </div>
                             <div>
-<!--                                like-->
-                                <i style="color: red; font-size:1.2rem" class="fa fa-heart"></i>
-<!--                                don't like-->
-                                <i style="display:none ;font-size:1.2rem" class="fa fa-heart"></i>
+                                {{#if check}}
+                                    <!--                                like-->
+                                    <form action="/account/watch_list/delete/{{id}}" method="post">
+                                        <button style="color: red; font-size:1.2rem; border: none; background-color: #ffffff" class="fa fa-heart" type="submit"  value="{{id}}"></button>
+                                    </form>
+                                {{else}}
+                                    <!--                                don't like-->
+                                <form action="/account/watch_list/add/{{id}}" method="post">
+                                    <button style="font-size:1.2rem; border: none; background-color: #ffffff" class="fa fa-heart" type="submit"  value="{{id}}"></button>
+                                </form>
+                                {{/if}}
                             </div>
-
-
                         </div>
                     </div>
                     <p class="font-weight-bold">{{format_number this.price}} VND</p>

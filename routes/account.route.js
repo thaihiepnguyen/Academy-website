@@ -20,6 +20,10 @@ router.get('/signup', accountController.getSignupPage);
 
 router.post('/signup', accountController.handleSignup);
 
+router.get('/signup/otp', accountController.getOTPSignupPage);
+
+router.post('/signup/otp', accountController.handleOTPSignup);
+
 router.post('/login', accountController.handleLogin);
 
 router.post('/logout', accountController.handleLogout);
@@ -37,6 +41,10 @@ router.get('/photo', authWithRequiredPermission(0), accountController.getPhotoPa
 router.post('/photo', authWithRequiredPermission(0), accountController.uploadPhoto);
 
 router.get('/watch_list', authWithRequiredPermission(0), accountController.getWatchListPage);
+
+router.post('/watch_list/delete/:id', authWithRequiredPermission(0), accountController.deleteWatchListPage);
+
+router.post('/watch_list/add/:id', authWithRequiredPermission(0), accountController.addWatchListPage);
 
 router.get('/registered_courses', authWithRequiredPermission(0), accountController.getRegisteredCoursesPage);
 
