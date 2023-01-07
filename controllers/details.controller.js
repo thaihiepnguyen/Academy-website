@@ -7,6 +7,7 @@ export default {
     const reviews = await coursesService.getReviews(courseId);
     const isLogged = req.session.auth;
     const data2 = await coursesService.getClips(courseId);
+    const highestCourses = await coursesService.findHigestCourse(courseId);
     let data3 = null;
     if (res.locals.user != null) {
       data3 = await coursesService.rollInThis(res.locals.user.id, courseId);

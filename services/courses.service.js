@@ -51,6 +51,14 @@ export default {
 
     return list;
   },
+  findHigestCourse: async (idCourse) => {
+    const getCategory = await db("courses")
+      .select("category_id")
+      .where({ id: idCourse });
+    //console.log(getCategory[0]["category_id"]);
+    const fiveCategory = await db("courses").select("")
+    return null;
+  },
   unrollInCourse: async (userID, idCourse) => {
     const deleteRecord = await db("registered_courses")
       .where({
