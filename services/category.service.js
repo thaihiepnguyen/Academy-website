@@ -21,8 +21,10 @@ export default {
 	add(entity) {
 		return db("categories").insert(entity);
 	},
-	del(id) {
-		return db("categories").where("id", id).del();
+	async del(id) {
+		await db("topics").where("field_id", id).del();
+
+		return await db("categories").where("id", id).del();
 	},
 	patch(entity) {
 		const id = entity.id;

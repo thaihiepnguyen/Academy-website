@@ -5,6 +5,7 @@ import adminController from "../controllers/admin.controller.js";
 import categoryModel from "../services/category.service.js";
 import courseModel from "../services/courses.service.js";
 import userModel from "../services/user.service.js";
+import { Console } from "console";
 
 const router = express.Router();
 //=================================================MANAGE CATEGORY=================================================
@@ -40,9 +41,14 @@ router.get("/categories/edit", async function (req, res) {
 		category,
 	});
 });
-router.post("/categories/del", async function (req, res) {
-	const id = req.body.id || 0;
+router.post("/categories/del/:id", async function (req, res) {
+	const idRaw = req.params.id || 0;
+	console.log(typeof idRaw);
+
+	const id = parseInt(idRaw);
 	const courseList = await courseModel.findByCatId(id);
+
+	console.log(courseList);
 	req.session.flag = false;
 	if (courseList === null) {
 		const ret = await categoryModel.del(id);
@@ -83,7 +89,6 @@ router.get("/users/add", function (req, res) {
 	});
 });
 router.post("/users/add", async function (req, res) {
-	//const ret = await userModel.add(req.body);
 	const rawPassword = req.body.password;
 	const salt = bcrypt.genSaltSync(10);
 	const hash = bcrypt.hashSync(rawPassword, salt);
@@ -108,14 +113,29 @@ router.post("/users/add", async function (req, res) {
 			activeTagbarLayout: true,
 		});
 	} else {
-		// res.render("vwSignup/signup", {
-		// 	message: "Email is existed",
-		// 	isDefault: true,
-		// });
-
 		req.session.err_message = "Email is existed.";
 		req.session.flag = true;
 		res.redirect(req.headers.referer);
 	}
+});
+router.get("/users/edit", async function (req, res) {
+	const id = req.query.id || 0;
+	const User = await userModel.findById(id);
+
+	if (User === null) {
+		return res.redirect("/admin/users");
+	}
+	res.render("vwAdmin/vwUser/edit", {
+		activeTagbarLayout: true,
+		User,
+	});
+});
+router.post("/users/patch", async function (req, res) {
+	const ret = await userModel.patch(req.body);
+	res.redirect("/admin/users");
+});
+router.post("/users/del/:id", async function (req, res) {
+	const ret = await userModel.del(+req.params.id);
+	res.redirect(req.headers.referer);
 });
 export default router;

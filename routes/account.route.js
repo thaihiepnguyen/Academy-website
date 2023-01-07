@@ -18,7 +18,9 @@ router.get('/login', accountController.getLoginPage);
 
 router.get('/signup', accountController.getSignupPage);
 
-router.post('/signup', accountController.handleSignup);
+router.post('/signup', accountController.sendVerifyMail);
+
+router.post('/signup/otp', accountController.handleSignup);
 
 router.get('/signup/otp', accountController.getOTPSignupPage);
 
@@ -57,5 +59,7 @@ router.get('/google/callback', passportGoogle.authenticate('google', { failureRe
 router.get('/facebook', passportFacebook.authenticate('facebook',{scope:'email'}));
 
 router.get('/facebook/callback', passportFacebook.authenticate('facebook', { failureRedirect: '/login' }), accountController.callbackFacebook);
+
+
 
 export default router;
