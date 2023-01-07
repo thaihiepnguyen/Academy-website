@@ -83,7 +83,6 @@ router.get("/users/add", function (req, res) {
 	});
 });
 router.post("/users/add", async function (req, res) {
-	//const ret = await userModel.add(req.body);
 	const rawPassword = req.body.password;
 	const salt = bcrypt.genSaltSync(10);
 	const hash = bcrypt.hashSync(rawPassword, salt);
@@ -108,14 +107,26 @@ router.post("/users/add", async function (req, res) {
 			activeTagbarLayout: true,
 		});
 	} else {
-		// res.render("vwSignup/signup", {
-		// 	message: "Email is existed",
-		// 	isDefault: true,
-		// });
-
 		req.session.err_message = "Email is existed.";
 		req.session.flag = true;
 		res.redirect(req.headers.referer);
 	}
 });
+router.get("/users/edit", async function (req, res) {
+	const id = req.query.id || 0;
+	const User = await userModel.findById(id);
+
+	if (User === null) {
+		return res.redirect("/admin/users");
+	}
+	res.render("vwAdmin/vwUser/edit", {
+		activeTagbarLayout: true,
+		User,
+	});
+});
+router.post("/users/patch", async function (req, res) {
+	const ret = await userModel.patch(req.body);
+	res.redirect("/admin/users");
+});
+
 export default router;

@@ -43,7 +43,7 @@ export default {
 
 	patch: (entity) => {
 		const id = entity.id;
-		//delete entity.id;
+		delete entity.id;
 		return db("users").where("id", id).update(entity);
 	},
 
