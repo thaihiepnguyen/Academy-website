@@ -1,4 +1,32 @@
-<form method="post">
+{{#section "js"}}
+<script>
+    $('#frmRegister').on('submit', function (e) {
+        e.preventDefault();
+
+        const email = $('#txtEmail').val();
+        if (email.length === 0) {
+            alert('Please input a valid email.');
+            return;
+        }
+        $('#frmRegister').off('submit').submit();
+
+    });
+
+</script>
+{{/section}}
+
+
+
+{{#if flag}}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Add Lecturer failed!</strong> {{err_message}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{{/if}}
+
+<form id="frmRegister" method="post">
     <div class="card">
         <h4 class="card-header">
             New Lecturer
