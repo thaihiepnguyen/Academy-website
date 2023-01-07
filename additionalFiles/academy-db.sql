@@ -276,8 +276,8 @@ CREATE TABLE `video` (
   `time` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO `video`(`id`, `course_id`, `thumbnail`, `source`, `name`, `type`, `time`) VALUES
-(0,6, 'https://i.insider.com/602ee9e3d3ad27001837f2af?width=1200&format=jpeg', 'https://drive.google.com/file/d/1He5zXduec-59InN7fgujwIBGGgQKpufF/view?usp=share_link', 'Rick roll 1', 'mp4', '3:32'),
-(1,6, 'https://i.insider.com/602ee9e3d3ad27001837f2af?width=1200&format=jpeg', 'https://drive.google.com/file/d/1He5zXduec-59InN7fgujwIBGGgQKpufF/view?usp=share_link', 'Rick roll 2', 'mp4', '3:32');
+(0,6, 'https://i.insider.com/602ee9e3d3ad27001837f2af?width=1200&format=jpeg', 'https://drive.google.com/file/d/1He5zXduec-59InN7fgujwIBGGgQKpufF/preview', 'Rick roll 1', 'mp4', '3:32'),
+(1,6, 'https://i.insider.com/602ee9e3d3ad27001837f2af?width=1200&format=jpeg', 'https://drive.google.com/file/d/1He5zXduec-59InN7fgujwIBGGgQKpufF/preview', 'Rick roll 2', 'mp4', '3:32');
 -- --------------------------------------------------------
 
 --
