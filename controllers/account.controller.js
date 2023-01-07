@@ -363,17 +363,16 @@ export default {
 			});
 		}
 	},
-};
-    getLoginPage: (req, res) => {
-        const role = req.params.role;
-        res.render('vwlogin/login.hbs', {
-            isDefault: true,
-            role: role
-        });
-    },
+	getLoginPage: (req, res) => {
+		const role = req.params.role;
+		res.render("vwlogin/login.hbs", {
+			isDefault: true,
+			role: role,
+		});
+	},
 
 	handleSignup: async (req, res) => {
-        const role = req.params.role;
+		const role = req.params.role;
 		const rawPass = req.session.userBuffer.password;
 		const salt = bcrypt.genSaltSync(10);
 		const hash = bcrypt.hashSync(rawPass, salt);
@@ -383,7 +382,7 @@ export default {
 			otp += req.body[index];
 		}
 
-        let otpRaw = parseInt(otp);
+		let otpRaw = parseInt(otp);
 
 		if (otpRaw === req.session.otp) {
 			// đăng ký thành công
@@ -393,7 +392,7 @@ export default {
 				role_id: role,
 			};
 
-            await userService.add(user);
+			await userService.add(user);
 
 			res.redirect("/account/login/" + role);
 		} else {
@@ -414,7 +413,7 @@ export default {
 	},
 
 	handleLogin: async (req, res) => {
-        const role = req.params.role;
+		const role = req.params.role;
 		const { email, password } = req.body;
 		const userdb = await userService.findByEmail(email);
 
@@ -424,11 +423,11 @@ export default {
 				isDefault: true,
 			});
 		} else if (!bcrypt.compareSync(password, userdb.password)) {
-            return res.render("vwlogin/login.hbs", {
-                err_message: "Invalid email or password.",
-                isDefault: true,
-            });
-        } else if (userdb.role_id !== role) {
+			return res.render("vwlogin/login.hbs", {
+				err_message: "Invalid email or password.",
+				isDefault: true,
+			});
+		} else if (userdb.role_id !== role) {
 			return res.render("vwlogin/login.hbs", {
 				err_message: "Invalid email or password.",
 				isDefault: true,
@@ -442,33 +441,33 @@ export default {
 			req.session.auth = true;
 			req.session.authUser = userdb;
 
-            const url = '/';
-            res.redirect(url);
-        }
-    },
+			const url = "/";
+			res.redirect(url);
+		}
+	},
 
-    getHomeProfilePage: (req, res) => {
-        res.locals.active_pf = "active";
-        res.render('vwProfile/public_profile.hbs', {
-            activeProfileLayout: true,
-        });
-    },
+	getHomeProfilePage: (req, res) => {
+		res.locals.active_pf = "active";
+		res.render("vwProfile/public_profile.hbs", {
+			activeProfileLayout: true,
+		});
+	},
 
-    editUserProfile:async (req, res) => {
-        const user = res.locals.user;
+	editUserProfile: async (req, res) => {
+		const user = res.locals.user;
 
-        const {email, firstname, lastname} = req.body;
+		const { email, firstname, lastname } = req.body;
 
-        const changedUser = {
-            email: email,
-            firstname: firstname,
-            lastname: lastname,
-            id: user.id,
-        };
+		const changedUser = {
+			email: email,
+			firstname: firstname,
+			lastname: lastname,
+			id: user.id,
+		};
 
-        await userService.patch(changedUser);
+		await userService.patch(changedUser);
 
-        const updatedUser = await userService.findById(user.id);
+		const updatedUser = await userService.findById(user.id);
 
 		req.session.authUser = updatedUser;
 		res.locals.user = updatedUser;
@@ -617,8 +616,8 @@ export default {
 		req.session.auth = true;
 		req.session.authUser = await userService.findByEmail(userdb.email);
 
-        res.redirect('/');
-    },
+		res.redirect("/");
+	},
 
 	callbackFacebook: async (req, res) => {
 		const { user } = req;
@@ -691,7 +690,7 @@ export default {
 	},
 
 	sendVerifyMail: async (req, res) => {
-        const role = req.params.role;
+		const role = req.params.role;
 		req.session.userBuffer = req.body;
 		const { email } = req.body;
 
@@ -722,17 +721,17 @@ export default {
 				text: `${code}`, // plain text body
 			});
 
-            res.render('vwSignup/otp.hbs', {
-                isDefault: true,
-                email: email,
-                role: role
-            });
-        } else {
-            res.render('vwSignup/signup', {
-                message: "Email is existed",
-                isDefault: true,
-                role: role
-            });
-        }
-    }
-}
+			res.render("vwSignup/otp.hbs", {
+				isDefault: true,
+				email: email,
+				role: role,
+			});
+		} else {
+			res.render("vwSignup/signup", {
+				message: "Email is existed",
+				isDefault: true,
+				role: role,
+			});
+		}
+	},
+};
