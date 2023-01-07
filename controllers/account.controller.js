@@ -69,7 +69,7 @@ export default {
                 err_message: "Invalid email or password.",
                 isDefault: true,
             });
-        } else if (userdb.role_id !== role) {
+        } else if (userdb.role_id != role) {
             return res.render("vwlogin/login.hbs", {
                 err_message: "Invalid email or password.",
                 isDefault: true,
@@ -193,6 +193,28 @@ export default {
             activeProfileLayout: true,
             courses
         });
+    },
+
+    deleteWatchListPage: async (req, res) => {
+
+        const course_id = req.params.id;
+        const user_id = req.session.authUser.id;
+
+        await userService.deleteCourseInWatchList(user_id, course_id);
+
+        const url = req.headers.referer || '/';
+        res.redirect(url);
+    },
+
+    addWatchListPage: async (req, res) => {
+
+        const course_id = req.params.id;
+        const user_id = req.session.authUser.id;
+
+        await userService.addCourseInWatchList(user_id, course_id);
+
+        const url = req.headers.referer || '/';
+        res.redirect(url);
     },
 
     getRegisteredCoursesPage: async (req, res) => {

@@ -40,6 +40,10 @@ router.post('/photo', authWithRequiredPermission(0), accountController.uploadPho
 
 router.get('/watch_list', authWithRequiredPermission(0), accountController.getWatchListPage);
 
+router.post('/watch_list/delete/:id', authWithRequiredPermission(0), accountController.deleteWatchListPage);
+
+router.post('/watch_list/add/:id', authWithRequiredPermission(0), accountController.addWatchListPage);
+
 router.get('/registered_courses', authWithRequiredPermission(0), accountController.getRegisteredCoursesPage);
 
 router.get('/logout', authWithRequiredPermission(0), accountController.getLogOutPage);
