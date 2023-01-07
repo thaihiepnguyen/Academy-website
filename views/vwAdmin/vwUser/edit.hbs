@@ -26,9 +26,28 @@
                     value="{{this.User.email}}" autofocus placeholder="example@gmail.com" />
             </div>
             <div class="form-group">
-                <label for="txtRole">Role: (1-Học viên / 2-Giảng viên)</label>
-                <input name="role" type="text" class="form-control" id="txtRole"
-                    value="{{this.User.role_id}}" autofocus placeholder="role" />
+                <label for="txtRole">Role: </label>
+                {{!-- <input name="role" type="text" class="form-control" id="txtRole"
+                    value="{{this.User.role_id}}" autofocus placeholder="role" /> --}}
+
+
+                <select class="custom-select custom-select-medium" id="txtRole" name="role_id">
+                    {{#if (isEqual this.User.role_id 1) }}
+                    <option value="1" selected>Student</option>
+                    <option value="2">Lecturer</option>
+                    <option value="3">Administrator</option>
+                    {{/if}}
+                    {{#if (isEqual this.User.role_id 2) }}
+                    <option value="1">Student</option>
+                    <option value="2" selected>Lecturer</option>
+                    <option value="3">Administrator</option>
+                    {{/if}}
+                    {{#if (isEqual this.User.role_id 3) }}
+                    <option value="1">Student</option>
+                    <option value="2">Lecturer</option>
+                    <option value="3" selected>Administrator</option>
+                    {{/if}}
+                </select>
             </div>
         </div>
 
@@ -37,7 +56,8 @@
                 <i class="fa fa-backward" aria-hidden="true"></i>
                 List
             </a>
-            <button type="submit" class="btn btn-danger" formaction="/admin/categories/del">
+            <button type="submit" class="btn btn-danger"
+                formaction="/admin/users/del/{{this.User.id}}">
                 <i class="fa fa-trash" aria-hidden="true"></i>
                 Delete
             </button>

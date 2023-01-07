@@ -5,6 +5,7 @@ import adminController from "../controllers/admin.controller.js";
 import categoryModel from "../services/category.service.js";
 import courseModel from "../services/courses.service.js";
 import userModel from "../services/user.service.js";
+import { Console } from "console";
 
 const router = express.Router();
 //=================================================MANAGE CATEGORY=================================================
@@ -40,9 +41,14 @@ router.get("/categories/edit", async function (req, res) {
 		category,
 	});
 });
-router.post("/categories/del", async function (req, res) {
-	const id = req.body.id || 0;
+router.post("/categories/del/:id", async function (req, res) {
+	const idRaw = req.params.id || 0;
+	console.log(typeof idRaw);
+
+	const id = parseInt(idRaw);
 	const courseList = await courseModel.findByCatId(id);
+
+	console.log(courseList);
 	req.session.flag = false;
 	if (courseList === null) {
 		const ret = await categoryModel.del(id);
@@ -128,5 +134,8 @@ router.post("/users/patch", async function (req, res) {
 	const ret = await userModel.patch(req.body);
 	res.redirect("/admin/users");
 });
-
+router.post("/users/del/:id", async function (req, res) {
+	const ret = await userModel.del(+req.params.id);
+	res.redirect(req.headers.referer);
+});
 export default router;
