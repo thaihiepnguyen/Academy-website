@@ -11,6 +11,8 @@ router.get("/search/", productController.fullTextSearch);
 //router.post('/search', productController.fullTextSearch);
 router.get("/:id", detailsController.findDetailOfCourse);
 
+router.get("/:courseId/:videoId", detailsController.viewClip);
+
 router.post("/:id", detailsController.sendReview);
 router.post("/add/:id", async function (req, res) {
   //console.log("lol");

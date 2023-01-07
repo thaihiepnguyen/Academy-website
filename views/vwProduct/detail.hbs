@@ -146,8 +146,39 @@
       </div>
       <div class="col">
         <text class="importanceBlue">Videos</text>
-        {{#each videosL}}
-          <a href={{this.source}} style="text-decoration: none">
+        {{#if basicInfo.0.enrolled}}
+          {{#each videosL}}
+            <a href={{this.source}} style="text-decoration: none;">
+              <div class="row">
+                <div class="col">
+                  <img src={{this.thumbnail}} />
+                </div>
+                <div class="col">
+                  {{#if this.free}}
+                    <div style="margin-top:15%; height: 100%;">
+                      <div style="color: #2638D8; font-weight:bold">Free</div>
+                      <b>{{this.name}}</b>
+                      <br />
+                      <div
+                        style="color: #7EB0C6; font-weight: bold;"
+                      >{{this.time}}</div>
+                    </div>
+                  {{else}}
+                    <div style="margin-top:17%; height: 100%;">
+                      <b>{{this.name}}</b>
+                      <br />
+                      <div
+                        style="color: #7EB0C6; font-weight: bold;"
+                      >{{this.time}}</div>
+                    </div>
+                  {{/if}}
+                </div>
+              </div>
+              <br />
+            </a>
+          {{/each}}
+        {{else}}
+          {{#each videosL}}
             <div class="row">
               <div class="col">
                 <img src={{this.thumbnail}} />
@@ -174,8 +205,9 @@
               </div>
             </div>
             <br />
-          </a>
-        {{/each}}
+          {{/each}}
+        {{/if}}
+
       </div>
     </div>
 
@@ -219,10 +251,7 @@
     {{else}}
       <div class="row">
         <div class="col-1">
-          <img
-            src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp"
-            class="img-thumbnail"
-          />
+          <img src={{user.image}} class="img-thumbnail" />
         </div>
         <div class="col-11">
           <form method="post">

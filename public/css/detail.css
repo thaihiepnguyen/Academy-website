@@ -5,7 +5,7 @@
 }
 .rate:not(:checked) > input {
     position:absolute;
-    
+    top: -9999999px;
 }
 .rate:not(:checked) > label {
     float:right;

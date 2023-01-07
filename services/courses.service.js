@@ -34,7 +34,7 @@ export default {
     //console.log(averageStar[0]["avg(`rating`)"]);
     const updateStar = await db("courses")
       .where({ id: idCourse })
-      .update({ rating: averageStar[0]["avg(`rating`)"] });
+      .update({ rating: Math.round(averageStar[0]["avg(`rating`)"]) });
     const list = await db("courses")
       .select(
         "courses.thumbnail",
@@ -57,6 +57,13 @@ export default {
     }
 
     return list;
+  },
+  findVideoForCourse: async (courseID, videoID) => {
+    const thisVideo = await db("video")
+      .select("source", "name")
+      .where({ course_id: courseID, id: videoID });
+    //console.log(videoLink[0]["source"]);
+    return thisVideo;
   },
   unrollInCourse: async (userID, idCourse) => {
     const deleteRecord = await db("registered_courses")
@@ -126,7 +133,8 @@ export default {
         "video.source",
         "video.name",
         "video.type",
-        "video.time"
+        "video.time",
+        "video.id"
       )
       .where({ "video.course_id": idCourse });
     if (list2.length === 0) {

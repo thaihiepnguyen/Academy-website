@@ -7,6 +7,10 @@ export default {
     const reviews = await coursesService.getReviews(courseId);
     const isLogged = req.session.auth;
     const data2 = await coursesService.getClips(courseId);
+    for (let i = 0; i < data2.length; i++) {
+      data2[i].source = "/details/" + courseId + "/" + data2[i].id;
+      console.log(data2[i].source);
+    }
     let data3 = null;
     if (res.locals.user != null) {
       data3 = await coursesService.rollInThis(res.locals.user.id, courseId);
@@ -17,7 +21,7 @@ export default {
     }
     console.log(show);
     let ratings = [false, false, false, false, false];
-    for (let j = 0; j < Math.round(data1[0].rating); j++) {
+    for (let j = 0; j < data1[0].rating; j++) {
       ratings[j] = true;
     }
     data1[0].stars = ratings;
@@ -41,5 +45,18 @@ export default {
     // const url = "http://localhost:3000" + "/details/" + courseId;
     const url = "/details/" + courseId;
     res.redirect(url);
+  },
+  viewClip: async (req, res) => {
+    const courseId = req.params.courseId;
+    const videoId = req.params.videoId;
+    const thisVideo = await coursesService.findVideoForCourse(
+      courseId,
+      videoId
+    );
+    console.log(thisVideo);
+    res.render("vwProduct/viewClip.hbs", {
+      isDefault: true,
+      videoData: thisVideo,
+    });
   },
 };
