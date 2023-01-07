@@ -3,12 +3,23 @@
 <head>
     <meta charset="UTF-8" />
     <title>E-Commerce Application (20KTPMC)</title>
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
-          crossorigin="anonymous">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="/css/dropdown.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
+
+    {{{_sections.profile}}}
     {{{_sections.login-css}}}
     {{{_sections.profile}}}
     {{{_sections.signup-css}}}
@@ -18,7 +29,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="/css/dropdown.css">
 
-
+    {{{_sections.detail-css}}}
     <style>
         body {
             font-family: "Poppins", Arial, sans-serif;
@@ -59,7 +70,7 @@
     />
 </head>
 
-<body>
+  <body>
 
 <nav class="navbar shadow p-3 mb-5 bg-white rounded header-nav" role="navigation" style="max-height: 80px;"
      aria-label="main navigation">
@@ -83,14 +94,14 @@
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
         </a>
-    </div>
+      </div>
 
     <div id="navbarBasicExample" class="navbar-menu" style="width: 80%">
         <div class="navbar-start">
 
-            <a class="navbar-item text-decoration-none" href="/">
-                Home
-            </a>
+          <a class="navbar-item text-decoration-none" href="/">
+            Home
+          </a>
 
             <div
                     class="navbar-item has-dropdown is-hoverable text-decoration-none"
@@ -120,8 +131,8 @@
                         {{/each}}
                     </li>
 
-                </div>
             </div>
+          </div>
 
             <div class="level-item" style="margin-left: 30px">
                 <form action="/courses/search/" method="get" style="margin-bottom: 0; margin-top: 5px">
@@ -139,10 +150,10 @@
                                 <i class="fa fa-search" aria-hidden="true"></i>
                             </button>
 
-                        </p>
-                    </div>
-                </form>
-            </div>
+                </p>
+              </div>
+            </form>
+          </div>
 
         </div>
 
@@ -221,8 +232,8 @@
                 {{/if}}
             </div>
         </div>
-    </div>
-</nav>
+      </div>
+    </nav>
 
 {{#if this.activeSliderLayout}}
     <div
@@ -281,50 +292,50 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </button>
-    </div>
+      </div>
 
-{{/if}}
+    {{/if}}
 
-{{#if this.activeTagbarLayout}}
-    <div style="margin: 60px">
+    {{#if this.activeTagbarLayout}}
+      <div style="margin: 60px">
         <div class="container-fluid margin-top-100">
-            <div class="row">
-                <div class="col-sm-3">
-                    <div class="card mb-3">
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="card mb-3">
 
                         <h4 class="card-header">
                             Categories
                         </h4>
                         <ul class="list-group list-group-flush">
 
-                            {{#each topic}}
-                                <li class="list-group-item">{{name}}</li>
-                            {{/each}}
-                        </ul>
-                    </div>
-                    <div class="card">
-                        <h4 class="card-header">
-                            Featured
-                        </h4>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">An item</li>
-                            <li class="list-group-item">A second item</li>
-                            <li class="list-group-item">A third item</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-9">
-                    {{{body}}}
-                </div>
+                  {{#each topic}}
+                    <li class="list-group-item">{{name}}</li>
+                  {{/each}}
+                </ul>
+              </div>
+              <div class="card">
+                <h4 class="card-header">
+                  Featured
+                </h4>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">An item</li>
+                  <li class="list-group-item">A second item</li>
+                  <li class="list-group-item">A third item</li>
+                </ul>
+              </div>
             </div>
+            <div class="col-sm-9">
+              {{{body}}}
+            </div>
+          </div>
         </div>
-    </div>
-{{/if}}
+      </div>
+    {{/if}}
 
-{{#if this.activeProfileLayout}}
-    <div class="wrapper d-flex align-items-stretch">
+    {{#if this.activeProfileLayout}}
+      <div class="wrapper d-flex align-items-stretch">
         <nav id="sidebar">
-            <div class="p-4 pt-5">
+          <div class="p-4 pt-5">
 
                 <a
                         href="#"
@@ -365,12 +376,12 @@
 
         <!-- Page Content  -->
         <div id="content" class="p-4 p-md-5">
-            <div class="content">
-                {{{body}}}
-            </div>
+          <div class="content">
+            {{{body}}}
+          </div>
         </div>
-    </div>>
-{{/if}}
+      </div>>
+    {{/if}}
 
 {{#if isDefault}}
     {{{body}}}

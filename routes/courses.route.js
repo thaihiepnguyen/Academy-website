@@ -12,6 +12,37 @@ router.get('/detail/:id', coursesController.getDetailPage);
 //router.post('/search', productController.fullTextSearch);
 router.get("/:id", detailsController.findDetailOfCourse);
 
-router.post("/:id", detailsController.sendReview);
+router.get("/:courseId/:videoId", detailsController.viewClip);
 
+router.post("/:id", detailsController.sendReview);
+router.post("/add/:id", async function (req, res) {
+  //console.log("lol");
+  if (res.locals.user != null) {
+    const courseId = req.params.id;
+    const userId = res.locals.user.id;
+    coursesService.rollInCourse(userId, courseId);
+    const url = "/details/" + courseId;
+    res.redirect(url);
+  } else {
+    const courseId = req.params.id;
+    //coursesService.rollInCourse(userId, courseId);
+    const url = "/details/" + courseId;
+    res.redirect(url);
+  }
+});
+router.post("/del/:id", async function (req, res) {
+  //console.log("lol");
+  if (res.locals.user != null) {
+    const courseId = req.params.id;
+    const userId = res.locals.user.id;
+    coursesService.unrollInCourse(userId, courseId);
+    const url = "/details/" + courseId;
+    res.redirect(url);
+  } else {
+    const courseId = req.params.id;
+    //coursesService.rollInCourse(userId, courseId);
+    const url = "/details/" + courseId;
+    res.redirect(url);
+  }
+});
 export default router;

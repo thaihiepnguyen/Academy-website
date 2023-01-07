@@ -47,6 +47,13 @@ export default {
     return list;
   },
   findDetails: async (idCourse) => {
+    const averageStar = await db("review")
+      .avg("rating")
+      .where({ course_id: idCourse });
+    //console.log(averageStar[0]["avg(`rating`)"]);
+    const updateStar = await db("courses")
+      .where({ id: idCourse })
+      .update({ rating: Math.round(averageStar[0]["avg(`rating`)"]) });
     const list = await db("courses")
       .select(
         "courses.thumbnail",
@@ -70,12 +77,61 @@ export default {
 
     return list;
   },
-  sendReviews: async (userID, idCourse, reviewContent) => {
+  findVideoForCourse: async (courseID, videoID) => {
+    const thisVideo = await db("video")
+      .select("source", "name")
+      .where({ course_id: courseID, id: videoID });
+    //console.log(videoLink[0]["source"]);
+    return thisVideo;
+  },
+  unrollInCourse: async (userID, idCourse) => {
+    const deleteRecord = await db("registered_courses")
+      .where({
+        "registered_courses.user_id": userID,
+        "registered_courses.course_id": idCourse,
+      })
+      .del();
+    const numberEnrolled = await db("registered_courses")
+      .count(`user_id`)
+      .where({ course_id: idCourse });
+    const updateEnrolled = await db("courses")
+      .where({ id: idCourse })
+      .update({ enrolled: numberEnrolled[0]["count(`user_id`)"] });
+  },
+  rollInCourse: async (userID, idCourse) => {
+    const list = await db("registered_courses").insert({
+      user_id: userID,
+      course_id: idCourse,
+    });
+    const numberEnrolled = await db("registered_courses")
+      .count(`user_id`)
+      .where({ course_id: idCourse });
+    const updateEnrolled = await db("courses")
+      .where({ id: idCourse })
+      .update({ enrolled: numberEnrolled[0]["count(`user_id`)"] });
+    return null;
+  },
+  rollInThis: async (userID, idCourse) => {
+    const list = await db("registered_courses")
+      .select("registered_courses.user_id", "registered_courses.course_id")
+      .where({
+        "registered_courses.user_id": userID,
+        "registered_courses.course_id": idCourse,
+      });
+    if (list.length === 0) {
+      return null;
+    }
+
+    return list;
+  },
+  sendReviews: async (userID, idCourse, reviewContent, ratingStar) => {
     const list = await db("review").insert({
       user_id: userID,
       course_id: idCourse,
       comment: reviewContent,
+      rating: ratingStar,
     });
+
     return null;
   },
   getReviews: async (idCourse) => {
@@ -96,7 +152,8 @@ export default {
         "video.source",
         "video.name",
         "video.type",
-        "video.time"
+        "video.time",
+        "video.id"
       )
       .where({ "video.course_id": idCourse });
     if (list2.length === 0) {
