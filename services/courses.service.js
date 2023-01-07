@@ -51,14 +51,6 @@ export default {
 
     return list;
   },
-  findHigestCourse: async (idCourse) => {
-    const getCategory = await db("courses")
-      .select("category_id")
-      .where({ id: idCourse });
-    //console.log(getCategory[0]["category_id"]);
-    const fiveCategory = await db("courses").select("")
-    return null;
-  },
   unrollInCourse: async (userID, idCourse) => {
     const deleteRecord = await db("registered_courses")
       .where({
@@ -99,12 +91,20 @@ export default {
 
     return list;
   },
-  sendReviews: async (userID, idCourse, reviewContent) => {
+  sendReviews: async (userID, idCourse, reviewContent, ratingStar) => {
     const list = await db("review").insert({
       user_id: userID,
       course_id: idCourse,
       comment: reviewContent,
+      rating: ratingStar,
     });
+    const averageStar = await db("review")
+      .avg("rating")
+      .where({ course_id: idCourse });
+    //console.log(averageStar[0]["avg(`rating`)"]);
+    const updateStar = await db("courses")
+      .where({ id: idCourse })
+      .update({ rating: averageStar[0]["avg(`rating`)"] });
     return null;
   },
   getReviews: async (idCourse) => {
