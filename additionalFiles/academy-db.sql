@@ -273,11 +273,12 @@ CREATE TABLE `video` (
   `source` varchar(100) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
-  `time` int(11) DEFAULT NULL
+  `time` int(11) DEFAULT NULL,
+  `free` boolean DEFAULT false
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO `video`(`id`, `course_id`, `thumbnail`, `source`, `name`, `type`, `time`) VALUES
-(0,6, 'https://i.insider.com/602ee9e3d3ad27001837f2af?width=1200&format=jpeg', 'https://drive.google.com/file/d/1He5zXduec-59InN7fgujwIBGGgQKpufF/preview', 'Rick roll 1', 'mp4', '3:32'),
-(1,6, 'https://i.insider.com/602ee9e3d3ad27001837f2af?width=1200&format=jpeg', 'https://drive.google.com/file/d/1He5zXduec-59InN7fgujwIBGGgQKpufF/preview', 'Rick roll 2', 'mp4', '3:32');
+INSERT INTO `video`(`id`, `course_id`, `thumbnail`, `source`, `name`, `type`, `time`, `free`) VALUES
+(0,6, 'https://i.insider.com/602ee9e3d3ad27001837f2af?width=1200&format=jpeg', 'https://drive.google.com/file/d/1He5zXduec-59InN7fgujwIBGGgQKpufF/preview', 'Rick roll 1', 'mp4', '3:32', true),
+(1,6, 'https://i.insider.com/602ee9e3d3ad27001837f2af?width=1200&format=jpeg', 'https://drive.google.com/file/d/1He5zXduec-59InN7fgujwIBGGgQKpufF/preview', 'Rick roll 2', 'mp4', '3:32', false);
 -- --------------------------------------------------------
 
 --

@@ -2,20 +2,16 @@ import db from "../utils/db.js";
 
 export default {
   findCoursesById: async (id) => {
-    const courses = await db('courses').where('id', id);
+    const courses = await db("courses").where("id", id);
 
     console.log(courses[0]);
     return courses[0];
   },
   findClipByCoursesId: async (id) => {
-    const clips = await db('video')
-        .join('courses', 'courses.id', 'video.course_id')
-        .select(
-            'video.id',
-            'video.source',
-            'video.name'
-            )
-        .where('courses.id', id);
+    const clips = await db("video")
+      .join("courses", "courses.id", "video.course_id")
+      .select("video.id", "video.source", "video.name")
+      .where("courses.id", id);
 
     console.log(clips);
     return clips;
@@ -68,13 +64,21 @@ export default {
         "courses.tiny_des",
         "courses.requirements",
         "courses.overview",
-        "courses.includedItem"
+        "courses.includedItem",
+        "courses.lecture_id"
       )
       .where({ "courses.id": idCourse });
+    if (list[0]["lecture_id"] != null) {
+      const lecturerName = await db("users")
+        .select("firstname", "lastname")
+        .where({ id: list[0]["lecture_id"] });
+      //console.log(lecturerName);
+      list[0].firstname = lecturerName[0]["firstname"];
+      list[0].lastname = lecturerName[0]["lastname"];
+    }
     if (list.length === 0) {
       return null;
     }
-
     return list;
   },
   findVideoForCourse: async (courseID, videoID) => {
@@ -153,9 +157,11 @@ export default {
         "video.name",
         "video.type",
         "video.time",
-        "video.id"
+        "video.id",
+        "video.free"
       )
       .where({ "video.course_id": idCourse });
+    console.log(list2);
     if (list2.length === 0) {
       return null;
     }
@@ -224,7 +230,8 @@ export default {
         "courses.tiny_des",
         "courses.name",
         "courses.rating",
-        "courses.price", "courses.category_id"
+        "courses.price",
+        "courses.category_id"
       )
       .orderBy("rating", "desc")
       .limit(5)
@@ -237,12 +244,12 @@ export default {
     // add categoryName object into list
 
     for (let item of list) {
-      const categoryName =  await db('courses')
-          .join('categories', 'categories.id', 'courses.category_id')
-          .select('categories.name')
-          .where({
-            'categories.id': item.category_id
-          });
+      const categoryName = await db("courses")
+        .join("categories", "categories.id", "courses.category_id")
+        .select("categories.name")
+        .where({
+          "categories.id": item.category_id,
+        });
 
       item.catName = categoryName[0].name;
     }

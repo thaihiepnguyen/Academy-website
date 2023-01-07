@@ -5,13 +5,12 @@ export default {
     //req.session.retUrl = req.originalUrl;
     const courseId = req.params.id;
     const user = res.locals.user;
-
     const data1 = await coursesService.findDetails(courseId);
     const reviews = await coursesService.getReviews(courseId);
     const isLogged = req.session.auth;
     const data2 = await coursesService.getClips(courseId);
     let courses = null;
-
+    //console.log(data1);
     if (user != null) {
       courses = await userService.checkCourseInWatchList(user.id, courseId);
       if (courses.length > 0) {
@@ -21,7 +20,7 @@ export default {
 
     for (let i = 0; i < data2.length; i++) {
       data2[i].source = "/details/" + courseId + "/" + data2[i].id;
-      console.log(data2[i].source);
+      //console.log(data2[i].source);
     }
     let data3 = null;
     if (res.locals.user != null) {
@@ -45,6 +44,7 @@ export default {
       videosL: data2,
       courses,
       courseId,
+      show,
     });
   },
 
