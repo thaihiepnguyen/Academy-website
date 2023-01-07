@@ -1,7 +1,7 @@
 import userService from "../services/user.service.js";
 import bcrypt from "bcrypt";
 import multer from 'multer';
-import * as constants from "constants";
+import nodemailer from "nodemailer";
 
 export default {
     getLoginPage: (req, res) => {
@@ -11,36 +11,36 @@ export default {
     },
 
     handleSignup: async (req, res) => {
-        const rawPass = req.body.password;
-
+        const rawPass = req.session.userBuffer.password;
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(rawPass, salt);
-
-        req.body.password = hash;
-
-        const user = {
-            ...req.body,
-            image: null,
-            role_id: 1,
-        };
-
-        const entity = await userService.findAll();
-        let isEmailExists = false;
-
-        for (let item of entity) {
-            if (item.email === user.email) {
-                isEmailExists = true;
-            }
+        req.session.userBuffer.password = hash;
+        let otp = "";
+        for (let index in req.body) {
+            otp += req.body[index];
         }
 
-        if (!isEmailExists) {
+        let otpRaw = parseInt(otp);
+
+        if (otpRaw === req.session.otp) {
+            // đăng ký thành công
+            const user = {
+                ...req.session.userBuffer,
+                image: null,
+                role_id: 1,
+            };
+
             await userService.add(user);
+
             res.redirect('/account/login');
         } else {
-            res.render('vwSignup/signup', {
-                message: "Email is existed",
-                isDefault: true,
-            });
+            // sai otp
+
+            res.render('vwSignup/otp.hbs', {
+                message: "OTP is not correct",
+                email: req.session.userBuffer.email,
+                isDefault: true
+            })
         }
     },
 
@@ -258,7 +258,7 @@ export default {
         const { user } = req;
 
         const userdb = {
-            ...req.body,
+            ...req.body, // can not need
             email: user.emails[0].value,
             firstname: user._json.name,
             lastname: user.name.familyName,
@@ -323,5 +323,48 @@ export default {
                 success_message: "Successfully!"
             });
         });
+    },
+
+    sendVerifyMail: async (req, res) => {
+        req.session.userBuffer = req.body;
+        const { email } = req.body;
+
+        const entity = await userService.findAll();
+        let isEmailExists = false;
+
+        for (let item of entity) {
+            if (item.email === email) {
+                isEmailExists = true;
+            }
+        }
+
+        if (!isEmailExists) {
+            let transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'thaihiep232002@gmail.com',
+                    pass: 'llhoowfpfmbyiocg',
+                },
+            });
+
+            const code = Math.floor(1000 + Math.random() * 9000);
+            req.session.otp = code;
+            await transporter.sendMail({
+                from: 'The Academy App', // sender address
+                to: `${email}`, // list of receivers
+                subject: "Code", // Subject line
+                text: `${code}`, // plain text body
+            });
+
+            res.render('vwSignup/otp.hbs', {
+                isDefault: true,
+                email: email
+            });
+        } else {
+            res.render('vwSignup/signup', {
+                message: "Email is existed",
+                isDefault: true,
+            });
+        }
     }
 }

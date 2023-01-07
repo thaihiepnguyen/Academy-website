@@ -1,6 +1,12 @@
 import db from "../utils/db.js";
 
 export default {
+  findCoursesById: async (id) => {
+    const courses = await db('courses').where('id', id);
+
+    console.log(courses[0]);
+    return courses[0];
+  },
   findAll() {
     return db("courses");
   },
@@ -45,34 +51,6 @@ export default {
         "courses.includedItem"
       )
       .where({ "courses.id": idCourse });
-    if (list.length === 0) {
-      return null;
-    }
-
-    return list;
-  },
-  unrollInCourse: async (userID, idCourse) => {
-    return db("registered_courses")
-      .where({
-        "registered_courses.user_id": userID,
-        "registered_courses.course_id": idCourse,
-      })
-      .del();
-  },
-  rollInCourse: async (userID, idCourse) => {
-    const list = await db("registered_courses").insert({
-      user_id: userID,
-      course_id: idCourse,
-    });
-    return null;
-  },
-  rollInThis: async (userID, idCourse) => {
-    const list = await db("registered_courses")
-      .select("registered_courses.user_id", "registered_courses.course_id")
-      .where({
-        "registered_courses.user_id": userID,
-        "registered_courses.course_id": idCourse,
-      });
     if (list.length === 0) {
       return null;
     }
@@ -176,7 +154,7 @@ export default {
         "courses.tiny_des",
         "courses.name",
         "courses.rating",
-        "courses.price"
+        "courses.price", "courses.category_id"
       )
       .orderBy("rating", "desc")
       .limit(5)
@@ -184,6 +162,19 @@ export default {
 
     if (list.length === 0) {
       return null;
+    }
+
+    // add categoryName object into list
+
+    for (let item of list) {
+      const categoryName =  await db('courses')
+          .join('categories', 'categories.id', 'courses.category_id')
+          .select('categories.name')
+          .where({
+            'categories.id': item.category_id
+          });
+
+      item.catName = categoryName[0].name;
     }
     return list;
   },
