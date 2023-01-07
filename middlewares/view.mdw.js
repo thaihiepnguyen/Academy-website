@@ -29,6 +29,9 @@ export default function (app) {
 				isEqual(val1, val2) {
 					return val1 === val2;
 				},
+				isNotEqual(val1, val2) {
+					return val1 !== val2;
+				},
 			},
 			section: express_handlebars_sections(),
 		})
