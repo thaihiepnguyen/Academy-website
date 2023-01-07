@@ -22,7 +22,9 @@
         style="padding: 2rem; color: #75E6DA; font-weight: bold; font-size: x-large;"
       >
         {{basicInfo.0.name}}
+
       </text>
+
       <br />
       <text style="padding: 2rem; color: #D4F1F4">
         Level:
@@ -52,16 +54,21 @@
       <div class="col">
         <br />
         <div style="display: inline-block;">
+          <i
+                class="fa fa-heart-o"
+                aria-hidden="true"
+                style="font-size: 1.3rem; color: rgb(254, 0, 161); opacity: 0.5; -webkit-text-fill-color: none;"
+              ></i></text>
           {{#each basicInfo.0.stars}}
             {{#if this}}
-              <div class="fa fa-star" style="color: yellow"></div>
+              <div class="fa fa-star" style="color: rgb(220, 220, 9)"></div>
             {{else}}
               <div class="fa fa-star"></div>
             {{/if}}
           {{/each}}
           <text style="color: #05445E; font-weight:bold">
             {{basicInfo.0.rating}}
-            <text> stars</text>
+            <text> stars </text>
 
           </text>
         </div>
