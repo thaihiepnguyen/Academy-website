@@ -1,63 +1,50 @@
 import userService from "../services/user.service.js";
 import bcrypt from "bcrypt";
 import multer from 'multer';
+import nodemailer from "nodemailer";
 
 export default {
     getLoginPage: (req, res) => {
+        const role = req.params.role;
         res.render('vwlogin/login.hbs', {
             isDefault: true,
+            role: role
         });
     },
 
     handleSignup: async (req, res) => {
-        const rawPass = req.body.password;
-
+        const role = req.params.role;
+        const rawPass = req.session.userBuffer.password;
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(rawPass, salt);
-
-        req.body.password = hash;
-
-        const user = {
-            ...req.body,
-            image: null,
-            role_id: 1,
-        };
-
-        const isEmailExists = await userService.findByEmail(user.email);
-
-        // if (isEmailExists == null) {
-        //     await userService.add(user);
-        //     res.render('vwSignup/otp.hbs', {
-        //         isDefault: true,
-        //         email: user.email
-        //     });
-        // } else {
-        //     res.render('vwSignup/signup', {
-        //         message: "Email is existed",
-        //         isDefault: true,
-        //     });
-        // }
-
-        if (isEmailExists) {
-            res.render('vwSignup/signup', {
-                message: "Email is existed",
-                isDefault: true,
-            });
-            await userService.add(user);
-            res.render('vwSignup/otp.hbs', {
-                isDefault: true,
-                email: user.email
-            });
+        req.session.userBuffer.password = hash;
+        let otp = "";
+        for (let index in req.body) {
+            otp += req.body[index];
         }
 
-        const OTP =otpGenerator(6, {
-            digits: true,
-            lowerCaseAlphabets: false,
-            upperCaseAlphabets: false,
-            specialChars: false
-        })
+        let otpRaw = parseInt(otp);
 
+        if (otpRaw === req.session.otp) {
+            // đăng ký thành công
+            const user = {
+                ...req.session.userBuffer,
+                image: null,
+                role_id: role,
+            };
 
+            await userService.add(user);
+
+            res.redirect('/account/login/' + role);
+        } else {
+            // sai otp
+
+            res.render('vwSignup/otp.hbs', {
+                message: "OTP is not correct",
+                email: req.session.userBuffer.email,
+                isDefault: true
+            })
+        }
     },
 
     getSignupPage: (req, res) => {
@@ -66,17 +53,8 @@ export default {
         });
     },
 
-    getOTPSignupPage: (req, res) => {
-        res.render('vwSignup/otp.hbs', {
-            isDefault: true,
-        });
-    },
-
-    handleOTPSignup: (req, res) => {
-
-    },
-
     handleLogin: async (req, res) => {
+        const role = req.params.role;
         const { email, password } = req.body;
         const userdb = await userService.findByEmail(email);
 
@@ -87,6 +65,11 @@ export default {
             });
         }
         else if(!bcrypt.compareSync(password, userdb.password)) {
+            return res.render("vwlogin/login.hbs", {
+                err_message: "Invalid email or password.",
+                isDefault: true,
+            });
+        } else if (userdb.role_id !== role) {
             return res.render("vwlogin/login.hbs", {
                 err_message: "Invalid email or password.",
                 isDefault: true,
@@ -148,14 +131,6 @@ export default {
 
         const {email, oldPassword, newPassword, repeatNewPassword} = req.body;
 
-        if(email == "" || oldPassword == "" ||repeatNewPassword == "") {
-            return res.render("vwProfile/account_security.hbs", {
-                activeProfileLayout: true,
-                active_sc: "active",
-                err_message: "You need to enter full box!"
-            });
-        }
-
         const userdb = await userService.findByEmail(email);
 
         if(newPassword != repeatNewPassword || !bcrypt.compareSync(oldPassword, userdb.password)) {
@@ -216,30 +191,8 @@ export default {
 
         return res.render("vwProfile/watch_list.hbs", {
             activeProfileLayout: true,
-            courses,
+            courses
         });
-    },
-
-    deleteWatchListPage: async (req, res) => {
-
-        const course_id = req.params.id;
-        const user_id = req.session.authUser.id;
-
-        await userService.deleteCourseInWatchList(user_id, course_id);
-
-        const url = req.headers.referer || '/';
-        res.redirect(url);
-    },
-
-    addWatchListPage: async (req, res) => {
-
-        const course_id = req.params.id;
-        const user_id = req.session.authUser.id;
-
-        await userService.addCourseInWatchList(user_id, course_id);
-
-        const url = req.headers.referer || '/';
-        res.redirect(url);
     },
 
     getRegisteredCoursesPage: async (req, res) => {
@@ -287,60 +240,49 @@ export default {
     },
 
     callbackGoogle: async (req, res) => {
-        // Successful authentication, redirect home.
-
-        const { user } = req;
-
-        //console.log(user);
-
-        const userdb = {
-            ...req.body,
-            email: user.emails[0].value,
-            firstname: user.name.givenName,
-            lastname: user.name.familyName,
-            image: user.photos[0].value,
-            role_id: 1,
-        };
-
-        const isSignUp = await userService.findByEmail(userdb.email);
-
-        if(isSignUp == null) { // Check sign up
-            await userService.add(userdb);
-        }
-
-        req.session.auth = true;
-        req.session.authUser = await userService.findByEmail(userdb.email);
-
-        const url = '/';
-        res.redirect(url);
-    },
-
-    callbackFacebook: async (req, res) => { // not working
         const { user } = req;
 
         const userdb = {
             ...req.body,
             email: user.emails[0].value,
             firstname: user._json.name,
-            //lastname: user.name.familyName,
-            //image: user.photos[0].value,
+            lastname: user.name.familyName,
+            image: user.photos[0].value,
             role_id: 1,
         };
 
-        const isSignUp = await userService.findByEmail(userdb.email);
+        const userOfficial = await userService.findByEmail(userdb.email);
 
 
-        if(isSignUp == null) { // Check sign up
+        if(userOfficial == null) {
             await userService.add(userdb);
         }
-
-        const userOfficial = userService.findByEmail(userdb.email);
-
-
         req.session.auth = true;
-        req.session.authUser = userOfficial;
+        req.session.authUser = await userService.findByEmail(userdb.email);
 
+        res.redirect('/');
+    },
+
+    callbackFacebook: async (req, res) => {
+        const { user } = req;
+
+        const userdb = {
+            ...req.body, // can not need
+            email: user.emails[0].value,
+            firstname: user._json.name,
+            lastname: user.name.familyName,
+            image: user.photos[0].value,
+            role_id: 1,
+        };
+
+        const userOfficial = await userService.findByEmail(userdb.email);
+
+
+        if(userOfficial == null) {
+            await userService.add(userdb);
+        }
         req.session.auth = true;
+        req.session.authUser = await userService.findByEmail(userdb.email);
 
         res.redirect('/');
     },
@@ -390,5 +332,51 @@ export default {
                 success_message: "Successfully!"
             });
         });
+    },
+
+    sendVerifyMail: async (req, res) => {
+        const role = req.params.role;
+        req.session.userBuffer = req.body;
+        const { email } = req.body;
+
+        const entity = await userService.findAll();
+        let isEmailExists = false;
+
+        for (let item of entity) {
+            if (item.email === email) {
+                isEmailExists = true;
+            }
+        }
+
+        if (!isEmailExists) {
+            let transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'thaihiep232002@gmail.com',
+                    pass: 'llhoowfpfmbyiocg',
+                },
+            });
+
+            const code = Math.floor(1000 + Math.random() * 9000);
+            req.session.otp = code;
+            await transporter.sendMail({
+                from: 'The Academy App', // sender address
+                to: `${email}`, // list of receivers
+                subject: "Code", // Subject line
+                text: `${code}`, // plain text body
+            });
+
+            res.render('vwSignup/otp.hbs', {
+                isDefault: true,
+                email: email,
+                role: role
+            });
+        } else {
+            res.render('vwSignup/signup', {
+                message: "Email is existed",
+                isDefault: true,
+                role: role
+            });
+        }
     }
 }

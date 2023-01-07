@@ -7,6 +7,19 @@ export default {
     console.log(courses[0]);
     return courses[0];
   },
+  findClipByCoursesId: async (id) => {
+    const clips = await db('video')
+        .join('courses', 'courses.id', 'video.course_id')
+        .select(
+            'video.id',
+            'video.source',
+            'video.name'
+            )
+        .where('courses.id', id);
+
+    console.log(clips);
+    return clips;
+  },
   findAll() {
     return db("courses");
   },

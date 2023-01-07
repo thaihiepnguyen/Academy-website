@@ -43,5 +43,8 @@
     "passport": "^0.6.0",
     "passport-facebook": "^3.0.0",
     "passport-google-oauth20": "^2.0.0"
+  },
+  "devDependencies": {
+    "video.js": "^7.20.3"
   }
 }

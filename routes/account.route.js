@@ -14,19 +14,15 @@ router.use(passportFacebook.initialize());
 
 router.use(passportFacebook.session());
 
-router.get('/login', accountController.getLoginPage);
+router.get('/login/:role', accountController.getLoginPage);
 
-router.get('/signup', accountController.getSignupPage);
+router.get('/signup/:role', accountController.getSignupPage);
 
-router.post('/signup', accountController.sendVerifyMail);
+router.post('/signup/:role', accountController.sendVerifyMail);
 
-router.post('/signup/otp', accountController.handleSignup);
+router.post('/signup/otp/:role', accountController.handleSignup);
 
-router.get('/signup/otp', accountController.getOTPSignupPage);
-
-router.post('/signup/otp', accountController.handleOTPSignup);
-
-router.post('/login', accountController.handleLogin);
+router.post('/login/:role', accountController.handleLogin);
 
 router.post('/logout', accountController.handleLogout);
 
@@ -43,10 +39,6 @@ router.get('/photo', authWithRequiredPermission(0), accountController.getPhotoPa
 router.post('/photo', authWithRequiredPermission(0), accountController.uploadPhoto);
 
 router.get('/watch_list', authWithRequiredPermission(0), accountController.getWatchListPage);
-
-router.post('/watch_list/delete/:id', authWithRequiredPermission(0), accountController.deleteWatchListPage);
-
-router.post('/watch_list/add/:id', authWithRequiredPermission(0), accountController.addWatchListPage);
 
 router.get('/registered_courses', authWithRequiredPermission(0), accountController.getRegisteredCoursesPage);
 

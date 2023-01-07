@@ -1,9 +1,31 @@
+{{#section 'courses-css'}}
+    <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
+{{/section}}
+
+{{#section 'courses-js'}}
+    <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
+{{/section}}
+
+
 <div class="container" style="margin: 0px 40px 0px 40px">
 {{#if this.courses}}
     <div class="columns " >
     <div class="column is-three-fifths">
         <div class="card mb-3">
-            <img class="card-img-top" src="/imgs/courses/1/{{courses.id}}.jpeg" alt="Card image cap">
+            {{#if this.clips}}
+
+                <video controls >
+                    <source src="/clips/1.mov" />
+                    <p class="vjs-no-js">
+                        To view this video please enable JavaScript, and consider upgrading to a
+                        web browser that
+                        <a href="https://videojs.com/html5-video-support/" target="_blank">
+                            supports HTML5 video
+                        </a>
+                    </p>
+                </video>
+
+            {{/if}}
             <div class="card-body">
                 <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                 <h5 class="card-title h3 font-weight-bold">{{courses.name}}</h5>

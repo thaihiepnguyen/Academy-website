@@ -109,13 +109,13 @@ export default {
 
   getDetailPage: async (req, res) => {
     const id = req.params.id;
-    console.log(id);
 
     const courses = await coursesService.findCoursesById(id);
+    const clips = await coursesService.findClipByCoursesId(id);
 
-    console.log(courses);
     res.render('vwProduct/details.hbs', {
       courses: courses,
+      clips: clips,
       isDefault: true
     })
   }
