@@ -1,6 +1,12 @@
 import db from "../utils/db.js";
 
 export default {
+  findCoursesById: async (id) => {
+    const courses = await db('courses').where('id', id);
+
+    console.log(courses[0]);
+    return courses[0];
+  },
   findAll() {
     return db("courses");
   },
@@ -15,19 +21,18 @@ export default {
         "users.firstname",
         "users.lastname",
         "courses.tiny_des",
-        "courses.full_des",
-        // "categories.name",
         "courses.name",
         "courses.rating",
-        "courses.price"
+        "courses.price",
+        "courses.category_id",
+        "courses.topic_id"
+
       )
       .where({ "courses.category_id": CatId });
 
     if (list.length === 0) {
       return null;
     }
-
-    console.log(list);
 
     return list;
   },
@@ -46,7 +51,9 @@ export default {
         "courses.tiny_des",
         "courses.requirements",
         "courses.overview",
-        "courses.includedItem"
+        "courses.includedItem",
+        "courses.category_id",
+        "courses.topic_id"
       )
       .where({ "courses.id": idCourse });
     if (list.length === 0) {
@@ -152,7 +159,9 @@ export default {
         "courses.tiny_des",
         "courses.name",
         "courses.rating",
-        "courses.price"
+        "courses.price",
+         "courses.category_id",
+         "courses.topic_id"
       )
       .orderBy("rating", "desc")
       .limit(5)
@@ -160,6 +169,19 @@ export default {
 
     if (list.length === 0) {
       return null;
+    }
+
+    // add categoryName object into list
+
+    for (let item of list) {
+      const categoryName =  await db('courses')
+          .join('categories', 'categories.id', 'courses.category_id')
+          .select('categories.name')
+          .where({
+            'categories.id': item.category_id
+          });
+
+      item.catName = categoryName[0].name;
     }
     return list;
   },
@@ -206,6 +228,7 @@ export default {
         "courses.price",
         "courses.status",
         "courses.category_id",
+        "courses.topic_id",
         "courses.lecture_id",
         "courses.promotion_id",
         "courses.rating"

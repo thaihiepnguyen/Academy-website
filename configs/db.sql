@@ -37,7 +37,7 @@ CREATE TABLE `courses` (
   `promotion_id` int(11) DEFAULT NULL,
   `last_modify` varchar(100) DEFAULT NULL,
   `status` tinyint(4) DEFAULT NULL,
-  `category_id` int(11) DEFAULT NULL,
+  `topic_id` int(11) DEFAULT NULL,
   `lecture_id` int(11) DEFAULT NULL,
   `rating` int(11) DEFAULT NULL,
   `levelCourse` varchar(255) DEFAULT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE `courses` (
   `requirements` text DEFAULT NULL,
   `overview` text DEFAULT NULL,
   `includedItem` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8; 
 
 
 INSERT INTO `courses` (`id`, `name`, `thumbnail`, `tiny_des`, `full_des`, `price`, `promotion_id`, `last_modify`, `status`, `category_id`, `lecture_id`, `rating`, `levelCourse`, `durationCourse`, `weeklyHours`, `enrolled`, `discount`, `requirements`, `overview`, `includedItem`) VALUES
@@ -109,9 +109,9 @@ CREATE TABLE `role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `role` (`id`, `name`) VALUES
-(1, 'Há»c viÃªn'),
-(2, 'Giáº£ng viÃªn'),
-(3, 'Quáº£n trá»‹ viÃªn');
+(1, 'Học viên'),
+(2, 'Giảng viên'),
+(3, 'Quản trị viên');
 
 
 CREATE TABLE `sessions` (
@@ -174,8 +174,8 @@ INSERT INTO `users` (`id`, `email`, `password`, `firstname`, `lastname`, `image`
 (15, 'thaihiepp@gmail.com', '$2a$10$h35zayIz/gvBcsCCsA5egO6tqSDvH7MC.Ih7hNxygSqbnDQgmRMGa', 'hiep', 'thai', NULL, 1),
 (16, 'qwert@gmail.com', '$2a$10$oTNEtd2OANUI1zxOz7yWeu7NqWu/EvFKVa/sZAIgspxypu7scRKF.', 'nguyen', 'thaihiep', NULL, 1),
 (17, 'testuser@gmail.com', '$2b$10$LJsoeU/0cOBPSavh3JoFveW4QBQlIWoCX5WsNsQTFQ4uL7lhbcR3G', 'test', 'user', '/imgs/avt/17.jpg', 1),
-(18, 'hainguyen13097@gmail.com', NULL, 'Ngá»c Háº£i', NULL, NULL, 1),
-(19, 'admin@gmail.com', '$2b$10$fzJpw6ZlZ4ZASZ.R9XA.t.616JXoN/0kUwhwzE5CHCkdL/obXPjSG', 'Ngá»c', 'Háº£i', NULL, 3);
+(18, 'hainguyen13097@gmail.com', NULL, 'Ngọc Hải', NULL, NULL, 1),
+(19, 'admin@gmail.com', '$2b$10$fzJpw6ZlZ4ZASZ.R9XA.t.616JXoN/0kUwhwzE5CHCkdL/obXPjSG', 'Ngọc', 'Hải', NULL, 3);
 
 
 

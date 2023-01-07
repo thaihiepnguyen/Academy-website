@@ -1,0 +1,13 @@
+@import url('https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css');
+@import url('https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css');
+.button_verity{
+    color: #fff;
+    border: 1px solid;
+    background-color: rgba(0,0,0,.8);
+    width: 100px;
+    height: 35px;
+    border-radius: 5px;
+}
+.button_verity:hover{
+    background-color: rgba(0,0,0,1);
+}

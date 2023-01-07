@@ -1,0 +1,169 @@
+{{#section 'courses-css'}}
+    <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
+{{/section}}
+
+{{#section 'courses-js'}}
+    <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
+{{/section}}
+
+
+<div class="container" style="margin: 0px 40px 0px 40px">
+{{#if this.courses}}
+    <div class="columns " >
+    <div class="column is-three-fifths">
+        <div class="card mb-3">
+            {{#if this.clips}}
+
+                <video controls >
+                    <source src="/clips/1.mov" />
+                    <p class="vjs-no-js">
+                        To view this video please enable JavaScript, and consider upgrading to a
+                        web browser that
+                        <a href="https://videojs.com/html5-video-support/" target="_blank">
+                            supports HTML5 video
+                        </a>
+                    </p>
+                </video>
+
+            {{/if}}
+            <div class="card-body">
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <h5 class="card-title h3 font-weight-bold">{{courses.name}}</h5>
+                <div class="h2 font-weight-bold">{{format_number courses.price}} VND</div>
+                <p class="card-text">{{courses.tiny_des}}</p>
+                <div class="h3">Description</div>
+                <p class="card-text">{{courses.full_des}}</p>
+                <br>
+                <div class="card-text">
+                    This course is for all those people who want to learn the basics of data structure and algorithms from the absolute beginner to the Intermediate level. We will use many examples to make the lectures very easy to understand and digest.
+
+                    You don't really need to have prior knowledge of Data Structure or Algorithm, but a basic prior knowledge of any programming language will be helpful!
+
+                    After going through these 100 Leetcode questions, you will get your foot wet and start trying some "Medium" questions soon. The purpose of this course is to learn fast and give you the confidence to start working on Leetcode questions.
+
+                    Most of these LC questions are EASY level or MEDIUM level with a quick solution. You can get the most out of it by following along. Because Medium question is like few Easy questions combined together. A Hard question is a combination of a few Medium questions. In the future, I will try to make a Medium level of Leetcode for all of you!
+
+                    If you have any questions, please feel free to comment it below. I will get back to you as soon as possible.
+
+                    If you have any suggestions on me improving the videos and contents, please also let me know, so that I can make better videos in the future. I hope you have a wonderful learning experience here!
+                </div>
+                <div class="h3">Who this courses is for?</div>
+                <div>Who is interested in crashing the technical interview</div>
+                <div>who is interested in learning the algorithm</div>
+                <div>Who is interested in learning data structure</div>
+
+                <div class="h4">Hien Thị Video ở dưới đây</div>
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="card">
+<!--            <div class="card-image">-->
+<!--                <figure class="image is-4by3">-->
+<!--                    <img src="/imgs/courses/1/{{courses.id}}.jpeg" alt="Placeholder image">-->
+<!--                </figure>-->
+<!--            </div>-->
+            <div class="card-content">
+                <div class="media">
+                    <div class="media-left">
+                        <figure class="image is-48x48">
+                            <img src="/imgs/avt/0.png" alt="Placeholder image">
+                        </figure>
+                    </div>
+                    <div class="media-content">
+                        <p class="title is-4">Nguyễn Thái Hiệp</p>
+                        <p class="subtitle is-6">@thaihiepnguyen</p>
+                    </div>
+                </div>
+
+                <div class="content">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Phasellus nec iaculis mauris. <a>@bulmaio</a>.
+                    <a href="#">#css</a> <a href="#">#responsive</a>
+                    <br>
+                    <div class="h4">Đây là vùng thông tin cho Giảng Viên</div>
+                    <br>
+                    <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                </div>
+                <div class="h4">Ở dưới là những khóa khác của ổng </div>
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="/imgs/courses/1/{{courses.id}}.jpeg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="/imgs/courses/1/{{courses.id}}.jpeg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="/imgs/courses/1/{{courses.id}}.jpeg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+
+    </div>
+</div>
+
+
+
+<div class="h4">5 khoá học khác cùng lĩnh vực được mua nhiều nhất</div>
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="card" style="width: 100%; margin-bottom: 30px; margin-top: 30px">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="/imgs/courses/1/{{courses.id}}.jpeg" alt="{{courses.id}}">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title font-weight-bold">{{courses.name}}</h5>
+                            <p class="card-text">{{courses.tiny_des}}</p>
+                            <p class="card-text"><small class="text-muted">{{courses.last_modify}}</small></p>
+                            <div class="d-flex justify-content-between align-items-center w-100">
+                                <div style="display: flex">
+                                    <div class="ratings">
+                                        {{#each ratings}}
+                                            <small class="fa fa-star {{this}}"></small>
+                                        {{/each}}
+                                    </div>
+                                    <small class="review-count">(0)</small>
+                                </div>
+                                <!--                                <div>-->
+                                <!--                                    &lt;!&ndash;                                like&ndash;&gt;-->
+                                <!--&lt;!&ndash;                                    <i style="color: red; font-size:1.2rem" class="fa fa-heart"></i>&ndash;&gt;-->
+                                <!--&lt;!&ndash;                                    &lt;!&ndash;                                don't like&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;                                    <i style="display:none ;font-size:1.2rem" class="fa fa-heart"></i>&ndash;&gt;-->
+                                <!--                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+</div>{{/if}}

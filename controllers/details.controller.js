@@ -8,7 +8,7 @@ export default {
     const reviews = await coursesService.getReviews(courseId);
     const isLogged = req.session.auth;
     const data2 = await coursesService.getClips(courseId);
-    console.log(data2);
+    // console.log(data2);
     let ratings = [false, false, false, false, false];
     for (let j = 0; j < data1[0].rating; j++) {
       ratings[j] = true;
