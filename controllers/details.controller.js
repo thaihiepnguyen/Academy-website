@@ -10,10 +10,13 @@ export default {
     const reviews = await coursesService.getReviews(courseId);
     const isLogged = req.session.auth;
     const data2 = await coursesService.getClips(courseId);
-    const courses = await userService.checkCourseInWatchList(user.id, courseId);
+    let courses = null;
 
-    if(courses.length > 0) {
-      courses.check = true;
+    if (user != null) {
+      courses = await userService.checkCourseInWatchList(user.id, courseId);
+      if (courses.length > 0) {
+        courses.check = true;
+      }
     }
 
     for (let i = 0; i < data2.length; i++) {
@@ -41,7 +44,7 @@ export default {
       reviewsList: reviews,
       videosL: data2,
       courses,
-      courseId
+      courseId,
     });
   },
 

@@ -32,7 +32,7 @@
       </text>
     </div>
     <div class="col" style="text-align: center; background-color: #385DBD;">
-      <div class="row">
+      <div class="row" style="padding-top:0.5%;">
         <text style="color: #75E6DA; font-weight: bold;">
           Duration:
           {{basicInfo.0.durationCourse}}
@@ -54,34 +54,22 @@
       <div class="col">
         <br />
         <div style="display: inline-block;">
-            <div>
-                {{#if courses.check}}
-                    <!--                                like-->
-                    <form action="/account/watch_list/delete/{{courseId}}" method="post">
-                        <button style="color: red; font-size:1.2rem; border: none; background-color: #ffffff" class="fa fa-heart" type="submit"  value="{{courses.id}}"></button>
-                    </form>
-                {{else}}
-                    <!--                                don't like-->
-                    <form action="/account/watch_list/add/{{courseId}}" method="post">
-                        <button style="font-size:1.2rem; border: none; background-color: #ffffff" class="fa fa-heart" type="submit"  value="{{courses.id}}"></button>
-                    </form>
-                {{/if}}
-                </text>
-                {{#each basicInfo.0.stars}}
-                    {{#if this}}
-                        <div class="fa fa-star" style="color: rgb(220, 220, 9)"></div>
-                    {{else}}
-                        <div class="fa fa-star"></div>
-                    {{/if}}
-                {{/each}}
-                <text style="color: #05445E; font-weight:bold">
-                    {{basicInfo.0.rating}}
-                    <text> stars </text>
-                </text>
-            </div>
+          <div>
+            {{#each basicInfo.0.stars}}
+              {{#if this}}
+                <div class="fa fa-star" style="color: rgb(220, 220, 9)"></div>
+              {{else}}
+                <div class="fa fa-star"></div>
+              {{/if}}
+            {{/each}}
+            <text style="color: #05445E; font-weight:bold">
+              {{basicInfo.0.rating}}
+              <text> stars </text>
+            </text>
+          </div>
         </div>
         <p style="white-space: pre-line;">
-          <b>{{basicInfo.0.shortInfo}}</b>
+          <b>{{basicInfo.0.tiny_des}}</b>
         </p>
       </div>
       <div class="col" style="border-left: 1px solid black;">
@@ -89,8 +77,41 @@
           <div
             style="color: #189AB4; font-weight: bold; text-align: center;"
           >{{basicInfo.0.enrolled}}
-            enrolled</div>
-          <br />
+            enrolled
+            {{#if logged}}
+              {{#if courses.check}}
+                <!--                                like-->
+                <form
+                  action="/account/watch_list/delete/{{courseId}}"
+                  method="post"
+                ><text>Unfavorite:</text>
+                  <button
+                    style="color: red; font-size:1.2rem; border: none; background-color: #ffffff"
+                    class="fa fa-heart"
+                    type="submit"
+                    value="{{courses.id}}"
+                  ></button>
+                </form>
+              {{else}}
+                <!--                                don't like-->
+                <form
+                  action="/account/watch_list/add/{{courseId}}"
+                  method="post"
+                >
+                  <text>Favorite:</text>
+                  <button
+                    style="font-size:1.2rem; border: none; background-color: #ffffff"
+                    class="fa fa-heart"
+                    type="submit"
+                    value="{{courses.id}}"
+                  ></button>
+                </form>
+              {{/if}}
+            {{else}}
+              <br />
+              <br />
+            {{/if}}
+          </div>
           <div style="margin-left: 20%;">
             <button
               class="btn btn-primary w-25"
@@ -115,6 +136,7 @@
             {{/if}}
           </div>
           <br />
+
         </div>
       </div>
     </div>
@@ -122,7 +144,9 @@
     <br />
     <div class="row">
       <div class="col">
-        <div style="color: #20499A">Last updated: </div>
+        <div
+          style="color: #20499A;width:6%;background:rgb(255, 255, 255);height:6%;display:inline-block"
+        ></div>
         <div class="row" style="background-color: #D3E0F9;">
           <text class="importanceBlue">Requirements</text>
           <p style="white-space: pre-line;">
