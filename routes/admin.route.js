@@ -66,10 +66,23 @@ router.post("/categories/patch", async function (req, res) {
 //=================================================MANAGE COURSE=================================================
 //===============================================================================================================
 router.get("/courses", async function (req, res) {
-	const list = await courseModel.findAll();
+	let listCourse;
+	if (req.query.cat) {
+		listCourse = await courseModel.findCoursesByCatName(req.query.cat);
+	} else if (req.query.lecturer) {
+		const firstname = req.query.lecturer.split(" ")[0];
+		const lastname = req.query.lecturer.split(" ")[1];
+		listCourse = await courseModel.findCoursesByLecturerName(firstname, lastname);
+	} else {
+		listCourse = await courseModel.findAll();
+	}
+	const listCategory = await categoryModel.findAll();
+	const listLecturer = await userModel.findLecturer();
 	res.render("vwAdmin/vwCourse/index", {
 		activeTagbarLayout: true,
-		courses: list,
+		courses: listCourse,
+		categories: listCategory,
+		users: listLecturer,
 	});
 });
 router.post("/courses/del", async function (req, res) {
@@ -146,4 +159,5 @@ router.post("/users/unlock/:id", async function (req, res) {
 	await userModel.unlockUser(+req.params.id);
 	res.redirect(req.headers.referer);
 });
+
 export default router;

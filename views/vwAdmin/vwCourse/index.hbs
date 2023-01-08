@@ -8,6 +8,38 @@
 </script>
 {{/section}}
 
+<div class="d-flex">
+    <div>
+        <form id="filter" method="get">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                data-toggle="dropdown" aria-expanded="false">
+                Category
+            </button>
+            <div class="dropdown-menu">
+                {{#each this.categories}}
+                <input class="dropdown-item" name="cat" type="submit" value="{{name}}" />
+                {{/each}}
+            </div>
+
+        </form>
+    </div>
+
+    <div class="flex-fill ml-2">
+        <form id="filter2" method="get">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
+                data-toggle="dropdown" aria-expanded="false">
+                Lecturer
+            </button>
+            <div class="dropdown-menu">
+                {{#each this.users}}
+                <input class="dropdown-item" name="lecturer" type="submit"
+                    value="{{firstname}} {{lastname}}" />
+                {{/each}}
+            </div>
+        </form>
+    </div>
+</div>
+
 
 <div class="card">
     <h4 class="card-header">

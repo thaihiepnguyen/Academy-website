@@ -18,6 +18,13 @@ export default {
 		}
 		return list[0];
 	},
+	async findByName(name) {
+		const list = await db("categories").where("name", name);
+		if (list.length === 0) {
+			return null;
+		}
+		return list[0].id;
+	},
 	add(entity) {
 		return db("categories").insert(entity);
 	},
