@@ -19,6 +19,12 @@ export default {
 		const courses = await db("courses").where("lecture_id", lecturerID);
 		return courses;
 	},
+	findClipByCoursesId: async (id) => {
+		const clips = await db("video").join("courses", "courses.id", "video.course_id").select("video.id", "video.source", "video.name").where("courses.id", id);
+
+		console.log(clips);
+		return clips;
+	},
 	findAll() {
 		return db("courses");
 	},
@@ -35,19 +41,66 @@ export default {
 		return list;
 	},
 	findDetails: async (idCourse) => {
-		const list = await db("courses").select("courses.thumbnail", "courses.name", "courses.levelCourse", "courses.rating", "courses.durationCourse", "courses.weeklyHours", "courses.enrolled", "courses.price", "courses.discount", "courses.tiny_des", "courses.requirements", "courses.overview", "courses.includedItem").where({ "courses.id": idCourse });
+		const averageStar = await db("review").avg("rating").where({ course_id: idCourse });
+		//console.log(averageStar[0]["avg(`rating`)"]);
+		const updateStar = await db("courses")
+			.where({ id: idCourse })
+			.update({ rating: Math.round(averageStar[0]["avg(`rating`)"]) });
+		const list = await db("courses").select("courses.thumbnail", "courses.name", "courses.levelCourse", "courses.rating", "courses.durationCourse", "courses.weeklyHours", "courses.enrolled", "courses.price", "courses.discount", "courses.tiny_des", "courses.requirements", "courses.overview", "courses.includedItem", "courses.lecture_id").where({ "courses.id": idCourse });
+		if (list[0]["lecture_id"] != null) {
+			const lecturerName = await db("users").select("firstname", "lastname").where({ id: list[0]["lecture_id"] });
+			//console.log(lecturerName);
+			list[0].firstname = lecturerName[0]["firstname"];
+			list[0].lastname = lecturerName[0]["lastname"];
+		}
+		if (list.length === 0) {
+			return null;
+		}
+		return list;
+	},
+	findVideoForCourse: async (courseID, videoID) => {
+		const thisVideo = await db("video").select("source", "name").where({ course_id: courseID, id: videoID });
+		//console.log(videoLink[0]["source"]);
+		return thisVideo;
+	},
+	unrollInCourse: async (userID, idCourse) => {
+		const deleteRecord = await db("registered_courses")
+			.where({
+				"registered_courses.user_id": userID,
+				"registered_courses.course_id": idCourse,
+			})
+			.del();
+		const numberEnrolled = await db("registered_courses").count(`user_id`).where({ course_id: idCourse });
+		const updateEnrolled = await db("courses").where({ id: idCourse }).update({ enrolled: numberEnrolled[0]["count(`user_id`)"] });
+	},
+	rollInCourse: async (userID, idCourse) => {
+		const list = await db("registered_courses").insert({
+			user_id: userID,
+			course_id: idCourse,
+		});
+		const numberEnrolled = await db("registered_courses").count(`user_id`).where({ course_id: idCourse });
+		const updateEnrolled = await db("courses").where({ id: idCourse }).update({ enrolled: numberEnrolled[0]["count(`user_id`)"] });
+		return null;
+	},
+	rollInThis: async (userID, idCourse) => {
+		const list = await db("registered_courses").select("registered_courses.user_id", "registered_courses.course_id").where({
+			"registered_courses.user_id": userID,
+			"registered_courses.course_id": idCourse,
+		});
 		if (list.length === 0) {
 			return null;
 		}
 
 		return list;
 	},
-	sendReviews: async (userID, idCourse, reviewContent) => {
+	sendReviews: async (userID, idCourse, reviewContent, ratingStar) => {
 		const list = await db("review").insert({
 			user_id: userID,
 			course_id: idCourse,
 			comment: reviewContent,
+			rating: ratingStar,
 		});
+
 		return null;
 	},
 	getReviews: async (idCourse) => {
@@ -59,7 +112,8 @@ export default {
 		return list1;
 	},
 	getClips: async (idCourse) => {
-		const list2 = await db("video").select("video.thumbnail", "video.source", "video.name", "video.type", "video.time").where({ "video.course_id": idCourse });
+		const list2 = await db("video").select("video.thumbnail", "video.source", "video.name", "video.type", "video.time", "video.id", "video.free").where({ "video.course_id": idCourse });
+		console.log(list2);
 		if (list2.length === 0) {
 			return null;
 		}

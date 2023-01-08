@@ -1,6 +1,5 @@
 {{#section 'home-css'}}
     <link rel="stylesheet" href="/css/bulma.css">
-    <link rel="stylesheet" href="/css/home.css">
 {{/section}}
 
 
@@ -8,35 +7,42 @@
 <div class="d-flex is-flex-wrap-wrap">
     {{#if this.courses}}
         {{#each this.courses}}
-            <a href="/courses/detail/{{id}}" class="card mr-6 mt-6 d-flex flex-column courses" style="width: 18rem;margin-right: 20px !important;">
+            <div class="card mr-6 mt-6 d-flex flex-column" style="width: 18rem;margin-right: 2rem !important;">
                 <img src="/imgs/courses/1/{{id}}.jpeg" class="card-img-top" alt="...">
                 <div class="d-flex card-body align-items-start flex-column">
                     <h5 class="card-title font-weight-bold">{{name}}</h5>
+                    <p class="card-text ">{{tiny_des}}</p>
 
                     <div style="width: 100%;" class="mt-auto">
-                        <p class="card-text ">{{catName}}</p>
                         <p class="card-text font-weight-light">{{firstname}} {{lastname}}</p>
-                        <div style="display: flex">
-                            <div class="ratings">
-                                {{#each ratings}}
-                                    <small class="fa fa-star {{this}}"></small>
-                                {{/each}}
-                            </div>
-                            <small class="review-count">(0)</small>
-                        </div>
+
                         <div class="d-flex justify-content-between align-items-center w-100">
-                            <p class="font-weight-bold">{{format_number this.price}} VND</p>
+                            <div style="display: flex">
+                                <div class="ratings">
+                                    {{#each ratings}}
+                                        <small class="fa fa-star {{this}}"></small>
+                                    {{/each}}
+                                </div>
+                                <small class="review-count">(0)</small>
+                            </div>
                             <div>
-                                <!--                                like-->
-                                <i style="color: red; font-size:1.2rem" class="fa fa-heart"></i>
-                                <!--                                don't like-->
-                                <i style="display:none ;font-size:1.2rem" class="fa fa-heart"></i>
+                                {{#if check}}
+                                    <!--                                like-->
+                                    <form action="/account/watch_list/delete/{{id}}" method="post">
+                                        <button style="color: red; font-size:1.2rem; border: none; background-color: #ffffff" class="fa fa-heart" type="submit"  value="{{id}}"></button>
+                                    </form>
+                                {{else}}
+                                    <!--                                don't like-->
+                                <form action="/account/watch_list/add/{{id}}" method="post">
+                                    <button style="font-size:1.2rem; border: none; background-color: #ffffff" class="fa fa-heart" type="submit"  value="{{id}}"></button>
+                                </form>
+                                {{/if}}
                             </div>
                         </div>
                     </div>
-
+                    <p class="font-weight-bold">{{format_number this.price}} VND</p>
                 </div>
-            </a>
+            </div>
         {{/each}}
     {{else}}
         <p class="h4 mt-50">{{this.warning}}</p>
@@ -45,8 +51,8 @@
 <br>
 <!--<p class="h3">Top 10 Most Viewed Courses</p>-->
 <!--<div class="d-flex is-flex-wrap-wrap">-->
-        <!--    {{#if this.courses}}-->
-        <!--        {{#each this.courses}}-->
+<!--    {{#if this.courses}}-->
+<!--        {{#each this.courses}}-->
 <!--            <div class="card mr-6 mt-6" style="width: 18rem;">-->
 <!--                <img src="/imgs/courses/1/{{id}}.jpeg" class="card-img-top" alt="...">-->
 <!--                <div class="d-flex card-body align-items-start flex-column">-->
@@ -56,25 +62,25 @@
 
 <!--                    <div class="mt-auto d-flex justify-content-between align-items-center w-100">-->
 <!--                        <div class="ratings">-->
-        <!--                            {{#each ratings}}-->
+<!--                            {{#each ratings}}-->
 <!--                                <i class="fa fa-star {{this}}"></i>-->
-        <!--                            {{/each}}-->
+<!--                            {{/each}}-->
 <!--                        </div>-->
 <!--                        <h5 class="review-count">0 Reviews</h5>-->
 <!--                    </div>-->
 <!--                </div>-->
 <!--            </div>-->
-        <!--        {{/each}}-->
-        <!--    {{else}}-->
+<!--        {{/each}}-->
+<!--    {{else}}-->
 <!--        <p class="h4 mt-50">{{this.warning}}</p>-->
-        <!--    {{/if}}-->
+<!--    {{/if}}-->
 <!--</div>-->
 <!--<br>-->
 <!--<p class="h3">Top 5 Most New Courses</p>-->
 <!--<br>-->
 <!--<div class="d-flex is-flex-wrap-wrap">-->
-        <!--    {{#if this.courses}}-->
-        <!--        {{#each this.courses}}-->
+<!--    {{#if this.courses}}-->
+<!--        {{#each this.courses}}-->
 <!--            <div class="card mr-6 mt-6" style="width: 18rem;">-->
 <!--                <img src="/imgs/courses/1/{{id}}.jpeg" class="card-img-top" alt="...">-->
 <!--                <div class="d-flex card-body align-items-start flex-column">-->
@@ -84,16 +90,16 @@
 
 <!--                    <div class="mt-auto d-flex justify-content-between align-items-center w-100">-->
 <!--                        <div class="ratings">-->
-        <!--                            {{#each ratings}}-->
+<!--                            {{#each ratings}}-->
 <!--                                <i class="fa fa-star {{this}}"></i>-->
-        <!--                            {{/each}}-->
+<!--                            {{/each}}-->
 <!--                        </div>-->
 <!--                        <h5 class="review-count">0 Reviews</h5>-->
 <!--                    </div>-->
 <!--                </div>-->
 <!--            </div>-->
-        <!--        {{/each}}-->
-        <!--    {{else}}-->
+<!--        {{/each}}-->
+<!--    {{else}}-->
 <!--        <p class="h4 mt-50">{{this.warning}}</p>-->
-        <!--    {{/if}}-->
+<!--    {{/if}}-->
 <!--</div>-->

@@ -76,6 +76,28 @@ export default {
 		return list;
 	},
 
+	checkCourseInWatchList: async (user_id, course_id) => {
+		const check = await db("watch_list").where({"user_id": user_id,
+			"course_id": course_id
+		});
+
+		return check;
+	},
+
+	deleteCourseInWatchList: async (user_id, course_id) => {
+		const check = await db("watch_list").where({"user_id": user_id,
+			"course_id": course_id
+		}).delete();
+
+		return check;
+	},
+
+	addCourseInWatchList: async (user_id, course_id) => {
+		const check = await db("watch_list").insert({"user_id": user_id, "course_id": course_id});
+		return check;
+	},
+
+
 	findRegisteredCourses: async (id) => {
 		const list = await db("registered_courses").join("courses", "course_id", "id").where("user_id", id);
 

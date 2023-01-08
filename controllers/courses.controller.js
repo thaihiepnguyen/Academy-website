@@ -1,4 +1,5 @@
 import coursesService from "../services/courses.service.js";
+import userService from "../services/user.service.js";
 
 export default {
   findByCatId: async (req, res) => {
@@ -109,13 +110,15 @@ export default {
 
   getDetailPage: async (req, res) => {
     const id = req.params.id;
-    console.log(id);
+
+    const user = res.locals.user;
 
     const courses = await coursesService.findCoursesById(id);
+    const clips = await coursesService.findClipByCoursesId(id);
 
-    console.log(courses);
     res.render('vwProduct/details.hbs', {
       courses: courses,
+      clips: clips,
       isDefault: true
     })
   }
