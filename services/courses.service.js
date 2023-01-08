@@ -28,6 +28,12 @@ export default {
 	findAll() {
 		return db("courses");
 	},
+	lockCourse: (id) => {
+		return db("courses").where("id", id).update({ enable: 0 });
+	},
+	unlockCourse: (id) => {
+		return db("courses").where("id", id).update({ enable: 1 });
+	},
 	del(id) {
 		return db("courses").where("id", id).del();
 	},

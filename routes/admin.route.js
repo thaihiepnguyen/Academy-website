@@ -5,17 +5,19 @@ import adminController from "../controllers/admin.controller.js";
 import categoryModel from "../services/category.service.js";
 import courseModel from "../services/courses.service.js";
 import userModel from "../services/user.service.js";
+import topicModel from "../services/topic.service.js";
 import { Console } from "console";
 
 const router = express.Router();
 //=================================================MANAGE CATEGORY=================================================
 //=================================================================================================================
 router.get("/categories", async function (req, res) {
-	const list = await categoryModel.findAll();
-
+	const listCategory = await categoryModel.findAll();
+	const listTopic = await topicModel.findAll();
 	res.render("vwAdmin/vwCategory/index", {
 		activeTagbarLayout: true,
-		categories: list,
+		categories: listCategory,
+		topics: listTopic,
 	});
 });
 router.get("/categories/add", function (req, res) {
@@ -84,6 +86,14 @@ router.get("/courses", async function (req, res) {
 		categories: listCategory,
 		users: listLecturer,
 	});
+});
+router.post("/courses/lock/:id", async function (req, res) {
+	await courseModel.lockCourse(+req.params.id);
+	res.redirect("/admin/courses");
+});
+router.post("/courses/unlock/:id", async function (req, res) {
+	await courseModel.unlockCourse(+req.params.id);
+	res.redirect(req.headers.referer);
 });
 router.post("/courses/del", async function (req, res) {
 	const ret = await courseModel.del(+req.body.id);

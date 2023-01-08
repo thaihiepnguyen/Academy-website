@@ -47,21 +47,22 @@ CREATE TABLE `courses` (
   `discount` int DEFAULT 0,
   `requirements` text DEFAULT NULL,
   `overview` text DEFAULT NULL,
-  `includedItem` text DEFAULT NULL
+  `includedItem` text DEFAULT NULL,
+  `enable` boolean DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-INSERT INTO `courses` (`id`, `name`, `thumbnail`, `tiny_des`, `full_des`, `price`, `promotion_id`, `last_modify`, `status`, `category_id`, `lecture_id`, `rating`, `levelCourse`, `durationCourse`, `weeklyHours`, `enrolled`, `discount`, `requirements`, `overview`, `includedItem`) VALUES
-(1, 'Python Website Full Tutorial', NULL, 'Flask, Authentication, Databases & More', 'Learn the PHP programming language in this full course / tutorial. The course is designed for new programmers, and will introduce common programming topics using the PHP language.', 489000, NULL, NULL, 1, 1, 9, 4,"",0,0,0,0,"","",""),
-(2, 'What To Learn To Become a Python Backend Developer', NULL, 'Python Backend Developer', NULL, 500000, NULL, NULL, 1, 1, 9, 5,"",0,0,0,0,"","",""),
-(3, 'The Ultimate Self-Taught Developer Curriculum', NULL, 'Developer Curriculum', NULL, 600000, NULL, NULL, 1, 1, 9, 4,"",0,0,0,0,"","",""),
-(4, 'Full Stack Web Development for Beginners', NULL, 'Full Course on HTML, CSS, JavaScript, Node.js, MongoDB', NULL, 1000000, NULL, NULL, 1, 1, 10, 5,"",0,0,0,0,"","",""),
-(5, 'React State Management', NULL, 'Intermediate JavaScript Course', NULL, 750000, NULL, NULL, 1, 1, 10, 4,"",0,0,0,0,"","",""),
-(6, 'Unity 3D for dummies', 'https://media.sketchfab.com/models/3f49271eb0dc404e87333baebca59886/thumbnails/914bdb37755946e8813325f9592bb0da/c09eace2ef6942268f325c369b1043e3.jpeg', 'You want to create your own game but dont know where to begin your journey?\nThis is the course for you!', NULL, 750000, NULL, NULL, 1, 1, 10, 4,"Beginner",1,3,12987,0,"_Basic knowledge about computer \n_Have good internet connection","_In this course you will learn: \n+Basic programming using C#, +Popular tools in Unity 3D \n+Making 3 simple games with concept: 3d racing game, 2d action game and a top down rpg","_20 hours on-demand video \n_2 articles \n_10 quizzes \n_Full lifetime access all resources in this course"),
-(7, 'Autodesk Fusion 360 Tutorial for Beginners', NULL, 'Learn the basics of designing', NULL, 650000, NULL, NULL, 1, 2, 10, 4,"",0,0,0,0,"","",""),
-(8, 'Figma Tutorial for UI Design', NULL, 'In this Figma course, you will learn how to use Figma for UI Design', NULL, 750000, NULL, NULL, 1, 2, 10, 4,"",0,0,0,0,"","",""),
-(9, 'Photoshop for Beginners', NULL, 'Go from beginner to pro in 23 lessons', NULL, 900000, NULL, NULL, 1, 2, 10, 4,"",0,0,0,0,"","",""),
-(10, 'How To Use Canva For BEGINNERS! (Canva Tutorial 2020)', NULL, 'In this Canva tutorial video, I''ll be covering all of Canva', NULL, 850000, NULL, NULL, 1, 2, 10, 5,"",0,0,0,0,"","","");
+INSERT INTO `courses` (`id`, `name`, `thumbnail`, `tiny_des`, `full_des`, `price`, `promotion_id`, `last_modify`, `status`, `category_id`, `lecture_id`, `rating`, `levelCourse`, `durationCourse`, `weeklyHours`, `enrolled`, `discount`, `requirements`, `overview`, `includedItem`, `enable`) VALUES
+(1, 'Python Website Full Tutorial', NULL, 'Flask, Authentication, Databases & More', 'Learn the PHP programming language in this full course / tutorial. The course is designed for new programmers, and will introduce common programming topics using the PHP language.', 489000, NULL, NULL, 1, 1, 9, 4,"",0,0,0,0,"","","",1),
+(2, 'What To Learn To Become a Python Backend Developer', NULL, 'Python Backend Developer', NULL, 500000, NULL, NULL, 1, 1, 9, 5,"",0,0,0,0,"","","",1),
+(3, 'The Ultimate Self-Taught Developer Curriculum', NULL, 'Developer Curriculum', NULL, 600000, NULL, NULL, 1, 1, 9, 4,"",0,0,0,0,"","","",1),
+(4, 'Full Stack Web Development for Beginners', NULL, 'Full Course on HTML, CSS, JavaScript, Node.js, MongoDB', NULL, 1000000, NULL, NULL, 1, 1, 10, 5,"",0,0,0,0,"","","",1),
+(5, 'React State Management', NULL, 'Intermediate JavaScript Course', NULL, 750000, NULL, NULL, 1, 1, 10, 4,"",0,0,0,0,"","","",1),
+(6, 'Unity 3D for dummies', 'https://media.sketchfab.com/models/3f49271eb0dc404e87333baebca59886/thumbnails/914bdb37755946e8813325f9592bb0da/c09eace2ef6942268f325c369b1043e3.jpeg', 'You want to create your own game but dont know where to begin your journey?\nThis is the course for you!', NULL, 750000, NULL, NULL, 1, 1, 10, 4,"Beginner",1,3,12987,0,"_Basic knowledge about computer \n_Have good internet connection","_In this course you will learn: \n+Basic programming using C#, +Popular tools in Unity 3D \n+Making 3 simple games with concept: 3d racing game, 2d action game and a top down rpg","_20 hours on-demand video \n_2 articles \n_10 quizzes \n_Full lifetime access all resources in this course",1),
+(7, 'Autodesk Fusion 360 Tutorial for Beginners', NULL, 'Learn the basics of designing', NULL, 650000, NULL, NULL, 1, 2, 10, 4,"",0,0,0,0,"","","",1),
+(8, 'Figma Tutorial for UI Design', NULL, 'In this Figma course, you will learn how to use Figma for UI Design', NULL, 750000, NULL, NULL, 1, 2, 10, 4,"",0,0,0,0,"","","",1),
+(9, 'Photoshop for Beginners', NULL, 'Go from beginner to pro in 23 lessons', NULL, 900000, NULL, NULL, 1, 2, 10, 4,"",0,0,0,0,"","","",1),
+(10, 'How To Use Canva For BEGINNERS! (Canva Tutorial 2020)', NULL, 'In this Canva tutorial video, I''ll be covering all of Canva', NULL, 850000, NULL, NULL, 1, 2, 10, 5,"",0,0,0,0,"","","",1);
 
 
 CREATE TABLE `links` (
