@@ -175,7 +175,7 @@
           <div style="color: #20499A;">Lecturer: Unknown</div>
         {{/if}}
 
-        <div class="row" style="background-color: #D3E0F9;">
+        <div class="row" style="background-color: #D3E0F9; border-radius: 3%;">
           <text class="importanceBlue">Requirements</text>
           <p style="white-space: pre-line;">
             {{basicInfo.0.requirements}}
@@ -199,7 +199,7 @@
             <a href={{this.source}} style="text-decoration: none;">
               <div class="row">
                 <div class="col">
-                  <img src={{this.thumbnail}} />
+                  <img src={{this.thumbnail}} style="border-radius: 5%;" />
                 </div>
                 <div class="col">
                   {{#if this.free}}
@@ -229,7 +229,7 @@
           {{#each videosL}}
             <div class="row">
               <div class="col">
-                <img src={{this.thumbnail}} />
+                <img src={{this.thumbnail}} style="border-radius: 5%;" />
               </div>
               <div class="col">
                 {{#if this.free}}
@@ -260,11 +260,7 @@
 
       </div>
     </div>
-
     {{! Get 5 course }}
-    <div class="importanceBlue">
-      Related courses:
-    </div>
     <div class="row">
       {{#each courseList}}
         <div class="col">
