@@ -17,11 +17,13 @@ export default {
         courses.check = true;
       }
     }
-
-    for (let i = 0; i < data2.length; i++) {
-      data2[i].source = "/details/" + courseId + "/" + data2[i].id;
-      //console.log(data2[i].source);
+    if (data2) {
+      for (let i = 0; i < data2.length; i++) {
+        data2[i].source = "/details/" + courseId + "/" + data2[i].id;
+        //console.log(data2[i].source);
+      }
     }
+
     let data3 = null;
     if (res.locals.user != null) {
       data3 = await coursesService.rollInThis(res.locals.user.id, courseId);
@@ -54,7 +56,7 @@ export default {
     console.log(rate);
     const courseId = req.params.id;
     const userId = res.locals.user.id;
-    if(userId != null) {
+    if (userId != null) {
       await coursesService.sendReviews(userId, courseId, reviewContent, rate);
     }
     // const url = "http://localhost:3000" + "/details/" + courseId;
