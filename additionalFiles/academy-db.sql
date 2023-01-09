@@ -228,6 +228,9 @@ add fulltext(lastname);
 alter table `academy-db`.courses
 add fulltext(tiny_des);
 
+alter table `academy-db`.topics
+add fulltext(name);
+
 ALTER TABLE `links`
   ADD PRIMARY KEY (`user_id`);
 
