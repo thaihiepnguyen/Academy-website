@@ -6,7 +6,7 @@ import categoryModel from "../services/category.service.js";
 import courseModel from "../services/courses.service.js";
 import userModel from "../services/user.service.js";
 import topicModel from "../services/topic.service.js";
-import { Console } from "console";
+import roleModel from "../services/role.service.js";
 
 const router = express.Router();
 //=================================================MANAGE CATEGORY=================================================
@@ -139,8 +139,13 @@ router.post("/courses/del", async function (req, res) {
 //=================================================MANAGE USER===================================================
 //===============================================================================================================
 router.get("/users", async function (req, res) {
+	const temp = req.query.role;
+	console.log(temp);
+	const listRole = await roleModel.findAll();
 	res.render("vwAdmin/vwUser/index", {
 		activeTagbarLayout: true,
+		role: listRole,
+		temp,
 	});
 });
 router.get("/users/add", function (req, res) {

@@ -1,6 +1,28 @@
+<div>
+    <form id="filter" method="get">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+            data-toggle="dropdown" aria-expanded="false">
+            Role
+        </button>
+        <div class="dropdown-menu">
+            {{!-- <input class="dropdown-item" name="role" type="submit" value="All" /> --}}
+            {{#each this.role}}
+            <input class="dropdown-item" name="role" type="submit" value="{{name}}" />
+            {{/each}}
+        </div>
+
+    </form>
+</div>
+{{!-- <p>{{#if (isEqual All ../temp)}}
+    TRUE
+    {{else}}
+    FALSE
+    {{/if}}
+</p> --}}
+
 <form method="post">
     <div class="card">
-        <h4 class="card-header">
+        <h4 class="card-header h4">
             Manage Users
             <a class="btn btn-sm btn-outline-primary" href="/admin/users/add" role="button">
                 <i class="fa fa-plus" aria-hidden="true"></i>
@@ -20,6 +42,7 @@
             </thead>
             <tbody>
                 {{#each lcUsersRole}}
+                {{#if (isEqual role ../temp)}}
                 <tr {{#if (isEqual enable 0)}} class="table-danger" {{/if}}>
                     <td scope="row" class="text-center">{{id}}</td>
                     <td>{{email}}</td>
@@ -37,8 +60,6 @@
                             <i class="fa fa-unlock" aria-hidden="true"></i>
                         </button>
                         {{/if}}
-
-
                     </td>
                     <td class="text-right">
                         <a class="btn btn-sm btn-primary" href="/admin/users/edit?id={{id}}"
@@ -47,6 +68,34 @@
                         </a>
                     </td>
                 </tr>
+                {{else if (isEqual undefined ../temp)}}
+
+                <tr {{#if (isEqual enable 0)}} class="table-danger" {{/if}}>
+                    <td scope="row" class="text-center">{{id}}</td>
+                    <td>{{email}}</td>
+                    <td>{{role}}</td>
+                    <td class="text-center">
+
+                        {{#if enable}}
+                        <button type="submit" class="btn btn-sm btn-primary btn-danger"
+                            formaction="/admin/users/lock/{{id}}">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                        </button>
+                        {{else}}
+                        <button type="submit" class="btn btn-sm btn-primary btn-success"
+                            formaction="/admin/users/unlock/{{id}}">
+                            <i class="fa fa-unlock" aria-hidden="true"></i>
+                        </button>
+                        {{/if}}
+                    </td>
+                    <td class="text-right">
+                        <a class="btn btn-sm btn-primary" href="/admin/users/edit?id={{id}}"
+                            role="button" title="Edit">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+                {{/if}}
                 {{/each}}
             </tbody>
         </table>

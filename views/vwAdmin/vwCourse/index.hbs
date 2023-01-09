@@ -66,7 +66,11 @@
             {{#each this.courses}}
             <tr {{#if (isEqual enable 0)}} class="table-danger" {{/if}}>
                 <td scope="row" class="text-center">{{id}}</td>
-                <td>{{name}}</td>
+                <td>
+                    <a href="/details/{{id}}">
+                        {{name}}
+                    </a>
+                </td>
                 <td>{{format_number price}}</td>
                 <td class="text-center">{{rating}}<i class="fa fa-star"
                         style="color:rgba(228, 228, 22, 0.675)" aria-hidden="true"></i></td>
