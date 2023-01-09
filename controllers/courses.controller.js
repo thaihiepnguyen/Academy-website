@@ -242,7 +242,7 @@ export default {
       }
     }
 
-    if (courses.length === 0) {
+    if (courses === null) {
       return res.render("vwProduct/courses", {
         activeTagbarLayout: true,
         warning: `Can not find any courses of ${key}`,

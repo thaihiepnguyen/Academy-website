@@ -1,6 +1,27 @@
 import db from "../utils/db.js";
+import userService from "./user.service.js";
+import categoryModel from "./category.service.js";
 
 export default {
+
+  lockCourse: (id) => {
+    return db("courses").where("id", id).update({ enable: 0 });
+  },
+  unlockCourse: (id) => {
+    return db("courses").where("id", id).update({ enable: 1 });
+  },
+
+  findCoursesByLecturerName: async (firstname, lastname) => {
+    const lecturerID = await userService.findByName(firstname, lastname);
+    const courses = await db("courses").where("lecture_id", lecturerID);
+    return courses;
+  },
+
+  findCoursesByCatName: async (catName) => {
+    const catID = await categoryModel.findByName(catName);
+    const courses = await db("courses").where("category_id", catID);
+    return courses;
+  },
 
   findTop5CoursesSameCategory: async (id) => {
     const sql = "select id , name, tiny_des, full_des, category_id, lecture_id, price, rating, topic_id, views, count(course_id) as count\n" +
@@ -213,6 +234,7 @@ export default {
 
     const list = await db("courses")
       .select(
+          "courses.id",
         "courses.thumbnail",
         "courses.name",
         "courses.levelCourse",
@@ -227,7 +249,8 @@ export default {
         "courses.overview",
         "courses.includedItem",
           "courses.category_id",
-          "courses.topic_id"
+          "courses.topic_id",
+          "courses.lecture_id"
       )
       .where({ "courses.id": idCourse });
 
@@ -243,12 +266,12 @@ export default {
       list[0].lastname = lecturerName[0]["lastname"];
     }
 
-    return list;
+    return list[0];
   },
 
   findVideoForCourse: async (courseID, videoID) => {
     const thisVideo = await db("video")
-      .select("source", "name")
+      .select("source", "name",'id')
       .where({ course_id: courseID, id: videoID });
 
     return thisVideo;

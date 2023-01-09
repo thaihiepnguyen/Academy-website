@@ -5,6 +5,8 @@ import coursesService from "../services/courses.service.js";
 import authWithRequiredPermission from "../middlewares/auth.mdw.js";
 const router = express.Router();
 
+router.get('/:id', detailsController.findDetailOfCourse);
+
 router.get('/detail/:id', coursesController.getDetailPage);
 
 router.get('/byCat/', coursesController.findByCatId);
@@ -15,8 +17,6 @@ router.get('/enroll/:id', authWithRequiredPermission(0), coursesController.enrol
 
 router.get('/byTopic/', coursesController.findByTopicId);
 
-router.get('/:id', detailsController.findDetailOfCourse);
-
 router.get('/:courseId/:videoId', detailsController.viewClip);
 
 router.post('/:id', detailsController.sendReview);
@@ -24,7 +24,7 @@ router.post('/:id', detailsController.sendReview);
 router.post('/views/:id', coursesController.pushView);
 
 
-router.post('/add/:id', async function (req, res) {
+router.post('/add/:id',authWithRequiredPermission(0), async function (req, res) {
   //console.log("lol");
   if (res.locals.user != null) {
     const courseId = req.params.id;
@@ -39,7 +39,7 @@ router.post('/add/:id', async function (req, res) {
     res.redirect(url);
   }
 });
-router.post('/del/:id', async function (req, res) {
+router.post('/del/:id',authWithRequiredPermission(0), async function (req, res) {
   //console.log("lol");
   if (res.locals.user != null) {
     const courseId = req.params.id;

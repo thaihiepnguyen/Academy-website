@@ -157,9 +157,31 @@
 
         </div>
 
+        {{#if user}}
         <div class="navbar-end">
             <div class="d-flex align-items-center justify-content-between item-style" style="width: 423px;">
+                {{#if isAdmin}}
+                    <div class="navbar-item has-dropdown is-hoverable text-decoration-none">
+                        <a class="navbar-link text-decoration-none">
+                            Manage
+                        </a>
 
+                        <div class="navbar-dropdown text-decoration-none">
+                            <li style="display:block" class="nav-item dropdown is-hoverable">
+                                <a id="cat {{id}}" href="/admin/categories" class="dropdown-item ">
+                                    Manage Categories
+                                </a>
+                                <a id="cat {{id}}" href="/admin/courses" class="dropdown-item  ">
+                                    Manage Courses
+                                </a>
+                                <a id="cat {{id}}" href="/admin/users" class="dropdown-item ">
+                                    Manage Users
+                                </a>
+                            </li>
+                        </div>
+                    </div>
+                {{/if}}
+                {{#if isStudent}}
                 <a class="navbar-item text-decoration-none" href="#">
                     Academy business
                 </a>
@@ -171,9 +193,10 @@
                 <a class="navbar-item text-decoration-none">
                     My learning
                 </a>
+                {{/if}}
             </div>
             <div class="navbar-item">
-                {{#if user}}
+
                     <li class="nav-item dropdown">
                         <a
                                 class="nav-link dropdown-toggle d-flex align-items-center"
@@ -221,7 +244,7 @@
                         <a
                                 class="button is-primary"
                                 style="background-color: #05445E"
-                                href="/account/signup/1"
+                                href="/account/signup"
                         >
                             <strong>Sign up</strong>
                         </a>
@@ -229,9 +252,10 @@
                             Log in
                         </a>
                     </div>
-                {{/if}}
+
             </div>
         </div>
+        {{/if}}
       </div>
     </nav>
 

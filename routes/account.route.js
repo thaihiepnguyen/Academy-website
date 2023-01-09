@@ -16,11 +16,11 @@ router.use(passportFacebook.session());
 
 router.get('/login', accountController.getLoginPage);
 
-router.get('/signup/:role', accountController.getSignupPage);
+router.get('/signup', accountController.getSignupPage);
 
-router.post('/signup/:role', accountController.sendVerifyMail);
+router.post('/signup', accountController.sendVerifyMail);
 
-router.post('/signup/otp/:role', accountController.handleSignup);
+router.post('/signup/otp', accountController.handleSignup);
 
 router.post('/login', accountController.handleLogin);
 

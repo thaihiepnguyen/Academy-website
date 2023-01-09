@@ -15,33 +15,30 @@
 <script src="https://twitter.github.io/typeahead.js/js/handlebars.js"></script>
 
 <div style="padding: 1% 5%;">
-  <img src={{basicInfo.0.thumbnail}} class="imageShow" />
+    <img src="/imgs/courses/{{courses.category_id}}/{{courses.topic_id}}/{{courses.id}}.jpeg" class="card-img-top" alt="...">
   <div class="row">
     <div class="col" style="text-align: left; background-color: #385DBD;">
-      <text
-        style="padding: 2rem; color: #75E6DA; font-weight: bold; font-size: x-large;"
-      >
-        {{basicInfo.0.name}}
-
+      <text style="padding: 2rem; color: #75E6DA; font-weight: bold; font-size: x-large;">
+        {{courses.name}}
       </text>
 
       <br />
       <text style="padding: 2rem; color: #D4F1F4">
         Level:
-        {{basicInfo.0.levelCourse}}
+        {{courses.levelCourse}}
       </text>
     </div>
     <div class="col" style="text-align: center; background-color: #385DBD;">
       <div class="row" style="padding-top:0.5%;">
         <text style="color: #75E6DA; font-weight: bold;">
           Duration:
-          {{basicInfo.0.durationCourse}}
+          {{courses.durationCourse}}
           months
         </text>
         <br />
         <text style="color: #75E6DA; font-weight: bold;">
           Weekly study:
-          {{basicInfo.0.weeklyHours}}
+          {{courses.weeklyHours}}
           hours
         </text>
       </div>
@@ -55,7 +52,7 @@
         <br />
         <div style="display: inline-block;">
           <div>
-            {{#each basicInfo.0.stars}}
+            {{#each courses.stars}}
               {{#if this}}
                 <div class="fa fa-star" style="color: rgb(220, 220, 9)"></div>
               {{else}}
@@ -63,20 +60,20 @@
               {{/if}}
             {{/each}}
             <text style="color: #05445E; font-weight:bold">
-              {{basicInfo.0.rating}}
+              {{courses.rating}}
               <text> stars </text>
             </text>
           </div>
         </div>
         <p style="white-space: pre-line;">
-          <b>{{basicInfo.0.tiny_des}}</b>
+          <b>{{courses.tiny_des}}</b>
         </p>
       </div>
       <div class="col" style="border-left: 1px solid black;">
         <div class="row" style="display: inline;">
           <div
             style="color: #189AB4; font-weight: bold; text-align: center;"
-          >{{basicInfo.0.enrolled}}
+          >{{courses.enrolled}}
             enrolled
             {{#if logged}}
               {{#if courses.check}}
@@ -121,22 +118,22 @@
                   style="background-color: #05445E; color: #D4F1F4; font-weight: bold;"
                 >Enroll now</button>
               </form>
-              {{#if basicInfo.0.discountTo}}
+              {{#if courses.discountTo}}
                 <text style="font-weight: bold; font-size: large;">
                   for only:
                   <text
                     style="font-weight: bold; text-decoration: line-through;"
-                  >{{basicInfo.0.price}}đ</text>
+                  >{{courses.price}}đ</text>
                   <text
                     style="color: #0057FF; font-weight: bold; font-size: large;"
                   >
-                    {{basicInfo.0.discountTo}}đ</text></text>
+                    {{courses.discountTo}}đ</text></text>
               {{else}}
                 <text style="font-weight: bold; font-size: large;">
                   for only:
                   <text
                     style="color: #0057FF; font-size: large;"
-                  >{{basicInfo.0.price}}đ</text></text>
+                  >{{courses.price}}đ</text></text>
               {{/if}}
             {{else}}
               <button
@@ -165,11 +162,11 @@
     <div class="row">
       <div class="col">
 
-        {{#if basicInfo.0.lecture_id}}
+        {{#if courses.lecture_id}}
           <b style="font-size: 150%;">
             <div style="color: #20499A;">Lecturer:
-              {{basicInfo.0.firstname}}
-              {{basicInfo.0.lastname}}</div>
+              {{courses.firstname}}
+              {{courses.lastname}}</div>
           </b>
         {{else}}
           <div style="color: #20499A;">Lecturer: Unknown</div>
@@ -178,15 +175,15 @@
         <div class="row" style="background-color: #D3E0F9; border-radius: 3%;">
           <text class="importanceBlue">Requirements</text>
           <p style="white-space: pre-line;">
-            {{basicInfo.0.requirements}}
+            {{courses.requirements}}
           </p>
           <text class="importanceBlue">Overview</text>
           <p style="white-space: pre-line;">
-            {{basicInfo.0.overview}}
+            {{courses.overview}}
           </p>
           <text class="importanceBlue">What are included</text>
           <p style="white-space: pre-line;">
-            {{basicInfo.0.overview}}
+            {{courses.overview}}
           </p>
         </div>
 
@@ -194,8 +191,8 @@
       </div>
       <div class="col">
         <text class="importanceBlue">Videos</text>
-        {{#if basicInfo.0.enrolled}}
-          {{#each videosL}}
+        {{#if courses.enrolled}}
+          {{#each clips}}
             <a href={{this.source}} style="text-decoration: none;">
               <div class="row">
                 <div class="col">

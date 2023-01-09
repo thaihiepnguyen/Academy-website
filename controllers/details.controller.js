@@ -2,53 +2,54 @@ import coursesService from "../services/courses.service.js";
 import userService from "../services/user.service.js";
 export default {
   findDetailOfCourse: async (req, res) => {
-    //console.log("LOL");
-    //req.session.retUrl = req.originalUrl;
+
     const courseId = req.params.id;
-    //console.log("id: " + courseId);
+
     const user = res.locals.user;
-    const data1 = await coursesService.findDetails(courseId);
+
+    const courses = await coursesService.findDetails(courseId);
     const reviews = await coursesService.getReviews(courseId);
     const isLogged = req.session.auth;
-    const data2 = await coursesService.getClips(courseId);
-    let courses = null;
-
-    console.log(data1.length);
+    const clips = await coursesService.getClips(courseId);
+    let isFavourite = null;
 
     if (user != null) {
-      courses = await userService.checkCourseInWatchList(user.id, courseId);
-      if (courses.length > 0) {
+      isFavourite = await userService.checkCourseInWatchList(user.id, courseId);
+      if (isFavourite.length > 0) {
         courses.check = true;
       }
     }
-    if (data2) {
-      for (let i = 0; i < data2.length; i++) {
-        data2[i].source = "/details/" + courseId + "/" + data2[i].id;
-        //console.log(data2[i].source);
+    if (clips) {
+      for (let i = 0; i < clips.length; i++) {
+        clips[i].source = "/details/" + courseId + "/" + clips[i].id;
       }
     }
 
-    let data3 = null;
+    let isEnroll = null;
     if (res.locals.user != null) {
-      data3 = await coursesService.rollInThis(res.locals.user.id, courseId);
+      isEnroll = await coursesService.rollInThis(res.locals.user.id, courseId);
     }
     let show = true;
-    if (data3) {
+    if (isEnroll) {
       show = false;
     }
-    console.log(show);
+
     let ratings = [false, false, false, false, false];
-    for (let j = 0; j < data1[0].rating; j++) {
+
+    console.log(courses.rating);
+
+    for (let j = 0; j < courses.rating; j++) {
       ratings[j] = true;
     }
-    data1[0].stars = ratings;
+
+    courses.stars = ratings;
     res.render("vwProduct/detail.hbs", {
       isDefault: true,
-      basicInfo: data1,
+      courses: courses,
       logged: isLogged,
       reviewsList: reviews,
-      videosL: data2,
-      courses,
+      clips: clips,
+      isFavourite,
       courseId,
       show,
     });

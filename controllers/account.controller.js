@@ -30,12 +30,12 @@ export default {
             const user = {
                 ...req.session.userBuffer,
                 image: null,
-                role_id: role,
+                role_id: 1,
             };
 
             await userService.add(user);
 
-            res.redirect('/account/login/' + role);
+            res.redirect('/account/login');
         } else {
             // sai otp
 
@@ -312,6 +312,7 @@ export default {
             lastname: user.name.familyName,
             image: user.photos[0].value,
             role_id: 1,
+            enable: 1
         };
 
         const userOfficial = await userService.findByEmail(userdb.email);
@@ -320,8 +321,17 @@ export default {
         if(userOfficial == null) {
             await userService.add(userdb);
         }
+
         req.session.auth = true;
         req.session.authUser = await userService.findByEmail(userdb.email);
+
+        const User = req.session.authUser;
+        if(User.enable === 0) {
+            return res.render("vwlogin/login.hbs", {
+                err_message: "You had locked by admin.",
+                isDefault: true,
+            });
+        }
 
         res.redirect('/');
     },
@@ -336,6 +346,7 @@ export default {
             lastname: user.name.familyName,
             image: user.photos[0].value,
             role_id: 1,
+            enable:1
         };
 
         const userOfficial = await userService.findByEmail(userdb.email);
@@ -346,6 +357,15 @@ export default {
         }
         req.session.auth = true;
         req.session.authUser = await userService.findByEmail(userdb.email);
+
+        const User = req.session.authUser;
+
+        if(User.enable === 0) {
+            return res.render("vwlogin/login.hbs", {
+                err_message: "You had locked by admin.",
+                isDefault: true,
+            });
+        }
 
         res.redirect('/');
     },

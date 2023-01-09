@@ -11,6 +11,17 @@ import { Console } from "console";
 const router = express.Router();
 //=================================================MANAGE CATEGORY=================================================
 //=================================================================================================================
+
+router.get("/", async function (req, res) {
+	const listCategory = await categoryModel.findAll();
+	const listTopic = await topicModel.findAll();
+	res.render('home', {
+		activeTagbarLayout: true,
+		categories: listCategory,
+		topics: listTopic,
+	});
+});
+
 router.get("/categories", async function (req, res) {
 	const listCategory = await categoryModel.findAll();
 	const listTopic = await topicModel.findAll();
