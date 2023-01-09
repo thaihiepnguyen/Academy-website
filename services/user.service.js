@@ -24,7 +24,20 @@ export default {
 		}
 		return list[0];
 	},
-
+	findLecturer: async () => {
+		const list = await db("users").where("role_id", 2);
+		if (list.length === 0) {
+			return null;
+		}
+		return list;
+	},
+	async findByName(first, last) {
+		const list = await db("users").where({ firstname: first, lastname: last });
+		if (list.length === 0) {
+			return null;
+		}
+		return list[0].id;
+	},
 	findByEmail: async (email) => {
 		const list = await db("users").where("email", email);
 		if (list.length === 0) {

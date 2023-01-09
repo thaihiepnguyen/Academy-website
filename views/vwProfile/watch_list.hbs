@@ -34,6 +34,7 @@
         {{#if this.courses}}
             {{#each this.courses}}
                 <form action="/account/watch_list/delete/{{id}}" method="post">
+                    <a href="/courses/detail/{{id}}">
                     <div class="card mr-6 mt-6 d-flex flex-column" style="width: 18rem;margin-right: 2rem !important;">
                         <img src="/imgs/courses/1/{{id}}.jpeg" class="card-img-top" alt="...">
                         <div class="d-flex card-body align-items-start flex-column">
@@ -60,6 +61,7 @@
                             <p class="font-weight-bold">{{format_number this.price}} VND</p>
                         </div>
                     </div>
+                    </a>
                 </form>
 
             {{/each}}

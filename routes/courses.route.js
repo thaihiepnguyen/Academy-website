@@ -1,14 +1,15 @@
 import express from "express";
-import productController from "../controllers/courses.controller.js";
+import coursesController from "../controllers/courses.controller.js";
 import detailsController from "../controllers/details.controller.js";
 import coursesService from "../services/courses.service.js";
 const router = express.Router();
 
-router.get("/byCat/:id", productController.findByCatId);
+router.get("/byCat/:id", coursesController.findByCatId);
 
-router.get("/search/", productController.fullTextSearch);
+router.get("/search/", coursesController.fullTextSearch);
 
-//router.post('/search', productController.fullTextSearch);
+router.get('/detail/:id', coursesController.getDetailPage);
+
 router.get("/:id", detailsController.findDetailOfCourse);
 
 router.get("/:courseId/:videoId", detailsController.viewClip);

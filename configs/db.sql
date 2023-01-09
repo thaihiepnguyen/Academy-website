@@ -48,7 +48,7 @@ CREATE TABLE `courses` (
   `requirements` text DEFAULT NULL,
   `overview` text DEFAULT NULL,
   `includedItem` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8; 
 
 
 INSERT INTO `courses` (`id`, `name`, `thumbnail`, `tiny_des`, `full_des`, `price`, `promotion_id`, `last_modify`, `status`, `category_id`, `lecture_id`, `rating`, `levelCourse`, `durationCourse`, `weeklyHours`, `enrolled`, `discount`, `requirements`, `overview`, `includedItem`) VALUES
@@ -153,30 +153,29 @@ CREATE TABLE `users` (
   `firstname` varchar(255) DEFAULT NULL,
   `lastname` varchar(255) DEFAULT NULL,
   `image` varchar(100) DEFAULT NULL,
-  `role_id` int(11) DEFAULT NULL,
-  `enable` boolean DEFAULT 1
+  `role_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `users` (`id`, `email`, `password`, `firstname`, `lastname`, `image`, `role_id`, `enable`) VALUES
-(1, 'maddogmichel@chavezschool.org', 'qwert123', 'maddog', 'michel', 'public/images/avt/1.png', 1, 1),
-(2, 'ash33349599@gmail.com', '123456789h', 'ashley', 'sensor', 'public/images/avt/2.png', 1, 1),
-(3, 'fatal0g1c@gmail.com', '0987654321j', 'fatal', 'shit', 'public/images/avt/3.png', 1, 1),
-(4, 'allfit34541234@pickuplanet.com', 'mot23456789', 'allfit', 'prise', 'public/images/avt/4.png', 3, 1),
-(5, 'surjiksenya@elitemotions.com', 'reallystrongpwd', 'surjik', 'senya', 'public/images/avt/5.png', 2, 1),
-(6, 'korneevvitalick@imaanpharmacy.com', '1234thisispwd', 'vitalick', 'kornee', 'public/images/avt/7.png', 2, 1),
-(7, 'nguyenvannam@gmail.com', 'namkhongdeptrai', 'nam', 'nguyen', 'public/images/avt/8.png', 2, 1),
-(8, 'thaihiep232002@gmail.com', '1234567', 'thaihiep', 'nguyen', NULL, 1, 1),
-(9, 'techwithtim@gmail.com', 'techtim', 'Tim', 'Tech', NULL, 2, 1),
-(10, 'freecodecamp@gmail.com', 'codecampfree', 'free', 'campcode', NULL, 2, 1),
-(11, 'thaihiep@gmail.com', '1234567', 'thai', 'hiep', NULL, 1, 1),
-(12, 'quangbinh@gmail.com', '$2a$10$ey5e1r3lrtn41kKfd5Q5FuB5s.uQGmym3ei2oLKfn3MtqbC1GlxEa', 'binh', 'quang', NULL, 1, 1),
-(13, 'user@gmail.com', '$2a$10$2h9THVtcELsdzR/l4FlZDOD/ZIPng.f9VFgh4yFkiygpP/Z.18Yo.', 'user', 'test', NULL, 1, 1),
-(14, 'thaihiepnguyen@gmail.com', '$2a$10$.ESoYDK1/FEFQ9mzejXxbOUZoUiFHkpt/nWDgnThKepb2g0z/PZIG', 'thaihiep', 'nguyen', NULL, 1, 1),
-(15, 'thaihiepp@gmail.com', '$2a$10$h35zayIz/gvBcsCCsA5egO6tqSDvH7MC.Ih7hNxygSqbnDQgmRMGa', 'hiep', 'thai', NULL, 1, 1),
-(16, 'qwert@gmail.com', '$2a$10$oTNEtd2OANUI1zxOz7yWeu7NqWu/EvFKVa/sZAIgspxypu7scRKF.', 'nguyen', 'thaihiep', NULL, 1, 1),
-(17, 'testuser@gmail.com', '$2b$10$LJsoeU/0cOBPSavh3JoFveW4QBQlIWoCX5WsNsQTFQ4uL7lhbcR3G', 'test', 'user', '/imgs/avt/17.jpg', 1, 1),
-(18, 'hainguyen13097@gmail.com', NULL, 'Ngọc Hải', NULL, NULL, 1, 1),
-(19, 'admin@gmail.com', '$2b$10$fzJpw6ZlZ4ZASZ.R9XA.t.616JXoN/0kUwhwzE5CHCkdL/obXPjSG', 'Ngọc', 'Hải', NULL, 3, 1);
+INSERT INTO `users` (`id`, `email`, `password`, `firstname`, `lastname`, `image`, `role_id`) VALUES
+(1, 'maddogmichel@chavezschool.org', 'qwert123', 'maddog', 'michel', 'public/images/avt/1.png', 1),
+(2, 'ash33349599@gmail.com', '123456789h', 'ashley', 'sensor', 'public/images/avt/2.png', 1),
+(3, 'fatal0g1c@gmail.com', '0987654321j', 'fatal', 'shit', 'public/images/avt/3.png', 1),
+(4, 'allfit34541234@pickuplanet.com', 'mot23456789', 'allfit', 'prise', 'public/images/avt/4.png', 3),
+(5, 'surjiksenya@elitemotions.com', 'reallystrongpwd', 'surjik', 'senya', 'public/images/avt/5.png', 2),
+(6, 'korneevvitalick@imaanpharmacy.com', '1234thisispwd', 'vitalick', 'kornee', 'public/images/avt/7.png', 2),
+(7, 'nguyenvannam@gmail.com', 'namkhongdeptrai', 'nam', 'nguyen', 'public/images/avt/8.png', 2),
+(8, 'thaihiep232002@gmail.com', '1234567', 'thaihiep', 'nguyen', NULL, 1),
+(9, 'techwithtim@gmail.com', 'techtim', 'Tim', 'Tech', NULL, 2),
+(10, 'freecodecamp@gmail.com', 'codecampfree', 'free', 'campcode', NULL, 2),
+(11, 'thaihiep@gmail.com', '1234567', 'thai', 'hiep', NULL, 1),
+(12, 'quangbinh@gmail.com', '$2a$10$ey5e1r3lrtn41kKfd5Q5FuB5s.uQGmym3ei2oLKfn3MtqbC1GlxEa', 'binh', 'quang', NULL, 1),
+(13, 'user@gmail.com', '$2a$10$2h9THVtcELsdzR/l4FlZDOD/ZIPng.f9VFgh4yFkiygpP/Z.18Yo.', 'user', 'test', NULL, 1),
+(14, 'thaihiepnguyen@gmail.com', '$2a$10$.ESoYDK1/FEFQ9mzejXxbOUZoUiFHkpt/nWDgnThKepb2g0z/PZIG', 'thaihiep', 'nguyen', NULL, 1),
+(15, 'thaihiepp@gmail.com', '$2a$10$h35zayIz/gvBcsCCsA5egO6tqSDvH7MC.Ih7hNxygSqbnDQgmRMGa', 'hiep', 'thai', NULL, 1),
+(16, 'qwert@gmail.com', '$2a$10$oTNEtd2OANUI1zxOz7yWeu7NqWu/EvFKVa/sZAIgspxypu7scRKF.', 'nguyen', 'thaihiep', NULL, 1),
+(17, 'testuser@gmail.com', '$2b$10$LJsoeU/0cOBPSavh3JoFveW4QBQlIWoCX5WsNsQTFQ4uL7lhbcR3G', 'test', 'user', '/imgs/avt/17.jpg', 1),
+(18, 'hainguyen13097@gmail.com', NULL, 'Ngọc Hải', NULL, NULL, 1),
+(19, 'admin@gmail.com', '$2b$10$fzJpw6ZlZ4ZASZ.R9XA.t.616JXoN/0kUwhwzE5CHCkdL/obXPjSG', 'Ngọc', 'Hải', NULL, 3);
 
 
 

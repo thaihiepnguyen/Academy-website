@@ -8,9 +8,41 @@
 </script>
 {{/section}}
 
+<div class="d-flex">
+    <div>
+        <form id="filter" method="get">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                data-toggle="dropdown" aria-expanded="false">
+                Category
+            </button>
+            <div class="dropdown-menu">
+                {{#each this.categories}}
+                <input class="dropdown-item" name="cat" type="submit" value="{{name}}" />
+                {{/each}}
+            </div>
+
+        </form>
+    </div>
+
+    <div class="flex-fill ml-2">
+        <form id="filter2" method="get">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
+                data-toggle="dropdown" aria-expanded="false">
+                Lecturer
+            </button>
+            <div class="dropdown-menu">
+                {{#each this.users}}
+                <input class="dropdown-item" name="lecturer" type="submit"
+                    value="{{firstname}} {{lastname}}" />
+                {{/each}}
+            </div>
+        </form>
+    </div>
+</div>
+
 
 <div class="card">
-    <h4 class="card-header">
+    <h4 class="card-header h4">
         Courses
     </h4>
 
@@ -26,18 +58,36 @@
                 <th>Price</th>
                 <th>Rating</th>
                 <th>TinyDes</th>
+                <th>Status</th>
                 <th>&nbsp;</th>
             </tr>
         </thead>
         <tbody>
             {{#each this.courses}}
-            <tr>
+            <tr {{#if (isEqual enable 0)}} class="table-danger" {{/if}}>
                 <td scope="row" class="text-center">{{id}}</td>
                 <td>{{name}}</td>
                 <td>{{format_number price}}</td>
                 <td class="text-center">{{rating}}<i class="fa fa-star"
                         style="color:rgba(228, 228, 22, 0.675)" aria-hidden="true"></i></td>
                 <td>{{tiny_des}}</td>
+
+                <td class="text-center">
+                    <form method="post">
+                        {{#if enable}}
+                        <button type="submit" class="btn btn-sm btn-primary btn-danger"
+                            formaction="/admin/courses/lock/{{id}}">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                        </button>
+                        {{else}}
+                        <button type="submit" class="btn btn-sm btn-primary btn-success"
+                            formaction="/admin/courses/unlock/{{id}}">
+                            <i class="fa fa-unlock" aria-hidden="true"></i>
+                        </button>
+                        {{/if}}
+                    </form>
+                </td>
+
                 <td class="text-right">
                     <a data-id="{{id}}" class=" btn btn-sm btn-danger delItem" href="javascript:;"
                         role="button">

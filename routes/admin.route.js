@@ -5,17 +5,19 @@ import adminController from "../controllers/admin.controller.js";
 import categoryModel from "../services/category.service.js";
 import courseModel from "../services/courses.service.js";
 import userModel from "../services/user.service.js";
+import topicModel from "../services/topic.service.js";
 import { Console } from "console";
 
 const router = express.Router();
 //=================================================MANAGE CATEGORY=================================================
 //=================================================================================================================
 router.get("/categories", async function (req, res) {
-	const list = await categoryModel.findAll();
-
+	const listCategory = await categoryModel.findAll();
+	const listTopic = await topicModel.findAll();
 	res.render("vwAdmin/vwCategory/index", {
 		activeTagbarLayout: true,
-		categories: list,
+		categories: listCategory,
+		topics: listTopic,
 	});
 });
 router.get("/categories/add", function (req, res) {
@@ -63,19 +65,77 @@ router.post("/categories/patch", async function (req, res) {
 	const ret = await categoryModel.patch(req.body);
 	res.redirect("/admin/categories");
 });
+
+router.get("/categories/topics/add", async function (req, res) {
+	const listCategory = await categoryModel.findAll();
+	res.render("vwAdmin/vwCategory/add_topic", {
+		activeTagbarLayout: true,
+		categories: listCategory,
+	});
+});
+router.post("/categories/topics/add", async function (req, res) {
+	const ret = await topicModel.add(req.body);
+	res.render("vwAdmin/vwCategory/add_topic", {
+		activeTagbarLayout: true,
+	});
+});
+router.get("/categories/topics/edit", async function (req, res) {
+	const listCategory = await categoryModel.findAll();
+	const id = req.query.id || 0;
+	const topic = await topicModel.findById(id);
+
+	if (topic === null) {
+		return res.redirect("/admin/categories");
+	}
+	res.render("vwAdmin/vwCategory/edit_topic", {
+		activeTagbarLayout: true,
+		categories: listCategory,
+		topic,
+	});
+	router.post("/categories/topics/patch", async function (req, res) {
+		const ret = await topicModel.patch(req.body);
+		res.redirect("/admin/categories");
+	});
+	router.post("/categories/topics/del/:id", async function (req, res) {
+		const ret = await topicModel.del(+req.params.id);
+		res.redirect(req.headers.referer);
+	});
+});
 //=================================================MANAGE COURSE=================================================
 //===============================================================================================================
 router.get("/courses", async function (req, res) {
-	const list = await courseModel.findAll();
+	let listCourse;
+	if (req.query.cat) {
+		listCourse = await courseModel.findCoursesByCatName(req.query.cat);
+	} else if (req.query.lecturer) {
+		const firstname = req.query.lecturer.split(" ")[0];
+		const lastname = req.query.lecturer.split(" ")[1];
+		listCourse = await courseModel.findCoursesByLecturerName(firstname, lastname);
+	} else {
+		listCourse = await courseModel.findAll();
+	}
+	const listCategory = await categoryModel.findAll();
+	const listLecturer = await userModel.findLecturer();
 	res.render("vwAdmin/vwCourse/index", {
 		activeTagbarLayout: true,
-		courses: list,
+		courses: listCourse,
+		categories: listCategory,
+		users: listLecturer,
 	});
+});
+router.post("/courses/lock/:id", async function (req, res) {
+	await courseModel.lockCourse(+req.params.id);
+	res.redirect("/admin/courses");
+});
+router.post("/courses/unlock/:id", async function (req, res) {
+	await courseModel.unlockCourse(+req.params.id);
+	res.redirect(req.headers.referer);
 });
 router.post("/courses/del", async function (req, res) {
 	const ret = await courseModel.del(+req.body.id);
 	res.redirect(req.headers.referer);
 });
+
 //=================================================MANAGE USER===================================================
 //===============================================================================================================
 router.get("/users", async function (req, res) {
@@ -146,4 +206,5 @@ router.post("/users/unlock/:id", async function (req, res) {
 	await userModel.unlockUser(+req.params.id);
 	res.redirect(req.headers.referer);
 });
+
 export default router;
