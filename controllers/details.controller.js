@@ -2,8 +2,10 @@ import coursesService from "../services/courses.service.js";
 import userService from "../services/user.service.js";
 export default {
   findDetailOfCourse: async (req, res) => {
+    //console.log("LOL");
     //req.session.retUrl = req.originalUrl;
     const courseId = req.params.id;
+    //console.log("id: " + courseId);
     const user = res.locals.user;
     const data1 = await coursesService.findDetails(courseId);
     const reviews = await coursesService.getReviews(courseId);

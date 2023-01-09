@@ -8,7 +8,7 @@ router.get("/byCat/:id", coursesController.findByCatId);
 
 router.get("/search/", coursesController.fullTextSearch);
 
-router.get('/detail/:id', coursesController.getDetailPage);
+router.get("/detail/:id", coursesController.getDetailPage);
 
 router.get("/:id", detailsController.findDetailOfCourse);
 
@@ -18,7 +18,7 @@ router.post("/:id", detailsController.sendReview);
 
 router.post("/views/:id", coursesController.pushView);
 
-router.get('/enroll/:id', coursesController.enrollCourses);
+router.get("/enroll/:id", coursesController.enrollCourses);
 
 router.post("/add/:id", async function (req, res) {
   //console.log("lol");

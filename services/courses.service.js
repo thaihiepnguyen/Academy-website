@@ -1,14 +1,12 @@
 import db from "../utils/db.js";
 
 export default {
-
   insertEnroll: async (user_id, course_id) => {
-
-    console.log("hai")
-    await db('registered_courses').insert({
-      'user_id': user_id,
-      'course_id': course_id
-    })
+    console.log("hai");
+    await db("registered_courses").insert({
+      user_id: user_id,
+      course_id: course_id,
+    });
   },
 
   findCoursesById: async (id) => {
@@ -47,8 +45,8 @@ export default {
         "courses.name",
         "courses.rating",
         "courses.price",
-          "courses.category_id",
-          "courses.topic_id"
+        "courses.category_id",
+        "courses.topic_id"
       )
       .where({ "courses.category_id": CatId });
 
@@ -60,13 +58,14 @@ export default {
   },
 
   findTop3Courses: async () => {
-    const query = "select course_id as id, courses.topic_id, users.firstname, users.lastname, courses.tiny_des, courses.name,courses.rating, courses.price, courses.category_id, courses.views" +
-        " \nfrom registered_courses, courses, users" +
-        " \nwhere course_id = courses.id and courses.lecture_id = users.id" +
-        " \ngroup by course_id" +
-        " \norder by count(course_id) desc" +
-        " \nlimit 3" +
-        "\noffset 0";
+    const query =
+      "select course_id as id, courses.topic_id, users.firstname, users.lastname, courses.tiny_des, courses.name,courses.rating, courses.price, courses.category_id, courses.views" +
+      " \nfrom registered_courses, courses, users" +
+      " \nwhere course_id = courses.id and courses.lecture_id = users.id" +
+      " \ngroup by course_id" +
+      " \norder by count(course_id) desc" +
+      " \nlimit 3" +
+      "\noffset 0";
 
     const list = await db.raw(query);
     if (list[0].length === 0) {
@@ -76,12 +75,12 @@ export default {
     // add categoryName object into list
 
     for (let item of list[0]) {
-      const categoryName =  await db('courses')
-          .join('categories', 'categories.id', 'courses.category_id')
-          .select('categories.name')
-          .where({
-            'categories.id': item.category_id
-          });
+      const categoryName = await db("courses")
+        .join("categories", "categories.id", "courses.category_id")
+        .select("categories.name")
+        .where({
+          "categories.id": item.category_id,
+        });
 
       item.catName = categoryName[0].name;
     }
@@ -90,19 +89,22 @@ export default {
 
   async findTop10CoursesByView() {
     const list = await db("courses")
-        .join("users", "users.id", "courses.lecture_id")
-        .select(
-            "courses.id",
-            "users.firstname",
-            "users.lastname",
-            "courses.tiny_des",
-            "courses.name",
-            "courses.rating",
-            "courses.price", "courses.category_id", "courses.views", "courses.topic_id"
-        )
-        .orderBy("views", "desc")
-        .limit(10)
-        .offset(0);
+      .join("users", "users.id", "courses.lecture_id")
+      .select(
+        "courses.id",
+        "users.firstname",
+        "users.lastname",
+        "courses.tiny_des",
+        "courses.name",
+        "courses.rating",
+        "courses.price",
+        "courses.category_id",
+        "courses.views",
+        "courses.topic_id"
+      )
+      .orderBy("views", "desc")
+      .limit(10)
+      .offset(0);
 
     if (list.length === 0) {
       return null;
@@ -111,12 +113,12 @@ export default {
     // add categoryName object into list
 
     for (let item of list) {
-      const categoryName =  await db('courses')
-          .join('categories', 'categories.id', 'courses.category_id')
-          .select('categories.name')
-          .where({
-            'categories.id': item.category_id
-          });
+      const categoryName = await db("courses")
+        .join("categories", "categories.id", "courses.category_id")
+        .select("categories.name")
+        .where({
+          "categories.id": item.category_id,
+        });
 
       item.catName = categoryName[0].name;
     }
@@ -128,9 +130,17 @@ export default {
       .avg("rating")
       .where({ course_id: idCourse });
     //console.log(averageStar[0]["avg(`rating`)"]);
-    const updateStar = await db("courses")
-      .where({ id: idCourse })
-      .update({ rating: Math.round(averageStar[0]["avg(`rating`)"]) });
+    //console.log(averageStar);
+    if (averageStar[0]["avg(`rating`)"]) {
+      const updateStar = await db("courses")
+        .where({ id: idCourse })
+        .update({ rating: Math.round(averageStar[0]["avg(`rating`)"]) });
+    } else {
+      const updateStar = await db("courses")
+        .where({ id: idCourse })
+        .update({ rating: Math.round(0) });
+    }
+
     const list = await db("courses")
       .select(
         "courses.thumbnail",
@@ -147,8 +157,8 @@ export default {
         "courses.overview",
         "courses.includedItem",
         "courses.lecture_id",
-          "courses.category_id",
-          "courses.topic_id"
+        "courses.category_id",
+        "courses.topic_id"
       )
       .where({ "courses.id": idCourse });
     if (list.length === 0) {
@@ -322,10 +332,10 @@ export default {
         "courses.name",
         "courses.rating",
         "courses.price",
-       
-          "courses.category_id",
-          "courses.topic_id",
-          "courses.views"
+
+        "courses.category_id",
+        "courses.topic_id",
+        "courses.views"
       )
       .orderBy("rating", "desc")
       .limit(5)
@@ -395,9 +405,9 @@ export default {
         "courses.lecture_id",
         "courses.promotion_id",
         "courses.rating",
-          "courses.topic_id"
+        "courses.topic_id"
       )
-      .join("categories", "category_id", "categories.id")//topic
+      .join("categories", "category_id", "categories.id") //topic
       .join("users", "lecture_id", "users.id")
       .whereRaw("MATCH(courses.name) AGAINST(?)", key)
       .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)

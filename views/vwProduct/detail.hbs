@@ -15,7 +15,12 @@
 <script src="https://twitter.github.io/typeahead.js/js/handlebars.js"></script>
 
 <div style="padding: 1% 5%;">
-  <img src={{basicInfo.0.thumbnail}} class="imageShow" />
+  {{#if basicInfo.0.thumbnail}}
+    <img src={{basicInfo.0.thumbnail}} class="imageShow" />
+  {{else}}
+    <div>No image to show</div>
+  {{/if}}
+
   <div class="row">
     <div class="col" style="text-align: left; background-color: #385DBD;">
       <text
