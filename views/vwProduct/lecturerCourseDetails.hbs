@@ -131,41 +131,45 @@
       </div>
       <div class="col">
         <text class="importanceBlue">Videos</text>
-        {{#each videosL}}
-          <a href={{this.source}} style="text-decoration: none;">
-            <div class="row">
-              <div class="col">
-                <img src={{this.thumbnail}} style="border-radius: 5%;" />
-              </div>
-              <div class="col">
-                {{#if this.free}}
-                  <div style="margin-top:15%; height: 100%;" class="row">
-                    <div style="color: #2638D8; font-weight:bold">Free</div>
-                    <b>{{this.name}} </b>
-                    <button type="button" class="btn btn-danger">Edit</button>
-                  </div>
-                {{else}}
-                  <div style="margin-top:17%; height: 50%;">
-                    <b class="float-left" style="padding-top: 3%;">{{this.name}}
-                    </b>
-                    <div class="float-right">
-                      <button
-                        type="button"
-                        class="btn btn-warning"
-                      >Warning</button>
-                      <button
-                        type="button"
-                        class="btn btn-danger"
-                      >Delete</button>
+        <div style="overflow-y: auto; overflow-x:hidden; height: 30rem">
+          {{#each videosL}}
+            <a href={{this.source}} style="text-decoration: none;">
+              <div class="row">
+                <div class="col">
+                  <img src={{this.thumbnail}} style="border-radius: 5%;" />
+                </div>
+                <div class="col">
+                  {{#if this.free}}
+                    <div style="margin-top:15%; height: 100%;" class="row">
+                      <div style="color: #2638D8; font-weight:bold">Free</div>
+                      <b>{{this.name}} </b>
+                      <button type="button" class="btn btn-danger">Edit</button>
                     </div>
-
-                  </div>
-                {{/if}}
+                  {{else}}
+                    <div style="margin-top:17%; height: 50%;">
+                      <b
+                        class="float-left"
+                        style="padding-top: 3%;"
+                      >{{this.name}}
+                      </b>
+                      <div class="float-right">
+                        <button
+                          type="button"
+                          class="btn btn-warning"
+                        >Warning</button>
+                        <button
+                          type="button"
+                          class="btn btn-danger"
+                        >Delete</button>
+                      </div>
+                    </div>
+                  {{/if}}
+                </div>
               </div>
-            </div>
-            <br />
-          </a>
-        {{/each}}
+              <br />
+            </a>
+          {{/each}}
+        </div>
       </div>
     </div>
 
