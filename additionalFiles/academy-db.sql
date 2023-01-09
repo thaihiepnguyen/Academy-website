@@ -195,8 +195,8 @@ CREATE TABLE `video` (
   `free` boolean DEFAULT false
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO `video`(`id`, `course_id`, `thumbnail`, `source`, `name`, `type`, `time`, `free`) VALUES
-(0,6, 'https://i.insider.com/602ee9e3d3ad27001837f2af?width=1200&format=jpeg', 'https://drive.google.com/file/d/1He5zXduec-59InN7fgujwIBGGgQKpufF/view?usp=share_link', 'Rick roll 1', 'mp4', '3:32', false),
-(1,6, 'https://i.insider.com/602ee9e3d3ad27001837f2af?width=1200&format=jpeg', 'https://drive.google.com/file/d/1He5zXduec-59InN7fgujwIBGGgQKpufF/view?usp=share_link', 'Rick roll 2', 'mp4', '3:32', false);
+(0,6, 'https://i.insider.com/602ee9e3d3ad27001837f2af?width=1200&format=jpeg', 'https://drive.google.com/file/d/1He5zXduec-59InN7fgujwIBGGgQKpufF/preview', 'Rick roll 1', 'mp4', '3:32', true),
+(1,6, 'https://i.insider.com/602ee9e3d3ad27001837f2af?width=1200&format=jpeg', 'https://drive.google.com/file/d/1He5zXduec-59InN7fgujwIBGGgQKpufF/preview', 'Rick roll 2', 'mp4', '3:32', false);
 
 CREATE TABLE `watch_list` (
   `user_id` int(11) NOT NULL,
