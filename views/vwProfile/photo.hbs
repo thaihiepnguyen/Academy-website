@@ -1,8 +1,32 @@
 {{#section 'profile'}}
+
     <link rel="stylesheet" href="/css/home_profile.css">
+    <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
 {{/section}}
 {{#section 'handleProfile'}}
     <script src="/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/fileinput.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/locales/vi.js"></script>
+    <script src="https://<hostname.tld>/tinymce.min.js" referrerpolicy="origin"></script>
+<!--    <script>-->
+<!--        $(document).ready(function() {-->
+<!--            $("#input-b4b").fileinput({-->
+<!--            language: 'vi',-->
+<!--            theme: 'fa4',-->
+<!--            dropZoneEnabled: false,-->
+<!--             maxFileCount: 5,-->
+<!--             allowedFileExtensions: ['jpg', 'png', 'gif'],-->
+<!--             showCaption: false,-->
+<!--             showUpLoad: true-->
+<!--            });-->
+<!--        });-->
+<!--</script>-->
+    <script>
+        $(document).ready(function() {
+            $("#avt").fileinput({
+            showCaption: false, dropZoneEnabled: false});
+        });
+</script>
 {{/section}}
 
 
@@ -24,11 +48,26 @@
 </div>
 
 <form method="post" enctype="multipart/form-data">
-    <div class="content">
-        <div class="mt-3  mb-3">
-            <label for="formFile" class="form-label">Up load image</label>
-            <input class="form-control" type="file"  name="avt" id="formFile">
+    <div class="card">
+
+        <div class="card-body text-muted">
+            <label class="control-label">Select File</label>
+            <input style="opacity: 100%" id="avt" name="avt" type="file" multiple>
+
         </div>
-        <button type="submit" class="btn btn-dark mt-3">SAVE</button>
+        <div class="card-footer text-muted">
+            <button type="submit" class="btn btn-dark mt-3">SAVE</button>
+        </div>
     </div>
 </form>
+
+<!--<form method="post" enctype="multipart/form-data">-->
+<!--    <div class="content">-->
+<!--        <div class="mt-3  mb-3 form-group">-->
+<!--            <label for="formFile" class="form-label">Up load image</label>-->
+<!--            <input id="fuMain" name="fuMain[]" type="file" multiple>-->
+
+<!--        </div>-->
+<!--        <button type="submit" class="btn btn-dark mt-3">SAVE</button>-->
+<!--    </div>-->
+<!--</form>-->

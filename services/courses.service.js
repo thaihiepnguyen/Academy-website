@@ -62,6 +62,34 @@ export default {
 
     return list;
   },
+  unrollInCourse: async (userID, idCourse) => {
+    return db("registered_courses")
+      .where({
+        "registered_courses.user_id": userID,
+        "registered_courses.course_id": idCourse,
+      })
+      .del();
+  },
+  rollInCourse: async (userID, idCourse) => {
+    const list = await db("registered_courses").insert({
+      user_id: userID,
+      course_id: idCourse,
+    });
+    return null;
+  },
+  rollInThis: async (userID, idCourse) => {
+    const list = await db("registered_courses")
+      .select("registered_courses.user_id", "registered_courses.course_id")
+      .where({
+        "registered_courses.user_id": userID,
+        "registered_courses.course_id": idCourse,
+      });
+    if (list.length === 0) {
+      return null;
+    }
+
+    return list;
+  },
   sendReviews: async (userID, idCourse, reviewContent) => {
     const list = await db("review").insert({
       user_id: userID,

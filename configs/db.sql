@@ -7,7 +7,6 @@
 -- Server version: 5.7.24
 -- PHP Version: 8.0.1
 DROP DATABASE IF EXISTS `academy-db`;
-
 CREATE DATABASE `academy-db`;
 USE `academy-db`;
 
@@ -37,6 +36,7 @@ CREATE TABLE `courses` (
   `promotion_id` int(11) DEFAULT NULL,
   `last_modify` varchar(100) DEFAULT NULL,
   `status` tinyint(4) DEFAULT NULL,
+  `category_id` int(11) DEFAULT NULL,
   `topic_id` int(11) DEFAULT NULL,
   `lecture_id` int(11) DEFAULT NULL,
   `rating` int(11) DEFAULT NULL,
@@ -48,20 +48,20 @@ CREATE TABLE `courses` (
   `requirements` text DEFAULT NULL,
   `overview` text DEFAULT NULL,
   `includedItem` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8; 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-INSERT INTO `courses` (`id`, `name`, `thumbnail`, `tiny_des`, `full_des`, `price`, `promotion_id`, `last_modify`, `status`, `category_id`, `lecture_id`, `rating`, `levelCourse`, `durationCourse`, `weeklyHours`, `enrolled`, `discount`, `requirements`, `overview`, `includedItem`) VALUES
-(1, 'Python Website Full Tutorial', NULL, 'Flask, Authentication, Databases & More', 'Learn the PHP programming language in this full course / tutorial. The course is designed for new programmers, and will introduce common programming topics using the PHP language.', 489000, NULL, NULL, 1, 1, 9, 4,"",0,0,0,0,"","",""),
-(2, 'What To Learn To Become a Python Backend Developer', NULL, 'Python Backend Developer', NULL, 500000, NULL, NULL, 1, 1, 9, 5,"",0,0,0,0,"","",""),
-(3, 'The Ultimate Self-Taught Developer Curriculum', NULL, 'Developer Curriculum', NULL, 600000, NULL, NULL, 1, 1, 9, 4,"",0,0,0,0,"","",""),
-(4, 'Full Stack Web Development for Beginners', NULL, 'Full Course on HTML, CSS, JavaScript, Node.js, MongoDB', NULL, 1000000, NULL, NULL, 1, 1, 10, 5,"",0,0,0,0,"","",""),
-(5, 'React State Management', NULL, 'Intermediate JavaScript Course', NULL, 750000, NULL, NULL, 1, 1, 10, 4,"",0,0,0,0,"","",""),
-(6, 'Unity 3D for dummies', 'https://media.sketchfab.com/models/3f49271eb0dc404e87333baebca59886/thumbnails/914bdb37755946e8813325f9592bb0da/c09eace2ef6942268f325c369b1043e3.jpeg', 'You want to create your own game but dont know where to begin your journey?\nThis is the course for you!', NULL, 750000, NULL, NULL, 1, 1, 10, 4,"Beginner",1,3,12987,0,"_Basic knowledge about computer \n_Have good internet connection","_In this course you will learn: \n+Basic programming using C#, +Popular tools in Unity 3D \n+Making 3 simple games with concept: 3d racing game, 2d action game and a top down rpg","_20 hours on-demand video \n_2 articles \n_10 quizzes \n_Full lifetime access all resources in this course"),
-(7, 'Autodesk Fusion 360 Tutorial for Beginners', NULL, 'Learn the basics of designing', NULL, 650000, NULL, NULL, 1, 2, 10, 4,"",0,0,0,0,"","",""),
-(8, 'Figma Tutorial for UI Design', NULL, 'In this Figma course, you will learn how to use Figma for UI Design', NULL, 750000, NULL, NULL, 1, 2, 10, 4,"",0,0,0,0,"","",""),
-(9, 'Photoshop for Beginners', NULL, 'Go from beginner to pro in 23 lessons', NULL, 900000, NULL, NULL, 1, 2, 10, 4,"",0,0,0,0,"","",""),
-(10, 'How To Use Canva For BEGINNERS! (Canva Tutorial 2020)', NULL, 'In this Canva tutorial video, I''ll be covering all of Canva', NULL, 850000, NULL, NULL, 1, 2, 10, 5,"",0,0,0,0,"","","");
+INSERT INTO `courses` (`id`, `name`, `thumbnail`, `tiny_des`, `full_des`, `price`, `promotion_id`, `last_modify`, `status`, `category_id`, `topic_id`, `lecture_id`, `rating`, `levelCourse`, `durationCourse`, `weeklyHours`, `enrolled`, `discount`, `requirements`, `overview`, `includedItem`) VALUES
+(1, 'Python Website Full Tutorial', NULL, 'Flask, Authentication, Databases & More', 'Learn the PHP programming language in this full course / tutorial. The course is designed for new programmers, and will introduce common programming topics using the PHP language.', 489000, NULL, NULL, 1, 1,1, 9, 4,"",0,0,0,0,"","",""),
+(2, 'What To Learn To Become a Python Backend Developer', NULL, 'Python Backend Developer', NULL, 500000, NULL, NULL, 1, 1,1, 9, 5,"",0,0,0,0,"","",""),
+(3, 'The Ultimate Self-Taught Developer Curriculum', NULL, 'Developer Curriculum', NULL, 600000, NULL, NULL, 1, 1,1, 9, 4,"",0,0,0,0,"","",""),
+(4, 'Full Stack Web Development for Beginners', NULL, 'Full Course on HTML, CSS, JavaScript, Node.js, MongoDB', NULL, 1000000, NULL, NULL, 1, 1,2, 10, 5,"",0,0,0,0,"","",""),
+(5, 'React State Management', NULL, 'Intermediate JavaScript Course', NULL, 750000, NULL, NULL, 1, 1, 2,10, 4,"",0,0,0,0,"","",""),
+(6, 'Unity 3D for dummies', 'https://media.sketchfab.com/models/3f49271eb0dc404e87333baebca59886/thumbnails/914bdb37755946e8813325f9592bb0da/c09eace2ef6942268f325c369b1043e3.jpeg', 'You want to create your own game but dont know where to begin your journey?\nThis is the course for you!', NULL, 750000, NULL, NULL, 1, 1,2, 10, 4,"Beginner",1,3,12987,0,"_Basic knowledge about computer \n_Have good internet connection","_In this course you will learn: \n+Basic programming using C#, +Popular tools in Unity 3D \n+Making 3 simple games with concept: 3d racing game, 2d action game and a top down rpg","_20 hours on-demand video \n_2 articles \n_10 quizzes \n_Full lifetime access all resources in this course"),
+(7, 'Autodesk Fusion 360 Tutorial for Beginners', NULL, 'Learn the basics of designing', NULL, 650000, NULL, NULL, 1, 2,1, 10, 4,"",0,0,0,0,"","",""),
+(8, 'Figma Tutorial for UI Design', NULL, 'In this Figma course, you will learn how to use Figma for UI Design', NULL, 750000, NULL, NULL, 1, 2,1, 10, 4,"",0,0,0,0,"","",""),
+(9, 'Photoshop for Beginners', NULL, 'Go from beginner to pro in 23 lessons', NULL, 900000, NULL, NULL, 1, 2, 2,10, 4,"",0,0,0,0,"","",""),
+(10, 'How To Use Canva For BEGINNERS! (Canva Tutorial 2020)', NULL, 'In this Canva tutorial video, I''ll be covering all of Canva', NULL, 850000, NULL, NULL, 1, 2,2, 10, 5,"",0,0,0,0,"","","");
 
 
 CREATE TABLE `links` (
@@ -109,9 +109,9 @@ CREATE TABLE `role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `role` (`id`, `name`) VALUES
-(1, 'Học viên'),
-(2, 'Giảng viên'),
-(3, 'Quản trị viên');
+(1, 'Há»c viÃªn'),
+(2, 'Giáº£ng viÃªn'),
+(3, 'Quáº£n trá»‹ viÃªn');
 
 
 CREATE TABLE `sessions` (
@@ -174,8 +174,8 @@ INSERT INTO `users` (`id`, `email`, `password`, `firstname`, `lastname`, `image`
 (15, 'thaihiepp@gmail.com', '$2a$10$h35zayIz/gvBcsCCsA5egO6tqSDvH7MC.Ih7hNxygSqbnDQgmRMGa', 'hiep', 'thai', NULL, 1),
 (16, 'qwert@gmail.com', '$2a$10$oTNEtd2OANUI1zxOz7yWeu7NqWu/EvFKVa/sZAIgspxypu7scRKF.', 'nguyen', 'thaihiep', NULL, 1),
 (17, 'testuser@gmail.com', '$2b$10$LJsoeU/0cOBPSavh3JoFveW4QBQlIWoCX5WsNsQTFQ4uL7lhbcR3G', 'test', 'user', '/imgs/avt/17.jpg', 1),
-(18, 'hainguyen13097@gmail.com', NULL, 'Ngọc Hải', NULL, NULL, 1),
-(19, 'admin@gmail.com', '$2b$10$fzJpw6ZlZ4ZASZ.R9XA.t.616JXoN/0kUwhwzE5CHCkdL/obXPjSG', 'Ngọc', 'Hải', NULL, 3);
+(18, 'hainguyen13097@gmail.com', NULL, 'Ngá»c Háº£i', NULL, NULL, 1),
+(19, 'admin@gmail.com', '$2b$10$fzJpw6ZlZ4ZASZ.R9XA.t.616JXoN/0kUwhwzE5CHCkdL/obXPjSG', 'Ngá»c', 'Háº£i', NULL, 3);
 
 
 
@@ -317,4 +317,3 @@ ALTER TABLE `video`
 ALTER TABLE `watch_list`
   ADD CONSTRAINT `FK_WatchList_Courses` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
   ADD CONSTRAINT `FK_WatchList_Users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-COMMIT;

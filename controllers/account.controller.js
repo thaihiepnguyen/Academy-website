@@ -166,7 +166,7 @@ export default {
 
         const courses = await userService.findWatchList(user.id);
         if(courses == null){
-            return res.render("vwProfile/watch_list.hbs", {
+            return res.render("vwProfile/upload_video.hbs", {
                 activeProfileLayout: true,
                 message_no_watch_list : "No your watch list",
             });
@@ -180,7 +180,7 @@ export default {
         }
 
 
-        return res.render("vwProfile/watch_list.hbs", {
+        return res.render("vwProfile/upload_video.hbs", {
             activeProfileLayout: true,
             courses
         });

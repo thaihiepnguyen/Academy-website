@@ -3,12 +3,20 @@ export default {
   findDetailOfCourse: async (req, res) => {
     //req.session.retUrl = req.originalUrl;
     const courseId = req.params.id;
-
     const data1 = await coursesService.findDetails(courseId);
     const reviews = await coursesService.getReviews(courseId);
     const isLogged = req.session.auth;
     const data2 = await coursesService.getClips(courseId);
-    // console.log(data2);
+
+    let data3 = null;
+    if (res.locals.user.id) {
+      data3 = await coursesService.rollInThis(res.locals.user.id, courseId);
+    }
+    let show = true;
+    if (data3) {
+      show = false;
+    }
+
     let ratings = [false, false, false, false, false];
     for (let j = 0; j < data1[0].rating; j++) {
       ratings[j] = true;
@@ -20,6 +28,8 @@ export default {
       logged: isLogged,
       reviewsList: reviews,
       videosL: data2,
+      courseId,
+      show,
     });
   },
   sendReview: async (req, res) => {

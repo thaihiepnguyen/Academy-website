@@ -1,7 +1,10 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
+
+    <meta charset="UTF-8">
+
     <title>E-Commerce Application (20KTPMC)</title>
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
@@ -9,6 +12,11 @@
           crossorigin="anonymous">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.css"
+            rel="stylesheet"
+    >
     {{{_sections.login-css}}}
     {{{_sections.profile}}}
     {{{_sections.signup-css}}}
@@ -16,6 +24,7 @@
     {{{_sections.home-css}}}
     {{{_sections.courses-css}}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
     <link rel="stylesheet" href="/css/dropdown.css">
 
 
@@ -40,6 +49,7 @@
             width: 450px;
         }
 
+
         .navbar-item.has-dropdown:hover .navbar-link {
             background-color: #fff; !important;
             color: #485fc7;
@@ -57,14 +67,16 @@
             href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900"
             rel="stylesheet"
     />
+
 </head>
 
 <body>
 
-<nav class="navbar shadow p-3 mb-5 bg-white rounded header-nav" role="navigation" style="max-height: 80px;"
+<nav class="navbar shadow p-3 mb-5 bg-white rounded header-nav" role="navigation"
      aria-label="main navigation">
     <div class="navbar-brand">
         <a class="navbar-item" href="/">
+
             <img
                     src="https://bulma.io/images/bulma-logo.png"
                     width="112"
@@ -79,22 +91,30 @@
                 aria-expanded="false"
                 data-target="navbarBasicExample"
         >
+
+            <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+        </a>
+
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+           data-target="navbarBasicExample">
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
         </a>
     </div>
 
-    <div id="navbarBasicExample" class="navbar-menu" style="width: 80%">
+    <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
 
             <a class="navbar-item text-decoration-none" href="/">
                 Home
             </a>
 
+
             <div
                     class="navbar-item has-dropdown is-hoverable text-decoration-none"
             >
+
                 <a class="navbar-link text-decoration-none">
                     Categories
                 </a>
@@ -107,8 +127,10 @@
                                 {{name}}
                             </a>
                             <ul id="topic {{id}}"
+
                                 style="top:-9.5%; right:auto; left:100%; position:absolute; min-height: 100px;min-width: 250px; border:none; border-top: 2px solid #ddd; border-radius: 0px"
                                 class="dropdown-menu dropdown-submenu navbar-dropdown " >
+
                                 <li>
                                     {{#each topic}}
                                         <a class="nav-link dropdown-item" href="#">
@@ -124,6 +146,7 @@
             </div>
 
             <div class="level-item" style="margin-left: 30px">
+
                 <form action="/courses/search/" method="get" style="margin-bottom: 0; margin-top: 5px">
                     <div class="field has-addons" style="border: none ">
                         <p class="control" style="height: 45px !important;">
@@ -131,9 +154,10 @@
                                    style="width: 300px;border: 1px solid #dbdbdb;max-height: 40px;
                                    font-family: inherit; border-bottom-left-radius: 20px; border-top-left-radius: 20px;
                                             "
+
                                    type="text" placeholder="Search" id="txtKey" name="key" value="">
                         </p>
-                        <p class="control" style="height: 45px !important;">
+                        <p class="control">
                             <button class="button"
                                     style="border-bottom-right-radius: 20px; border-top-right-radius: 20px" type="submit">
                                 <i class="fa fa-search" aria-hidden="true"></i>
@@ -146,8 +170,10 @@
 
         </div>
 
+
+
         <div class="navbar-end">
-            <div class="d-flex align-items-center justify-content-between item-style" style="width: 423px;">
+            <div class="d-flex align-items-center justify-content-between item-style">
 
                 <a class="navbar-item text-decoration-none">
                     Academy business
@@ -164,6 +190,7 @@
             <div class="navbar-item">
                 {{#if user}}
                     <li class="nav-item dropdown">
+
                         <a
                                 class="nav-link dropdown-toggle d-flex align-items-center"
                                 href="#"
@@ -181,6 +208,7 @@
                               min-height: 30px; min-width:30px ">
                         </a>
                         <div class="dropdown-menu" style="left: -20px; top:125%">
+
                             <a class="dropdown-item" href="/account/home_profile">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                                 Edit Profile
@@ -191,6 +219,7 @@
                                 Watch List
                             </a>
                             <div class="dropdown-divider"></div>
+
                             <form
                                     id="frmLogout"
                                     action="/account/logout"
@@ -200,6 +229,7 @@
                                     class="dropdown-item"
                                     href="javascript: $('#frmLogout').submit();"
                             >
+
                                 <i class="fa fa-sign-out" aria-hidden="true"></i>
                                 Logout
                             </a>
@@ -207,11 +237,13 @@
                     </li>
                 {{else}}
                     <div class="buttons">
+
                         <a
                                 class="button is-primary"
                                 style="background-color: #05445E"
                                 href="/account/signup"
                         >
+
                             <strong>Sign up</strong>
                         </a>
                         <a class="button is-light" href="/account/login">
@@ -237,6 +269,7 @@
                     data-slide-to="0"
                     class="active"
             ></li>
+
             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
         </ol>
@@ -278,6 +311,7 @@
                 data-target="#carouselExampleIndicators"
                 data-slide="next"
         >
+
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </button>
@@ -322,6 +356,7 @@
 {{/if}}
 
 {{#if this.activeProfileLayout}}
+<!--    profile dành cho học viên-->
     <div class="wrapper d-flex align-items-stretch">
         <nav id="sidebar">
             <div class="p-4 pt-5">
@@ -339,6 +374,7 @@
                         <h1
                                 style="color: #000 ; align-content: center;"
                         >{{user.firstname}}</h1>
+
                     </li>
                     <li class="prf_btn {{active_pf}}">
                         <a href="/account/home_profile">Profile public</a>
@@ -349,17 +385,29 @@
                     <li class="prf_btn {{active_sc}}">
                         <a href="/account/account_security">Account Security</a>
                     </li>
+<!--                        profile dành cho học viên-->
+                    {{#if user}}
+
+                    {{/if}}
                     <li class="prf_btn {{active_wl}}">
                         <a href="/account/watch_list">Watch list</a>
                     </li>
                     <li class="prf_btn {{active_rc}}">
                         <a href="/account/registered_courses">Registered courses</a>
                     </li>
+                        profile dành cho giảng viên viên
+                    <li class="prf_btn {{active_wl}}">
+                        <a href="/account/watch_list">Your courses</a>
+                    </li>
+                    <li class="prf_btn {{active_rc}}">
+                        <a href="/account/registered_courses">Registered courses</a>
+                    </li>
+<!--                    phần chung -->
                     <li class="prf_btn {{active_lg}}">
+
                         <a href="/account/logout">Logout</a>
                     </li>
                 </ul>
-
             </div>
         </nav>
 
@@ -370,6 +418,9 @@
             </div>
         </div>
     </div>>
+
+
+
 {{/if}}
 
 {{#if isDefault}}
@@ -422,8 +473,8 @@
 
     <!-- Copyright -->
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-        © 2020 Copyright:
-        <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+        © 2022 Group 3 LTUDW:
+        <a class="text-white" href="https://mdbootstrap.com/">Hiệp, Hải, Duy, Dung, Kiệt</a>
     </div>
     <!-- Copyright -->
 </footer>
@@ -476,6 +527,10 @@
         document.getElementById("topic 3").style.display = 'none';
         document.getElementById("topic 4").style.display = 'inline-block'; });
 </script>
+<script
+        type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"
+></script>
 
 {{{_sections.handleProfile}}}
 {{{_sections.js}}}
