@@ -1,0 +1,57 @@
+{{#if flag}}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Delete failed!</strong> {{err_message}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{{/if}}
+
+<form method="post">
+    <div class="card">
+        <h4 class="card-header h4">
+            Edit Topic
+        </h4>
+
+        <div class="card-body">
+            <div class="form-group">
+                <label for="txtID">#</label>
+                <input name="id" type="text" class="form-control" id="txtID" readonly
+                    value="{{this.topic.id}}" />
+            </div>
+            <div class="form-group">
+                <label for="txtName">Topic</label>
+                <input name="name" type="text" class="form-control" id="txtName"
+                    value="{{this.topic.name}}" autofocus placeholder="Javascript" />
+            </div>
+            <div class="form-group">
+                <label for="txtCatName">Category</label>
+                <select class="custom-select custom-select-medium" name="field_id">
+                    {{#each this.categories}}
+                    {{#if (isEqual id ../topic.field_id)}}
+                    <option selected value="{{id}}">{{name}}</option>
+                    {{else}}
+                    <option value="{{id}}">{{name}}</option>
+                    {{/if}}
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+        <div class="card-footer text-muted">
+            <a class="btn btn-outline-success" href="/admin/categories" role="button">
+                <i class="fa fa-backward" aria-hidden="true"></i>
+                List
+            </a>
+            <button type="submit" class="btn btn-danger"
+                formaction="/admin/categories/topics/del/{{this.topic.id}}">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+                Delete
+            </button>
+            <button type="submit" class="btn btn-primary"
+                formaction="/admin/categories/topics/patch">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                Save
+            </button>
+        </div>
+    </div>
+</form>

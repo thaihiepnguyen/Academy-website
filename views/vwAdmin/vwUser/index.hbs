@@ -20,7 +20,7 @@
             </thead>
             <tbody>
                 {{#each lcUsersRole}}
-                <tr>
+                <tr {{#if (isEqual enable 0)}} class="table-danger" {{/if}}>
                     <td scope="row" class="text-center">{{id}}</td>
                     <td>{{email}}</td>
                     <td>{{role}}</td>

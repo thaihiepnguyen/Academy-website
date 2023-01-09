@@ -64,7 +64,7 @@
         </thead>
         <tbody>
             {{#each this.courses}}
-            <tr>
+            <tr {{#if (isEqual enable 0)}} class="table-danger" {{/if}}>
                 <td scope="row" class="text-center">{{id}}</td>
                 <td>{{name}}</td>
                 <td>{{format_number price}}</td>
@@ -86,7 +86,6 @@
                         </button>
                         {{/if}}
                     </form>
-
                 </td>
 
                 <td class="text-right">
