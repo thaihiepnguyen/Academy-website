@@ -3,7 +3,6 @@ import userService from "./user.service.js";
 import categoryModel from "./category.service.js";
 
 export default {
-
   lockCourse: (id) => {
     return db("courses").where("id", id).update({ enable: 0 });
   },
@@ -24,12 +23,15 @@ export default {
   },
 
   findTop5CoursesSameCategory: async (id) => {
-    const sql = "select id , name, tiny_des, full_des, category_id, lecture_id, price, rating, topic_id, views, count(course_id) as count\n" +
-        "from courses\n" +
-        "join registered_courses rc on courses.id = rc.course_id\n" +
-        "where courses.category_id =" + id + "\n" +
-        "group by course_id asc\n" +
-        "limit 5"
+    const sql =
+      "select id , name, tiny_des, full_des, category_id, lecture_id, price, rating, topic_id, views, count(course_id) as count\n" +
+      "from courses\n" +
+      "join registered_courses rc on courses.id = rc.course_id\n" +
+      "where courses.category_id =" +
+      id +
+      "\n" +
+      "group by course_id asc\n" +
+      "limit 5";
 
     const raw = await db.raw(sql);
 
@@ -37,35 +39,33 @@ export default {
   },
 
   findCoursesByLectureId: async (id) => {
-    const courses = await db('courses').where('lecture_id', id).limit(3).offset(0);
+    const courses = await db("courses")
+      .where("lecture_id", id)
+      .limit(3)
+      .offset(0);
 
     return courses;
   },
 
   insertEnroll: async (user_id, course_id) => {
-
-    console.log("hai")
-    await db('registered_courses').insert({
-      'user_id': user_id,
-      'course_id': course_id
-    })
+    console.log("hai");
+    await db("registered_courses").insert({
+      user_id: user_id,
+      course_id: course_id,
+    });
   },
 
   findCoursesById: async (id) => {
-    const courses = await db('courses').where('id', id);
+    const courses = await db("courses").where("id", id);
 
     return courses[0];
   },
 
   findClipByCoursesId: async (id) => {
-    const clips = await db('video')
-        .join('courses', 'courses.id', 'video.course_id')
-        .select(
-            'video.id',
-            'video.source',
-            'video.name'
-            )
-        .where('courses.id', id);
+    const clips = await db("video")
+      .join("courses", "courses.id", "video.course_id")
+      .select("video.id", "video.source", "video.name")
+      .where("courses.id", id);
 
     return clips;
   },
@@ -80,33 +80,33 @@ export default {
 
   countFindByTopicId: async (catId, topicId) => {
     const list = await db("courses")
-        .join("users", "lecture_id", "users.id")
-        .where({ "courses.category_id": catId, "courses.topic_id": topicId })
-        .where('courses.enable',1)
-        .count({ amount: "courses.id" });
+      .join("users", "lecture_id", "users.id")
+      .where({ "courses.category_id": catId, "courses.topic_id": topicId })
+      .where("courses.enable", 1)
+      .count({ amount: "courses.id" });
 
     return list[0].amount;
   },
 
   findByTopicId: async (catId, topicId, limit, offset) => {
     const list = await db("courses")
-        .join("users", "lecture_id", "users.id")
-        .select(
-            "courses.id",
-            "users.firstname",
-            "users.lastname",
-            "courses.tiny_des",
-            "courses.name",
-            "courses.rating",
-            "courses.price",
-            "courses.category_id",
-            "courses.topic_id",
-            "courses.views"
-        )
-        .where({ "courses.category_id": catId, "courses.topic_id": topicId })
-        .where('courses.enable',1)
-        .limit(limit)
-        .offset(offset);
+      .join("users", "lecture_id", "users.id")
+      .select(
+        "courses.id",
+        "users.firstname",
+        "users.lastname",
+        "courses.tiny_des",
+        "courses.name",
+        "courses.rating",
+        "courses.price",
+        "courses.category_id",
+        "courses.topic_id",
+        "courses.views"
+      )
+      .where({ "courses.category_id": catId, "courses.topic_id": topicId })
+      .where("courses.enable", 1)
+      .limit(limit)
+      .offset(offset);
 
     if (list.length === 0) {
       return null;
@@ -117,10 +117,10 @@ export default {
 
   countFindByCatId: async (catId) => {
     const list = await db("courses")
-        .join("users", "lecture_id", "users.id")
-        .where({ "courses.category_id": catId })
-        .where('courses.enable',1)
-        .count({ amount: "courses.id" });
+      .join("users", "lecture_id", "users.id")
+      .where({ "courses.category_id": catId })
+      .where("courses.enable", 1)
+      .count({ amount: "courses.id" });
 
     return list[0].amount;
   },
@@ -136,12 +136,12 @@ export default {
         "courses.name",
         "courses.rating",
         "courses.price",
-          "courses.category_id",
-          "courses.topic_id",
-          "courses.views"
+        "courses.category_id",
+        "courses.topic_id",
+        "courses.views"
       )
       .where({ "courses.category_id": CatId })
-        .where('courses.enable',1)
+      .where("courses.enable", 1)
       .limit(limit)
       .offset(offset);
 
@@ -153,13 +153,14 @@ export default {
   },
 
   findTop3Courses: async () => {
-    const query = "select course_id as id, courses.topic_id, users.firstname, users.lastname, courses.tiny_des, courses.name,courses.rating, courses.price, courses.category_id, courses.views" +
-        " \nfrom registered_courses, courses, users" +
-        " \nwhere course_id = courses.id and courses.lecture_id = users.id" +
-        " \ngroup by course_id" +
-        " \norder by count(course_id) desc" +
-        " \nlimit 3" +
-        "\noffset 0";
+    const query =
+      "select course_id as id, courses.topic_id, users.firstname, users.lastname, courses.tiny_des, courses.name,courses.rating, courses.price, courses.category_id, courses.views" +
+      " \nfrom registered_courses, courses, users" +
+      " \nwhere course_id = courses.id and courses.lecture_id = users.id" +
+      " \ngroup by course_id" +
+      " \norder by count(course_id) desc" +
+      " \nlimit 3" +
+      "\noffset 0";
 
     const list = await db.raw(query);
     if (list[0].length === 0) {
@@ -169,12 +170,12 @@ export default {
     // add categoryName object into list
 
     for (let item of list[0]) {
-      const categoryName =  await db('courses')
-          .join('categories', 'categories.id', 'courses.category_id')
-          .select('categories.name')
-          .where({
-            'categories.id': item.category_id
-          });
+      const categoryName = await db("courses")
+        .join("categories", "categories.id", "courses.category_id")
+        .select("categories.name")
+        .where({
+          "categories.id": item.category_id,
+        });
 
       item.catName = categoryName[0].name;
     }
@@ -183,20 +184,23 @@ export default {
 
   async findTop10CoursesByView() {
     const list = await db("courses")
-        .join("users", "users.id", "courses.lecture_id")
-        .select(
-            "courses.id",
-            "users.firstname",
-            "users.lastname",
-            "courses.tiny_des",
-            "courses.name",
-            "courses.rating",
-            "courses.price", "courses.category_id", "courses.views", "courses.topic_id"
-        )
-        .where('courses.enable',1)
-        .orderBy("views", "desc")
-        .limit(10)
-        .offset(0);
+      .join("users", "users.id", "courses.lecture_id")
+      .select(
+        "courses.id",
+        "users.firstname",
+        "users.lastname",
+        "courses.tiny_des",
+        "courses.name",
+        "courses.rating",
+        "courses.price",
+        "courses.category_id",
+        "courses.views",
+        "courses.topic_id"
+      )
+      .where("courses.enable", 1)
+      .orderBy("views", "desc")
+      .limit(10)
+      .offset(0);
 
     if (list.length === 0) {
       return null;
@@ -205,12 +209,12 @@ export default {
     // add categoryName object into list
 
     for (let item of list) {
-      const categoryName =  await db('courses')
-          .join('categories', 'categories.id', 'courses.category_id')
-          .select('categories.name')
-          .where({
-            'categories.id': item.category_id
-          });
+      const categoryName = await db("courses")
+        .join("categories", "categories.id", "courses.category_id")
+        .select("categories.name")
+        .where({
+          "categories.id": item.category_id,
+        });
 
       item.catName = categoryName[0].name;
     }
@@ -224,17 +228,17 @@ export default {
 
     if (averageStar[0]["avg(`rating`)"]) {
       const updateStar = await db("courses")
-          .where({ id: idCourse })
-          .update({ rating: Math.round(averageStar[0]["avg(`rating`)"]) });
+        .where({ id: idCourse })
+        .update({ rating: Math.round(averageStar[0]["avg(`rating`)"]) });
     } else {
       const updateStar = await db("courses")
-          .where({ id: idCourse })
-          .update({ rating: Math.round(0) });
+        .where({ id: idCourse })
+        .update({ rating: Math.round(0) });
     }
 
     const list = await db("courses")
       .select(
-          "courses.id",
+        "courses.id",
         "courses.thumbnail",
         "courses.name",
         "courses.levelCourse",
@@ -248,9 +252,9 @@ export default {
         "courses.requirements",
         "courses.overview",
         "courses.includedItem",
-          "courses.category_id",
-          "courses.topic_id",
-          "courses.lecture_id"
+        "courses.category_id",
+        "courses.topic_id",
+        "courses.lecture_id"
       )
       .where({ "courses.id": idCourse });
 
@@ -259,19 +263,19 @@ export default {
     }
     if (list[0]["lecture_id"] != null) {
       const lecturerName = await db("users")
-          .select("firstname", "lastname")
-          .where({ id: list[0]["lecture_id"] });
+        .select("firstname", "lastname")
+        .where({ id: list[0]["lecture_id"] });
       //console.log(lecturerName);
       list[0].firstname = lecturerName[0]["firstname"];
       list[0].lastname = lecturerName[0]["lastname"];
     }
 
-    return list[0];
+    return list;
   },
 
   findVideoForCourse: async (courseID, videoID) => {
     const thisVideo = await db("video")
-      .select("source", "name",'id')
+      .select("source", "name", "id")
       .where({ course_id: courseID, id: videoID });
 
     return thisVideo;
@@ -351,7 +355,8 @@ export default {
         "video.name",
         "video.type",
         "video.time",
-        "video.id"
+        "video.id",
+        "video.free"
       )
       .where({ "video.course_id": idCourse });
     if (list2.length === 0) {
@@ -425,11 +430,11 @@ export default {
         "courses.name",
         "courses.rating",
         "courses.price",
-          "courses.category_id",
-          "courses.topic_id",
-          "courses.views"
+        "courses.category_id",
+        "courses.topic_id",
+        "courses.views"
       )
-      .where('courses.enable',1)
+      .where("courses.enable", 1)
       .orderBy("rating", "desc")
       .limit(5)
       .offset(0);
@@ -441,12 +446,12 @@ export default {
     // add categoryName object into list
 
     for (let item of list) {
-      const categoryName =  await db('courses')
-          .join('categories', 'categories.id', 'courses.category_id')
-          .select('categories.name')
-          .where({
-            'categories.id': item.category_id
-          });
+      const categoryName = await db("courses")
+        .join("categories", "categories.id", "courses.category_id")
+        .select("categories.name")
+        .where({
+          "categories.id": item.category_id,
+        });
 
       item.catName = categoryName[0].name;
     }
@@ -471,20 +476,23 @@ export default {
   async countByFullTextSearch(key) {
     const list = await db("courses")
       .join("categories", "category_id", "categories.id")
-      .join('topics', function() {
-          this.on('topics.id', '=', 'courses.topic_id')
-              .andOn('topics.field_id', '=', 'courses.category_id')
-        })
+      .join("topics", function () {
+        this.on("topics.id", "=", "courses.topic_id").andOn(
+          "topics.field_id",
+          "=",
+          "courses.category_id"
+        );
+      })
       .join("users", "lecture_id", "users.id")
-      .where(function(){
-          this.whereRaw("MATCH(courses.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)
-              .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(topics.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(users.firstname) AGAINST(?)", key)
-              .orWhereRaw("MATCH(users.lastname) AGAINST(?)", key)
-        })
-        .where('courses.enable',1)
+      .where(function () {
+        this.whereRaw("MATCH(courses.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)
+          .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(topics.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(users.firstname) AGAINST(?)", key)
+          .orWhereRaw("MATCH(users.lastname) AGAINST(?)", key);
+      })
+      .where("courses.enable", 1)
       .count({ amount: "courses.id" });
 
     console.log(list[0].amount);
@@ -511,21 +519,24 @@ export default {
         "courses.rating",
         "courses.views"
       )
-        .join("categories", "category_id", "categories.id")
-        .join('topics', function() {
-          this.on('topics.id', '=', 'courses.topic_id')
-              .andOn('topics.field_id', '=', 'courses.category_id')
-        })
-        .join("users", "lecture_id", "users.id")
-        .where(function(){
-          this.whereRaw("MATCH(courses.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)
-              .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(topics.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(users.firstname) AGAINST(?)", key)
-              .orWhereRaw("MATCH(users.lastname) AGAINST(?)", key)
-        })
-        .where('courses.enable',1)
+      .join("categories", "category_id", "categories.id")
+      .join("topics", function () {
+        this.on("topics.id", "=", "courses.topic_id").andOn(
+          "topics.field_id",
+          "=",
+          "courses.category_id"
+        );
+      })
+      .join("users", "lecture_id", "users.id")
+      .where(function () {
+        this.whereRaw("MATCH(courses.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)
+          .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(topics.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(users.firstname) AGAINST(?)", key)
+          .orWhereRaw("MATCH(users.lastname) AGAINST(?)", key);
+      })
+      .where("courses.enable", 1)
       .limit(limit)
       .offset(offset);
 
@@ -538,326 +549,355 @@ export default {
 
   async countFilterByRating(key, ratings) {
     const list = await db("courses")
-        .join("categories", "category_id", "categories.id")
-        .join('topics', function() {
-          this.on('topics.id', '=', 'courses.topic_id')
-              .andOn('topics.field_id', '=', 'courses.category_id')
-        })
-        .join("users", "lecture_id", "users.id")
-        .where(function(){
-          this.whereRaw("MATCH(courses.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)
-              .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(topics.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(users.firstname) AGAINST(?)", key)
-              .orWhereRaw("MATCH(users.lastname) AGAINST(?)", key)
-        })
-        .where('courses.rating', '>=', ratings)
-        .where('courses.enable',1)
-        .count({ amount: "courses.id" });
+      .join("categories", "category_id", "categories.id")
+      .join("topics", function () {
+        this.on("topics.id", "=", "courses.topic_id").andOn(
+          "topics.field_id",
+          "=",
+          "courses.category_id"
+        );
+      })
+      .join("users", "lecture_id", "users.id")
+      .where(function () {
+        this.whereRaw("MATCH(courses.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)
+          .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(topics.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(users.firstname) AGAINST(?)", key)
+          .orWhereRaw("MATCH(users.lastname) AGAINST(?)", key);
+      })
+      .where("courses.rating", ">=", ratings)
+      .where("courses.enable", 1)
+      .count({ amount: "courses.id" });
 
     return list[0].amount;
   },
 
   async filterCoursesByRating(key, ratings, limit, offset) {
     const list = await db("courses")
-        .select(
-            "courses.id",
-            "courses.name",
-            "courses.thumbnail",
-            "courses.tiny_des",
-            "courses.full_des",
-            "courses.price",
-            "courses.last_modify",
-            "courses.price",
-            "courses.status",
-            "courses.category_id",
-            "courses.topic_id",
-            "courses.lecture_id",
-            "courses.promotion_id",
-            "courses.rating",
-            "courses.views"
-        )
-        .join("categories", "category_id", "categories.id")
-        .join('topics', function() {
-          this.on('topics.id', '=', 'courses.topic_id')
-              .andOn('topics.field_id', '=', 'courses.category_id')
-        })
-        .join("users", "lecture_id", "users.id")
-        .where(function(){
-            this.whereRaw("MATCH(courses.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)
-              .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(topics.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(users.firstname) AGAINST(?)", key)
-              .orWhereRaw("MATCH(users.lastname) AGAINST(?)", key)
-        })
-        .where('courses.rating', '>=', ratings)
-        .where('courses.enable',1)
-        .limit(limit)
-        .offset(offset);
+      .select(
+        "courses.id",
+        "courses.name",
+        "courses.thumbnail",
+        "courses.tiny_des",
+        "courses.full_des",
+        "courses.price",
+        "courses.last_modify",
+        "courses.price",
+        "courses.status",
+        "courses.category_id",
+        "courses.topic_id",
+        "courses.lecture_id",
+        "courses.promotion_id",
+        "courses.rating",
+        "courses.views"
+      )
+      .join("categories", "category_id", "categories.id")
+      .join("topics", function () {
+        this.on("topics.id", "=", "courses.topic_id").andOn(
+          "topics.field_id",
+          "=",
+          "courses.category_id"
+        );
+      })
+      .join("users", "lecture_id", "users.id")
+      .where(function () {
+        this.whereRaw("MATCH(courses.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)
+          .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(topics.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(users.firstname) AGAINST(?)", key)
+          .orWhereRaw("MATCH(users.lastname) AGAINST(?)", key);
+      })
+      .where("courses.rating", ">=", ratings)
+      .where("courses.enable", 1)
+      .limit(limit)
+      .offset(offset);
 
     return list;
   },
 
   async countSortDecreasingRated(key) {
     const list = await db("courses")
-        .join("categories", "category_id", "categories.id")
-        .join('topics', function() {
-          this.on('topics.id', '=', 'courses.topic_id')
-              .andOn('topics.field_id', '=', 'courses.category_id')
-        })
-        .join("users", "lecture_id", "users.id")
-        .where(function(){
-          this.whereRaw("MATCH(courses.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)
-              .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(topics.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(users.firstname) AGAINST(?)", key)
-              .orWhereRaw("MATCH(users.lastname) AGAINST(?)", key)
-        })
-        .where('courses.enable',1)
-        .orderBy("courses.rating","desc")
-        .count({ amount: "courses.id" });
+      .join("categories", "category_id", "categories.id")
+      .join("topics", function () {
+        this.on("topics.id", "=", "courses.topic_id").andOn(
+          "topics.field_id",
+          "=",
+          "courses.category_id"
+        );
+      })
+      .join("users", "lecture_id", "users.id")
+      .where(function () {
+        this.whereRaw("MATCH(courses.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)
+          .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(topics.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(users.firstname) AGAINST(?)", key)
+          .orWhereRaw("MATCH(users.lastname) AGAINST(?)", key);
+      })
+      .where("courses.enable", 1)
+      .orderBy("courses.rating", "desc")
+      .count({ amount: "courses.id" });
 
     return list[0].amount;
   },
 
   async sortDecreasingRated(key, limit, offset) {
     const list = await db("courses")
-        .select(
-            "courses.id",
-            "courses.name",
-            "courses.thumbnail",
-            "courses.tiny_des",
-            "courses.full_des",
-            "courses.price",
-            "courses.last_modify",
-            "courses.price",
-            "courses.status",
-            "courses.category_id",
-            "courses.topic_id",
-            "courses.lecture_id",
-            "courses.promotion_id",
-            "courses.rating",
-            "courses.views"
-        )
-        .join("categories", "category_id", "categories.id")
-        .join('topics', function() {
-          this.on('topics.id', '=', 'courses.topic_id')
-              .andOn('topics.field_id', '=', 'courses.category_id')
-        })
-        .join("users", "lecture_id", "users.id")
-        .where(function(){
-          this.whereRaw("MATCH(courses.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)
-              .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(topics.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(users.firstname) AGAINST(?)", key)
-              .orWhereRaw("MATCH(users.lastname) AGAINST(?)", key)
-        })
-        .orderBy("courses.rating","desc")
-        .where('courses.enable',1)
-        .limit(limit)
-        .offset(offset);
+      .select(
+        "courses.id",
+        "courses.name",
+        "courses.thumbnail",
+        "courses.tiny_des",
+        "courses.full_des",
+        "courses.price",
+        "courses.last_modify",
+        "courses.price",
+        "courses.status",
+        "courses.category_id",
+        "courses.topic_id",
+        "courses.lecture_id",
+        "courses.promotion_id",
+        "courses.rating",
+        "courses.views"
+      )
+      .join("categories", "category_id", "categories.id")
+      .join("topics", function () {
+        this.on("topics.id", "=", "courses.topic_id").andOn(
+          "topics.field_id",
+          "=",
+          "courses.category_id"
+        );
+      })
+      .join("users", "lecture_id", "users.id")
+      .where(function () {
+        this.whereRaw("MATCH(courses.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)
+          .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(topics.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(users.firstname) AGAINST(?)", key)
+          .orWhereRaw("MATCH(users.lastname) AGAINST(?)", key);
+      })
+      .orderBy("courses.rating", "desc")
+      .where("courses.enable", 1)
+      .limit(limit)
+      .offset(offset);
 
     return list;
   },
 
   async countSortAscendingPriced(key) {
     const list = await db("courses")
-        .join("categories", "category_id", "categories.id")
-        .join('topics', function() {
-          this.on('topics.id', '=', 'courses.topic_id')
-              .andOn('topics.field_id', '=', 'courses.category_id')
-        })
-        .join("users", "lecture_id", "users.id")
-        .where(function(){
-          this.whereRaw("MATCH(courses.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)
-              .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(topics.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(users.firstname) AGAINST(?)", key)
-              .orWhereRaw("MATCH(users.lastname) AGAINST(?)", key)
-        })
-        .where('courses.enable',1)
-        .orderBy("courses.price","asc")
-        .count({ amount: "courses.id" });
+      .join("categories", "category_id", "categories.id")
+      .join("topics", function () {
+        this.on("topics.id", "=", "courses.topic_id").andOn(
+          "topics.field_id",
+          "=",
+          "courses.category_id"
+        );
+      })
+      .join("users", "lecture_id", "users.id")
+      .where(function () {
+        this.whereRaw("MATCH(courses.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)
+          .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(topics.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(users.firstname) AGAINST(?)", key)
+          .orWhereRaw("MATCH(users.lastname) AGAINST(?)", key);
+      })
+      .where("courses.enable", 1)
+      .orderBy("courses.price", "asc")
+      .count({ amount: "courses.id" });
 
     return list[0].amount;
   },
 
   async sortAscendingPriced(key, limit, offset) {
     const list = await db("courses")
-        .select(
-            "courses.id",
-            "courses.name",
-            "courses.thumbnail",
-            "courses.tiny_des",
-            "courses.full_des",
-            "courses.price",
-            "courses.last_modify",
-            "courses.price",
-            "courses.status",
-            "courses.category_id",
-            "courses.topic_id",
-            "courses.lecture_id",
-            "courses.promotion_id",
-            "courses.rating",
-            "courses.views"
-        )
-        .join("categories", "category_id", "categories.id")
-        .join('topics', function() {
-          this.on('topics.id', '=', 'courses.topic_id')
-              .andOn('topics.field_id', '=', 'courses.category_id')
-        })
-        .join("users", "lecture_id", "users.id")
-        .where(function(){
-          this.whereRaw("MATCH(courses.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)
-              .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(topics.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(users.firstname) AGAINST(?)", key)
-              .orWhereRaw("MATCH(users.lastname) AGAINST(?)", key)
-        })
-        .where('courses.enable',1)
-        .orderBy("courses.price","asc")
-        .limit(limit)
-        .offset(offset);
+      .select(
+        "courses.id",
+        "courses.name",
+        "courses.thumbnail",
+        "courses.tiny_des",
+        "courses.full_des",
+        "courses.price",
+        "courses.last_modify",
+        "courses.price",
+        "courses.status",
+        "courses.category_id",
+        "courses.topic_id",
+        "courses.lecture_id",
+        "courses.promotion_id",
+        "courses.rating",
+        "courses.views"
+      )
+      .join("categories", "category_id", "categories.id")
+      .join("topics", function () {
+        this.on("topics.id", "=", "courses.topic_id").andOn(
+          "topics.field_id",
+          "=",
+          "courses.category_id"
+        );
+      })
+      .join("users", "lecture_id", "users.id")
+      .where(function () {
+        this.whereRaw("MATCH(courses.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)
+          .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(topics.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(users.firstname) AGAINST(?)", key)
+          .orWhereRaw("MATCH(users.lastname) AGAINST(?)", key);
+      })
+      .where("courses.enable", 1)
+      .orderBy("courses.price", "asc")
+      .limit(limit)
+      .offset(offset);
 
     return list;
   },
 
   async countSortDecreasingRatedWithRatings(key, ratings) {
     const list = await db("courses")
-        .join("categories", "category_id", "categories.id")
-        .join('topics', function() {
-          this.on('topics.id', '=', 'courses.topic_id')
-              .andOn('topics.field_id', '=', 'courses.category_id')
-        })
-        .join("users", "lecture_id", "users.id")
-        .where(function(){
-          this.whereRaw("MATCH(courses.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)
-              .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(topics.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(users.firstname) AGAINST(?)", key)
-              .orWhereRaw("MATCH(users.lastname) AGAINST(?)", key)
-        })
-        .where('courses.rating', '>=', ratings)
-        .where('courses.enable',1)
-        .orderBy("courses.rating","desc")
-        .count({ amount: "courses.id" });
+      .join("categories", "category_id", "categories.id")
+      .join("topics", function () {
+        this.on("topics.id", "=", "courses.topic_id").andOn(
+          "topics.field_id",
+          "=",
+          "courses.category_id"
+        );
+      })
+      .join("users", "lecture_id", "users.id")
+      .where(function () {
+        this.whereRaw("MATCH(courses.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)
+          .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(topics.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(users.firstname) AGAINST(?)", key)
+          .orWhereRaw("MATCH(users.lastname) AGAINST(?)", key);
+      })
+      .where("courses.rating", ">=", ratings)
+      .where("courses.enable", 1)
+      .orderBy("courses.rating", "desc")
+      .count({ amount: "courses.id" });
 
     return list[0].amount;
   },
 
-  async sortDecreasingRatedWithRatings(key,ratings, limit, offset) {
+  async sortDecreasingRatedWithRatings(key, ratings, limit, offset) {
     const list = await db("courses")
-        .select(
-            "courses.id",
-            "courses.name",
-            "courses.thumbnail",
-            "courses.tiny_des",
-            "courses.full_des",
-            "courses.price",
-            "courses.last_modify",
-            "courses.price",
-            "courses.status",
-            "courses.category_id",
-            "courses.topic_id",
-            "courses.lecture_id",
-            "courses.promotion_id",
-            "courses.rating",
-            "courses.views"
-        )
-        .join("categories", "category_id", "categories.id")
-        .join('topics', function() {
-          this.on('topics.id', '=', 'courses.topic_id')
-              .andOn('topics.field_id', '=', 'courses.category_id')
-        })
-        .join("users", "lecture_id", "users.id")
-        .where(function(){
-          this.whereRaw("MATCH(courses.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)
-              .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(topics.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(users.firstname) AGAINST(?)", key)
-              .orWhereRaw("MATCH(users.lastname) AGAINST(?)", key)
-        })
-        .where('courses.rating', '>=', ratings)
-        .where('courses.enable',1)
-        .orderBy("courses.rating","desc")
-        .limit(limit)
-        .offset(offset);
+      .select(
+        "courses.id",
+        "courses.name",
+        "courses.thumbnail",
+        "courses.tiny_des",
+        "courses.full_des",
+        "courses.price",
+        "courses.last_modify",
+        "courses.price",
+        "courses.status",
+        "courses.category_id",
+        "courses.topic_id",
+        "courses.lecture_id",
+        "courses.promotion_id",
+        "courses.rating",
+        "courses.views"
+      )
+      .join("categories", "category_id", "categories.id")
+      .join("topics", function () {
+        this.on("topics.id", "=", "courses.topic_id").andOn(
+          "topics.field_id",
+          "=",
+          "courses.category_id"
+        );
+      })
+      .join("users", "lecture_id", "users.id")
+      .where(function () {
+        this.whereRaw("MATCH(courses.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)
+          .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(topics.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(users.firstname) AGAINST(?)", key)
+          .orWhereRaw("MATCH(users.lastname) AGAINST(?)", key);
+      })
+      .where("courses.rating", ">=", ratings)
+      .where("courses.enable", 1)
+      .orderBy("courses.rating", "desc")
+      .limit(limit)
+      .offset(offset);
 
     return list;
   },
 
   async countSortAscendingPricedWithRatings(key, ratings) {
     const list = await db("courses")
-        .join("categories", "category_id", "categories.id")
-        .join('topics', function() {
-          this.on('topics.id', '=', 'courses.topic_id')
-              .andOn('topics.field_id', '=', 'courses.category_id')
-        })
-        .join("users", "lecture_id", "users.id")
-        .where(function(){
-          this.whereRaw("MATCH(courses.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)
-              .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(topics.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(users.firstname) AGAINST(?)", key)
-              .orWhereRaw("MATCH(users.lastname) AGAINST(?)", key)
-        })
-        .where('courses.rating', '>=', ratings)
-        .where('courses.enable',1)
-        .orderBy("courses.price","asc")
-        .count({ amount: "courses.id" });
+      .join("categories", "category_id", "categories.id")
+      .join("topics", function () {
+        this.on("topics.id", "=", "courses.topic_id").andOn(
+          "topics.field_id",
+          "=",
+          "courses.category_id"
+        );
+      })
+      .join("users", "lecture_id", "users.id")
+      .where(function () {
+        this.whereRaw("MATCH(courses.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)
+          .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(topics.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(users.firstname) AGAINST(?)", key)
+          .orWhereRaw("MATCH(users.lastname) AGAINST(?)", key);
+      })
+      .where("courses.rating", ">=", ratings)
+      .where("courses.enable", 1)
+      .orderBy("courses.price", "asc")
+      .count({ amount: "courses.id" });
 
     return list[0].amount;
   },
 
   async sortAscendingPricedWithRatings(key, ratings, limit, offset) {
     const list = await db("courses")
-        .select(
-            "courses.id",
-            "courses.name",
-            "courses.thumbnail",
-            "courses.tiny_des",
-            "courses.full_des",
-            "courses.price",
-            "courses.last_modify",
-            "courses.price",
-            "courses.status",
-            "courses.category_id",
-            "courses.topic_id",
-            "courses.lecture_id",
-            "courses.promotion_id",
-            "courses.rating",
-            "courses.views"
-        )
-        .join("categories", "category_id", "categories.id")
-        .join('topics', function() {
-          this.on('topics.id', '=', 'courses.topic_id')
-              .andOn('topics.field_id', '=', 'courses.category_id')
-        })
-        .join("users", "lecture_id", "users.id")
-        .where(function(){
-          this.whereRaw("MATCH(courses.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)
-              .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(topics.name) AGAINST(?)", key)
-              .orWhereRaw("MATCH(users.firstname) AGAINST(?)", key)
-              .orWhereRaw("MATCH(users.lastname) AGAINST(?)", key)
-        })
-        .where('courses.rating', '>=', ratings)
-        .where('courses.enable',1)
-        .orderBy("courses.price","asc")
-        .limit(limit)
-        .offset(offset);
+      .select(
+        "courses.id",
+        "courses.name",
+        "courses.thumbnail",
+        "courses.tiny_des",
+        "courses.full_des",
+        "courses.price",
+        "courses.last_modify",
+        "courses.price",
+        "courses.status",
+        "courses.category_id",
+        "courses.topic_id",
+        "courses.lecture_id",
+        "courses.promotion_id",
+        "courses.rating",
+        "courses.views"
+      )
+      .join("categories", "category_id", "categories.id")
+      .join("topics", function () {
+        this.on("topics.id", "=", "courses.topic_id").andOn(
+          "topics.field_id",
+          "=",
+          "courses.category_id"
+        );
+      })
+      .join("users", "lecture_id", "users.id")
+      .where(function () {
+        this.whereRaw("MATCH(courses.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(courses.tiny_des) AGAINST(?)", key)
+          .orWhereRaw("MATCH(categories.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(topics.name) AGAINST(?)", key)
+          .orWhereRaw("MATCH(users.firstname) AGAINST(?)", key)
+          .orWhereRaw("MATCH(users.lastname) AGAINST(?)", key);
+      })
+      .where("courses.rating", ">=", ratings)
+      .where("courses.enable", 1)
+      .orderBy("courses.price", "asc")
+      .limit(limit)
+      .offset(offset);
 
     return list;
   },
-
 };
