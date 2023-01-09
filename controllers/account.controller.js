@@ -200,9 +200,14 @@ export default {
         const course_id = req.params.id;
         const user_id = req.session.authUser.id;
 
+        const url = req.headers.referer || '/';
+
+        if(user_id == null || user_id == '') {
+            res.redirect(url);
+        }
+
         await userService.deleteCourseInWatchList(user_id, course_id);
 
-        const url = req.headers.referer || '/';
         res.redirect(url);
     },
 
@@ -211,9 +216,15 @@ export default {
         const course_id = req.params.id;
         const user_id = req.session.authUser.id;
 
+        const url = req.headers.referer || '/';
+
+
+        if(typeof user_id === 'undefined') {
+            res.redirect(url);
+        }
+
         await userService.addCourseInWatchList(user_id, course_id);
 
-        const url = req.headers.referer || '/';
         res.redirect(url);
     },
 
@@ -234,6 +245,10 @@ export default {
                 ratings[j] = "rating-color";
             }
             courses[i].ratings = ratings;
+            const isActive = await userService.checkCourseInWatchList(user.id, courses[i].id);
+            if (isActive.length > 0) {
+                courses[i].check = true;
+            }
         }
 
         return res.render("vwProfile/registered_courses.hbs", {

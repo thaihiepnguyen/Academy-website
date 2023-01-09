@@ -9,7 +9,6 @@ router.get("/search/", coursesController.fullTextSearch);
 
 router.get('/detail/:id', coursesController.getDetailPage);
 
-//router.post('/search', productController.fullTextSearch);
 router.get("/:id", detailsController.findDetailOfCourse);
 
 router.get("/:courseId/:videoId", detailsController.viewClip);

@@ -296,41 +296,15 @@
 
     {{/if}}
 
-    {{#if this.activeTagbarLayout}}
-      <div style="margin: 60px">
+{{#if this.activeTagbarLayout}}
+    <div style="margin: 60px">
         <div class="container-fluid margin-top-100">
-          <div class="row">
-            <div class="col-sm-3">
-              <div class="card mb-3">
-
-                        <h4 class="card-header">
-                            Categories
-                        </h4>
-                        <ul class="list-group list-group-flush">
-
-                  {{#each topic}}
-                    <li class="list-group-item">{{name}}</li>
-                  {{/each}}
-                </ul>
-              </div>
-              <div class="card">
-                <h4 class="card-header">
-                  Featured
-                </h4>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item">An item</li>
-                  <li class="list-group-item">A second item</li>
-                  <li class="list-group-item">A third item</li>
-                </ul>
-              </div>
+            <div class="row">
+                {{{body}}}
             </div>
-            <div class="col-sm-9">
-              {{{body}}}
-            </div>
-          </div>
         </div>
-      </div>
-    {{/if}}
+    </div>
+{{/if}}
 
     {{#if this.activeProfileLayout}}
       <div class="wrapper d-flex align-items-stretch">
