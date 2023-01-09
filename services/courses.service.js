@@ -177,7 +177,7 @@ export default {
 
   findVideoForCourse: async (courseID, videoID) => {
     const thisVideo = await db("video")
-      .select("source", "name")
+      .select("source", "name", "id")
       .where({ course_id: courseID, id: videoID });
     //console.log(videoLink[0]["source"]);
     return thisVideo;
