@@ -15,6 +15,11 @@ router.get("/:id", detailsController.findDetailOfCourse);
 router.get("/:courseId/:videoId", detailsController.viewClip);
 
 router.post("/:id", detailsController.sendReview);
+
+router.post("/views/:id", coursesController.pushView);
+
+router.get('/enroll/:id', coursesController.enrollCourses);
+
 router.post("/add/:id", async function (req, res) {
   //console.log("lol");
   if (res.locals.user != null) {

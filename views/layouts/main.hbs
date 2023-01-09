@@ -333,13 +333,24 @@
                     </li>
                     <li class="prf_btn {{active_sc}}">
                         <a href="/account/account_security">Account Security</a>
-                    </li>
+                    </li><!--                        profile dành cho học viên-->
+                    {{#if isStudent}}
+
+                    {{/if}}
                     <li class="prf_btn {{active_wl}}">
                         <a href="/account/watch_list">Watch list</a>
                     </li>
                     <li class="prf_btn {{active_rc}}">
                         <a href="/account/registered_courses">Registered courses</a>
                     </li>
+                    <!--                        profile dành cho giảng viên-->
+                    <li class="prf_btn {{active_wl}}">
+                        <a href="/account/watch_list">Your courses</a>
+                    </li>
+                    <li class="prf_btn {{active_rc}}">
+                        <a href="/account/registered_courses">Registered courses</a>
+                    </li>
+                    <!--                    phần chung -->
                     <li class="prf_btn {{active_lg}}">
                         <a href="/account/logout">Logout</a>
                     </li>
@@ -360,6 +371,59 @@
 {{#if isDefault}}
     {{{body}}}
 {{/if}}
+
+<!--footer-->
+<footer class="text-center text-white" style="background-color: #0a4275;">
+    <!-- Grid container -->
+
+    <div class="container p-4 pb-0 mb-4">
+        <a style="    width: fit-content;
+    margin: auto;" class="navbar-item" href="/">
+            <img
+                    src="https://bulma.io/images/bulma-logo.png"
+                    width="112"
+                    height="28"
+            />
+        </a>
+        <!-- Section: Social media -->
+        <section class="mb-4">
+            <!-- Facebook -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+            ><i class="fa fa-facebook-f"></i
+            ></a>
+
+            <!-- Twitter -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+            ><i class="fa fa-twitter"></i
+            ></a>
+
+            <!-- Google -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+            ><i class="fa fa-google"></i
+            ></a>
+
+            <!-- Instagram -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+            ><i class="fa fa-instagram"></i
+            ></a>
+
+
+            <!-- Github -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+            ><i class="fa fa-github"></i
+            ></a>
+        </section>
+        <!-- Section: Social media -->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2022 Group 3 LTUDW:
+        <a class="text-white" href="https://mdbootstrap.com/">Hiệp, Hải, Duy, Dung, Kiệt</a>
+    </div>
+</footer>
+    <!-- Copyright -->
 
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script
