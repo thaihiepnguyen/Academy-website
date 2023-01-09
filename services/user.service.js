@@ -24,7 +24,20 @@ export default {
 		}
 		return list[0];
 	},
-
+	findLecturer: async () => {
+		const list = await db("users").where("role_id", 2);
+		if (list.length === 0) {
+			return null;
+		}
+		return list;
+	},
+	async findByName(first, last) {
+		const list = await db("users").where({ firstname: first, lastname: last });
+		if (list.length === 0) {
+			return null;
+		}
+		return list[0].id;
+	},
 	findByEmail: async (email) => {
 		const list = await db("users").where("email", email);
 		if (list.length === 0) {
@@ -45,6 +58,12 @@ export default {
 		const id = entity.id;
 		delete entity.id;
 		return db("users").where("id", id).update(entity);
+	},
+	lockUser: (id) => {
+		return db("users").where("id", id).update({ enable: 0 });
+	},
+	unlockUser: (id) => {
+		return db("users").where("id", id).update({ enable: 1 });
 	},
 
 	findWatchList: async (id) => {

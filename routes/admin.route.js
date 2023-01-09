@@ -5,17 +5,19 @@ import adminController from "../controllers/admin.controller.js";
 import categoryModel from "../services/category.service.js";
 import courseModel from "../services/courses.service.js";
 import userModel from "../services/user.service.js";
+import topicModel from "../services/topic.service.js";
 import { Console } from "console";
 
 const router = express.Router();
 //=================================================MANAGE CATEGORY=================================================
 //=================================================================================================================
 router.get("/categories", async function (req, res) {
-	const list = await categoryModel.findAll();
-
+	const listCategory = await categoryModel.findAll();
+	const listTopic = await topicModel.findAll();
 	res.render("vwAdmin/vwCategory/index", {
 		activeTagbarLayout: true,
-		categories: list,
+		categories: listCategory,
+		topics: listTopic,
 	});
 });
 router.get("/categories/add", function (req, res) {
@@ -66,11 +68,32 @@ router.post("/categories/patch", async function (req, res) {
 //=================================================MANAGE COURSE=================================================
 //===============================================================================================================
 router.get("/courses", async function (req, res) {
-	const list = await courseModel.findAll();
+	let listCourse;
+	if (req.query.cat) {
+		listCourse = await courseModel.findCoursesByCatName(req.query.cat);
+	} else if (req.query.lecturer) {
+		const firstname = req.query.lecturer.split(" ")[0];
+		const lastname = req.query.lecturer.split(" ")[1];
+		listCourse = await courseModel.findCoursesByLecturerName(firstname, lastname);
+	} else {
+		listCourse = await courseModel.findAll();
+	}
+	const listCategory = await categoryModel.findAll();
+	const listLecturer = await userModel.findLecturer();
 	res.render("vwAdmin/vwCourse/index", {
 		activeTagbarLayout: true,
-		courses: list,
+		courses: listCourse,
+		categories: listCategory,
+		users: listLecturer,
 	});
+});
+router.post("/courses/lock/:id", async function (req, res) {
+	await courseModel.lockCourse(+req.params.id);
+	res.redirect("/admin/courses");
+});
+router.post("/courses/unlock/:id", async function (req, res) {
+	await courseModel.unlockCourse(+req.params.id);
+	res.redirect(req.headers.referer);
 });
 router.post("/courses/del", async function (req, res) {
 	const ret = await courseModel.del(+req.body.id);
@@ -138,4 +161,13 @@ router.post("/users/del/:id", async function (req, res) {
 	const ret = await userModel.del(+req.params.id);
 	res.redirect(req.headers.referer);
 });
+router.post("/users/lock/:id", async function (req, res) {
+	await userModel.lockUser(+req.params.id);
+	res.redirect("/admin/users");
+});
+router.post("/users/unlock/:id", async function (req, res) {
+	await userModel.unlockUser(+req.params.id);
+	res.redirect(req.headers.referer);
+});
+
 export default router;
