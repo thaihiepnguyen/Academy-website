@@ -105,7 +105,7 @@ export default {
                 req.session.isAdmin = true;
                 req.session.url_home = "/admin";
 
-                const url = '/admin';
+                const url = '/';
                 res.redirect(url);
             }
         }

@@ -1,60 +1,62 @@
-<div class="card">
+<div class="card" style="width: 100%">
     <h4 class="card-header h4">
         Categories
-        <a class="btn btn-sm btn-outline-primary" href="/admin/categories/add" role="button">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-            Add Category
-        </a>
-        <a class="btn btn-sm btn-outline-primary" href="/admin/categories/topics/add" role="button">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-            Add Topic
-        </a>
+        <div style="position:absolute;right:0;top:1.5%;">
+            <a class="btn  btn-outline-primary" href="/admin/categories/add" role="button">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                Add Category
+            </a>
+            <a class="btn  btn-outline-primary" href="/admin/categories/topics/add" role="button">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                Add Topic
+            </a>
+        </div>
     </h4>
 
     <table class="table table-hover">
         <thead>
-            <tr>
-                <th class="text-center">#</th>
-                <th>Category</th>
-                <th>&nbsp;</th>
-            </tr>
+        <tr>
+            <th class="text-center">#</th>
+            <th>Category/Topics</th>
+            <th>&nbsp;</th>
+        </tr>
         </thead>
         <tbody>
-            {{#each this.categories}}
-            <tr>
+        {{#each this.categories}}
+            <tr scope="row">
                 <td scope="row" class="text-center">{{id}}</td>
                 <td>{{name}}</td>
                 <td class="text-right">
                     <a class="btn btn-sm btn-primary" href="/admin/categories/edit?id={{id}}"
-                        role="button" title="Edit">
-                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    role="button" title="Edit">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
                 </td>
             </tr>
 
             {{#each ../topics}}
-            {{#if (isEqual field_id ../id)}}
-            {{!-- <a href="#" class="ps-5 fs-5 list-group-item list-group-item-action">{{name}}</a>
-            --}}
+                {{#if (isEqual field_id ../id)}}
+                {{!-- <a href="#" class="ps-5 fs-5 list-group-item list-group-item-action">{{name}}</a>
+                --}}
 
-            <tr>
-                <div class="ps-5 fs-5">
-                    <td scope="row" class="text-center"></td>
-                    <td>{{name}}</td>
-                    <td class="text-right">
-                        <a class="btn btn-sm btn-primary"
-                            href="/admin/categories/topics/edit?id={{id}}" role="button"
-                            title="Edit">
-                            <i class="fa fa-pencil" aria-hidden="true"></i>
-                        </a>
-                    </td>
-                </div>
-            </tr>
-            {{/if}}
+                    <tr>
+                        <div class="ps-5 fs-5">
+                            <td scope="row" class="text-center"></td>
+                            <td>{{name}}</td>
+                            <td class="text-right">
+                                <a class="btn btn-sm btn-primary"
+                                   href="/admin/categories/topics/edit?id={{id}}" role="button"
+                                title="Edit">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </div>
+                    </tr>
+                {{/if}}
             {{/each}}
 
 
-            {{/each}}
+        {{/each}}
         </tbody>
     </table>
 
@@ -62,34 +64,3 @@
         Footer
     </div>
 </div>
-
-
-
-
-{{!-- <div class="main-body container" style="flex: 3">
-    <div class="d-flex justify-content-between align-items-center">
-        <p class="lead fs-1 fst-talic fw-bold">
-            Categories
-        </p>
-        <div>
-            <a class="btn btn-outline-secondary me-2 fw-bold" href="#" role="button">Edit</a>
-        </div>
-    </div>
-
-    <div class="border list-group list-group small">
-        {{#each categories}}
-        <div class="border">
-            <a href="#" class="list-group-item list-group-item-action fs-4 fw-bold">
-                {{this.name}}
-            </a>
-            <div class="list-group">
-                {{#each ../topics}}
-                {{#if (isEqual field_id ../id)}}
-                <a href="#" class="ps-5 fs-5 list-group-item list-group-item-action">{{name}}</a>
-                {{/if}}
-                {{/each}}
-            </div>
-        </div>
-        {{/each}}
-    </div>
-</div> --}}

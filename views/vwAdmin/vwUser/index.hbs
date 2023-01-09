@@ -1,53 +1,97 @@
-<form method="post">
+<div>
+    <form id="filter" method="get">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                data-toggle="dropdown" aria-expanded="false">
+            Role
+        </button>
+        <div class="dropdown-menu">
+            {{!-- <input class="dropdown-item" name="role" type="submit" value="All" /> --}}
+            {{#each this.role}}
+                <input class="dropdown-item" name="role" type="submit" value="{{name}}" />
+            {{/each}}
+        </div>
+
+    </form>
+</div>
+<form method="post" style="width: 100%">
     <div class="card">
-        <h4 class="card-header">
+        <h4 class="card-header h4">
             Manage Users
-            <a class="btn btn-sm btn-outline-primary" href="/admin/users/add" role="button">
-                <i class="fa fa-plus" aria-hidden="true"></i>
-                Add Lecturer
-            </a>
+            <div style="position:absolute;right:0;top:1%;">
+                <a class="btn btn-outline-primary" href="/admin/users/add" role="button">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    Add Lecturer
+                </a>
+            </div>
         </h4>
 
         <table class="table table-hover">
             <thead>
-                <tr>
-                    <th class="text-center">#</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Status</th>
-                    <th>&nbsp;</th>
-                </tr>
+            <tr>
+                <th class="text-center">#</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>&nbsp;</th>
+            </tr>
             </thead>
             <tbody>
-                {{#each lcUsersRole}}
-                <tr {{#if (isEqual enable 0)}} class="table-danger" {{/if}}>
-                    <td scope="row" class="text-center">{{id}}</td>
-                    <td>{{email}}</td>
-                    <td>{{role}}</td>
-                    <td class="text-center">
+            {{#each lcUsersRole}}
+                {{#if (isEqual role ../temp)}}
+                    <tr {{#if (isEqual enable 0)}} class="table-danger" {{/if}}>
+                        <td scope="row" class="text-center">{{id}}</td>
+                        <td>{{email}}</td>
+                        <td>{{role}}</td>
+                        <td class="text-center">
 
-                        {{#if enable}}
-                        <button type="submit" class="btn btn-sm btn-primary btn-danger"
-                            formaction="/admin/users/lock/{{id}}">
-                            <i class="fa fa-lock" aria-hidden="true"></i>
-                        </button>
-                        {{else}}
-                        <button type="submit" class="btn btn-sm btn-primary btn-success"
-                            formaction="/admin/users/unlock/{{id}}">
-                            <i class="fa fa-unlock" aria-hidden="true"></i>
-                        </button>
-                        {{/if}}
-
-
-                    </td>
-                    <td class="text-right">
-                        <a class="btn btn-sm btn-primary" href="/admin/users/edit?id={{id}}"
+                            {{#if enable}}
+                                <button type="submit" class="btn btn-sm btn-primary btn-danger"
+                                        formaction="/admin/users/lock/{{id}}">
+                                    <i class="fa fa-lock" aria-hidden="true"></i>
+                                </button>
+                            {{else}}
+                                <button type="submit" class="btn btn-sm btn-primary btn-success"
+                                        formaction="/admin/users/unlock/{{id}}">
+                                    <i class="fa fa-unlock" aria-hidden="true"></i>
+                                </button>
+                            {{/if}}
+                        </td>
+                        <td class="text-right">
+                            <a class="btn btn-sm btn-primary" href="/admin/users/edit?id={{id}}"
                             role="button" title="Edit">
                             <i class="fa fa-pencil" aria-hidden="true"></i>
-                        </a>
-                    </td>
-                </tr>
-                {{/each}}
+                            </a>
+                        </td>
+                    </tr>
+                {{else if (isEqual undefined ../temp)}}
+
+                    <tr {{#if (isEqual enable 0)}} class="table-danger" {{/if}}>
+                        <td scope="row" class="text-center">{{id}}</td>
+                        <td>{{email}}</td>
+                        <td>{{role}}</td>
+                        <td class="text-center">
+
+                            {{#if enable}}
+                                <button type="submit" class="btn btn-sm btn-primary btn-danger"
+                                        formaction="/admin/users/lock/{{id}}">
+                                    <i class="fa fa-lock" aria-hidden="true"></i>
+                                </button>
+                            {{else}}
+                                <button type="submit" class="btn btn-sm btn-primary btn-success"
+                                        formaction="/admin/users/unlock/{{id}}">
+                                    <i class="fa fa-unlock" aria-hidden="true"></i>
+                                </button>
+                            {{/if}}
+                        </td>
+                        <td class="text-right">
+                            <a class="btn btn-sm btn-primary" href="/admin/users/edit?id={{id}}"
+                            role="button" title="Edit">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {{/if}}
+            {{/each}}
             </tbody>
         </table>
 
