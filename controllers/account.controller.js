@@ -5,12 +5,14 @@ import nodemailer from "nodemailer";
 
 export default {
   getLoginPage: (req, res) => {
+    const role = req.params.role;
     res.render("vwlogin/login.hbs", {
       isDefault: true,
+      role: role,
     });
   },
-
   handleSignup: async (req, res) => {
+    const role = req.params.role;
     const rawPass = req.session.userBuffer.password;
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(rawPass, salt);
@@ -27,12 +29,12 @@ export default {
       const user = {
         ...req.session.userBuffer,
         image: null,
-        role_id: 1,
+        role_id: role,
       };
 
       await userService.add(user);
 
-      res.redirect("/account/login");
+      res.redirect("/account/login/" + role);
     } else {
       // sai otp
 
@@ -51,6 +53,7 @@ export default {
   },
 
   handleLogin: async (req, res) => {
+    console.log("Test ok");
     const { email, password } = req.body;
     const userdb = await userService.findByEmail(email);
 
@@ -365,48 +368,6 @@ export default {
     } else {
       res.render("vwSignup/signup", {
         message: "Email is existed",
-        isDefault: true,
-      });
-    }
-  },
-  getLoginPage: (req, res) => {
-    const role = req.params.role;
-    res.render("vwlogin/login.hbs", {
-      isDefault: true,
-      role: role,
-    });
-  },
-
-  handleSignup: async (req, res) => {
-    const role = req.params.role;
-    const rawPass = req.session.userBuffer.password;
-    const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(rawPass, salt);
-    req.session.userBuffer.password = hash;
-    let otp = "";
-    for (let index in req.body) {
-      otp += req.body[index];
-    }
-
-    let otpRaw = parseInt(otp);
-
-    if (otpRaw === req.session.otp) {
-      // đăng ký thành công
-      const user = {
-        ...req.session.userBuffer,
-        image: null,
-        role_id: role,
-      };
-
-      await userService.add(user);
-
-      res.redirect("/account/login/" + role);
-    } else {
-      // sai otp
-
-      res.render("vwSignup/otp.hbs", {
-        message: "OTP is not correct",
-        email: req.session.userBuffer.email,
         isDefault: true,
       });
     }
