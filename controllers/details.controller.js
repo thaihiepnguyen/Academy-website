@@ -54,7 +54,9 @@ export default {
     console.log(rate);
     const courseId = req.params.id;
     const userId = res.locals.user.id;
-    coursesService.sendReviews(userId, courseId, reviewContent, rate);
+    if(userId != null) {
+      await coursesService.sendReviews(userId, courseId, reviewContent, rate);
+    }
     // const url = "http://localhost:3000" + "/details/" + courseId;
     const url = "/details/" + courseId;
     res.redirect(url);

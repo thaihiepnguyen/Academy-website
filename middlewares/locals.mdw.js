@@ -3,10 +3,15 @@ import topicService from "../services/topic.service.js";
 import userService from "../services/user.service.js";
 export default function (app) {
   app.use(async function (req, res, next) {
+
     if (typeof req.session.key !== "undefined") {
-      console.log("test");
       res.locals.key = req.session.key;
     }
+
+    if (typeof req.session.ratings !== "undefined") {
+      res.locals.ratings = req.session.ratings;
+    }
+
     res.locals.active_pf = "";
     res.locals.active_pt = "";
     res.locals.active_sc = "";

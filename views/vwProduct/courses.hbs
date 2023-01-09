@@ -4,77 +4,180 @@
 
 <p class="h1">{{this.catName}}</p>
 
-<div class="d-flex is-flex-wrap-wrap">
-    {{#if this.courses}}
-        {{#each this.courses}}
-            <div class="card" style="width: 100%; margin-bottom: 30px; margin-top: 30px">
-                <div class="row no-gutters">
-                    <div class="col-md-4">
-                        <img src="/imgs/courses/1/{{id}}.jpeg" alt="{{id}}">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title font-weight-bold">{{name}}</h5>
-                            <p class="card-text">{{tiny_des}}</p>
-                            <p class="card-text"><small class="text-muted">{{last_modify}}</small></p>
-                            <div class="d-flex justify-content-between align-items-center w-100">
-                                <div style="display: flex">
-                                    <div class="ratings">
-                                        {{#each ratings}}
-                                            <small class="fa fa-star {{this}}"></small>
-                                        {{/each}}
-                                    </div>
-                                    <small class="review-count">(0)</small>
-                                </div>
-<!--                                <div>-->
-<!--                                    &lt;!&ndash;                                like&ndash;&gt;-->
-<!--&lt;!&ndash;                                    <i style="color: red; font-size:1.2rem" class="fa fa-heart"></i>&ndash;&gt;-->
-<!--&lt;!&ndash;                                    &lt;!&ndash;                                don't like&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;                                    <i style="display:none ;font-size:1.2rem" class="fa fa-heart"></i>&ndash;&gt;-->
-<!--                                </div>-->
-                            </div>
+<div style="margin: 60px">
+    <div class="container-fluid margin-top-100">
+        <form action="/courses/search/?key={{key}}&ratings={{radios}}" method="get">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="dropdown" style="margin-bottom: 25px;">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                            Filter
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/courses/search/?key={{key}}&sort=decreasing_rated">Decreasing Rated</a>
+                            <a class="dropdown-item" href="/courses/search/?key={{key}}&sort=ascending_priced">Ascending Price</a>
                         </div>
+                    </div>
+                    <div class="card mb-3">
+                        <h4 class="card-header">
+                            Categories
+                        </h4>
+                        <ul class="list-group list-group-flush">
+                            {{#each topic}}
+                                <li class="list-group-item">{{name}}</li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4 class="card-header">
+                            Ratings
+                        </h4>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="radios" id="radios4" value="4" onChange='this.form.submit();'>
+                                    <label class="form-check-label" for="radios4">
+                                        <small class="fa fa-star" style="color: #fbc634"></small>
+                                        <small class="fa fa-star" style="color: #fbc634"></small>
+                                        <small class="fa fa-star" style="color: #fbc634"></small>
+                                        <small class="fa fa-star" style="color: #fbc634"></small>
+                                        <small class="fa fa-star"></small>
+                                        &nbsp; 4 & up
+                                    </label>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="radios" id="radios3" value="3" onChange='this.form.submit()'>
+                                    <label class="form-check-label" for="radios3">
+                                        <small class="fa fa-star" style="color: #fbc634"></small>
+                                        <small class="fa fa-star" style="color: #fbc634"></small>
+                                        <small class="fa fa-star" style="color: #fbc634"></small>
+                                        <small class="fa fa-star"></small>
+                                        <small class="fa fa-star"></small>
+                                        &nbsp; 3 & up
+                                    </label>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="radios" id="radios2" value="2" onChange='this.form.submit();'>
+                                    <label class="form-check-label" for="radios2">
+                                        <small class="fa fa-star" style="color: #fbc634"></small>
+                                        <small class="fa fa-star" style="color: #fbc634"></small>
+                                        <small class="fa fa-star"></small>
+                                        <small class="fa fa-star"></small>
+                                        <small class="fa fa-star"></small>
+                                        &nbsp; 2 & up
+                                    </label>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="radios" id="radios1" value="1" onChange='this.form.submit();'>
+                                    <label class="form-check-label" for="radios1">
+                                        <small class="fa fa-star" style="color: #fbc634"></small>
+                                        <small class="fa fa-star"></small>
+                                        <small class="fa fa-star"></small>
+                                        <small class="fa fa-star"></small>
+                                        <small class="fa fa-star"></small>
+                                        &nbsp; 1 & up
+                                    </label>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="radios" id="radios0" value="0" onChange='this.form.submit();'>
+                                    <label class="form-check-label" for="radios0">
+                                        <small class="fa fa-star"></small>
+                                        <small class="fa fa-star"></small>
+                                        <small class="fa fa-star"></small>
+                                        <small class="fa fa-star"></small>
+                                        <small class="fa fa-star"></small>
+                                        &nbsp; 0 & up
+                                    </label>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+                <div class="col-sm-9">
+                    <div class="d-flex is-flex-wrap-wrap">
+                        {{#if this.courses}}
+                            {{#each this.courses}}
+                                <div class="card" style="width: 100%; margin-bottom: 30px; margin-top: 30px">
+                                    <div class="row no-gutters">
+                                        <div class="col-md-4">
+                                            <img src="/imgs/courses/1/{{id}}.jpeg" alt="{{id}}">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <h5 class="card-title font-weight-bold">{{name}}</h5>
+                                                <p class="card-text">{{tiny_des}}</p>
+                                                <p class="card-text"><small class="text-muted">{{last_modify}}</small></p>
+                                                <div class="d-flex justify-content-between align-items-center w-100">
+                                                    <div style="display: flex">
+                                                        <div class="ratings">
+                                                            {{#each ratings}}
+                                                                <small class="fa fa-star {{this}}"></small>
+                                                            {{/each}}
+                                                        </div>
+                                                        <small class="review-count">(0)</small>
+                                                    </div>
+                                                    <!--                                <div>-->
+                                                    <!--                                    &lt;!&ndash;                                like&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;                                    <i style="color: red; font-size:1.2rem" class="fa fa-heart"></i>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;                                    &lt;!&ndash;                                don't like&ndash;&gt;&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;                                    <i style="display:none ;font-size:1.2rem" class="fa fa-heart"></i>&ndash;&gt;-->
+                                                    <!--                                </div>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {{/each}}
+                                <nav aria-label="...">
+                                    <ul class="pagination">
+                                        {{#if isEnablePrevious}}
+                                            <li class="page-item">
+                                                <a class="page-link" href="/courses/search/?key={{isEnablePrevious.key}}&ratings={{ratings}}&page={{isEnablePrevious.previous}}">Previous</a>
+                                            </li>
+                                        {{else}}
+                                            <li class="page-item disabled">
+                                                <span class="page-link">Previous</span>
+                                            </li>
+                                        {{/if}}
+                                        {{#each this.pageNumbers}}
+                                            {{#if isCurrent}}
+                                                <li class="page-item active" aria-current="page">
+                                                    <span class="page-link">{{value}}</span>
+                                                </li>
+                                            {{else}}
+                                                <li class="page-item">
+                                                    <a class="page-link" href="/courses/search/?key={{key}}&ratings={{ratings}}&sort={{sort}}&page={{this.value}}">{{value}}</a>
+                                                </li>
+                                            {{/if}}
+                                        {{/each}}
+                                        {{# if isEnableNext}}
+                                            <li class="page-item">
+
+                                                <a class="page-link" href="/courses/search/?key={{isEnableNext.key}}&ratings={{ratings}}sort={{sort}}&page={{isEnableNext.next}}">Next</a>
+                                            </li>
+                                        {{else}}
+                                            <li class="page-item disabled">
+                                                <span class="page-link">Next</span>
+                                            </li>
+                                        {{/if }}
+                                    </ul>
+                                </nav>
+                        {{else}}
+                            <p class="h4 mt-50">{{this.warning}}</p>
+                        {{/if}}
                     </div>
                 </div>
             </div>
-        {{/each}}
-        <form action="" method="get">
-            <nav aria-label="...">
-                <ul class="pagination">
-                    {{#if isEnablePrevious}}
-                        <li class="page-item">
-                            <a class="page-link" href="/courses/search/?key={{isEnablePrevious.key}}&page={{isEnablePrevious.previous}}">Previous</a>
-                        </li>
-                    {{else}}
-                        <li class="page-item disabled">
-                            <span class="page-link">Previous</span>
-                        </li>
-                    {{/if}}
-                    {{#each this.pageNumbers}}
-                        {{#if isCurrent}}
-                            <li class="page-item active" aria-current="page">
-                                <span class="page-link">{{value}}</span>
-                            </li>
-                        {{else}}
-                            <li class="page-item">
-                                <a class="page-link" href="/courses/search/?key={{key}}&page={{this.value}}">{{value}}</a>
-                            </li>
-                        {{/if}}
-                    {{/each}}
-                    {{# if isEnableNext}}
-                        <li class="page-item">
-                            <a class="page-link" href="/courses/search/?key={{isEnableNext.key}}&page={{isEnableNext.next}}">Next</a>
-                        </li>
-                    {{else}}
-                        <li class="page-item disabled">
-                            <span class="page-link">Next</span>
-                        </li>
-                    {{/if }}
-                </ul>
-            </nav>
         </form>
-    {{else}}
-        <p class="h4 mt-50">{{this.warning}}</p>
-    {{/if}}
-
+    </div>
 </div>
+
