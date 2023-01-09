@@ -1,13 +1,22 @@
 <form method="post">
     <div class="card">
         <h4 class="card-header h4">
-            New Category
+            New Topic
         </h4>
         <div class="card-body">
             <div class="form-group">
+                <label for="txtTopicName">Topic</label>
+                <input name="name" type="text" class="form-control" id="txtTopicName" autofocus
+                    placeholder="Javascript" />
+            </div>
+            <div class="form-group">
                 <label for="txtCatName">Category</label>
-                <input name="name" type="text" class="form-control" id="txtCatName" autofocus
-                    placeholder="Development" />
+
+                <select class="custom-select custom-select-medium" name="field_id">
+                    {{#each this.categories}}
+                    <option value="{{id}}">{{name}}</option>
+                    {{/each}}
+                </select>
             </div>
         </div>
         <div class="card-footer text-muted">
@@ -15,7 +24,7 @@
                 <i class="fa fa-backward" aria-hidden="true"></i>
                 List
             </a>
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary" formaction="/admin/categories/topics/add">
                 <i class="fa fa-check" aria-hidden="true"></i>
                 Save
             </button>

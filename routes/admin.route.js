@@ -65,6 +65,42 @@ router.post("/categories/patch", async function (req, res) {
 	const ret = await categoryModel.patch(req.body);
 	res.redirect("/admin/categories");
 });
+
+router.get("/categories/topics/add", async function (req, res) {
+	const listCategory = await categoryModel.findAll();
+	res.render("vwAdmin/vwCategory/add_topic", {
+		activeTagbarLayout: true,
+		categories: listCategory,
+	});
+});
+router.post("/categories/topics/add", async function (req, res) {
+	const ret = await topicModel.add(req.body);
+	res.render("vwAdmin/vwCategory/add_topic", {
+		activeTagbarLayout: true,
+	});
+});
+router.get("/categories/topics/edit", async function (req, res) {
+	const listCategory = await categoryModel.findAll();
+	const id = req.query.id || 0;
+	const topic = await topicModel.findById(id);
+
+	if (topic === null) {
+		return res.redirect("/admin/categories");
+	}
+	res.render("vwAdmin/vwCategory/edit_topic", {
+		activeTagbarLayout: true,
+		categories: listCategory,
+		topic,
+	});
+	router.post("/categories/topics/patch", async function (req, res) {
+		const ret = await topicModel.patch(req.body);
+		res.redirect("/admin/categories");
+	});
+	router.post("/categories/topics/del/:id", async function (req, res) {
+		const ret = await topicModel.del(+req.params.id);
+		res.redirect(req.headers.referer);
+	});
+});
 //=================================================MANAGE COURSE=================================================
 //===============================================================================================================
 router.get("/courses", async function (req, res) {
@@ -99,6 +135,7 @@ router.post("/courses/del", async function (req, res) {
 	const ret = await courseModel.del(+req.body.id);
 	res.redirect(req.headers.referer);
 });
+
 //=================================================MANAGE USER===================================================
 //===============================================================================================================
 router.get("/users", async function (req, res) {
