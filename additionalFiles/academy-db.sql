@@ -53,13 +53,13 @@ CREATE TABLE `courses` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-INSERT INTO `courses` (`id`, `name`, `thumbnail`, `tiny_des`, `full_des`, `price`, `promotion_id`, `last_modify`, `status`, `category_id`, `topic_id`, `lecture_id`, `rating`, `levelCourse`, `durationCourse`, `weeklyHours`, `enrolled`, `discount`, `requirements`, `overview`, `includedItem`, `views`, `enable`) VALUES
-(1, 'Python Website Full Tutorial', NULL, 'Flask, Authentication, Databases & More', 'Learn the PHP programming language in this full course / tutorial. The course is designed for new programmers, and will introduce common programming topics using the PHP language.', 489000, NULL, NULL, 1, 1,1, 9, 4,"",0,0,0,0,"","","", 11, 1),
-(2, 'What To Learn To Become a Python Backend Developer', NULL, 'Python Backend Developer', NULL, 500000, NULL, NULL, 1, 1,1, 9, 5,"",0,0,0,0,"","","", 1, 1),
-(3, 'The Ultimate Self-Taught Developer Curriculum', NULL, 'Developer Curriculum', NULL, 600000, NULL, NULL, 1, 1,1, 9, 4,"",0,0,0,0,"","","", 11, 1),
+INSERT INTO `courses` (`id`, `name`, `thumbnail`, `tiny_des`, `full_des`, `price`, `promotion_id`, `last_modify`, `status`, `category_id`, `topic_id`, `lecture_id`, `rating`, `levelCourse`, `durationCourse`, `weeklyHours`, `enrolled`, `discount`, `requirements`, `overview`, `includedItem`, `views`,`enable`) VALUES
+(1, 'Python Website Full Tutorial', NULL, 'Flask, Authentication, Databases & More', 'Learn the PHP programming language in this full course / tutorial. The course is designed for new programmers, and will introduce common programming topics using the PHP language.', 489000, NULL, NULL, 1, 1,1, 9, 4,"",0,0,0,0,"","","", 11,1),
+(2, 'What To Learn To Become a Python Backend Developer', NULL, 'Python Backend Developer', NULL, 500000, NULL, NULL, 1, 1,1, 9, 5,"",0,0,0,0,"","","", 1,1),
+(3, 'The Ultimate Self-Taught Developer Curriculum', NULL, 'Developer Curriculum', NULL, 600000, NULL, NULL, 1, 1,1, 9, 4,"",0,0,0,0,"","","", 11,1),
 (4, 'Full Stack Web Development for Beginners', NULL, 'Full Course on HTML, CSS, JavaScript, Node.js, MongoDB', NULL, 1000000, NULL, NULL, 1, 1,2, 10, 5,"",0,0,0,0,"","","", 12,1),
 (5, 'React State Management', NULL, 'Intermediate JavaScript Course', NULL, 750000, NULL, NULL, 1, 1, 2,10, 4,"",0,0,0,0,"","","", 13,1),
-(6, 'Unity 3D for dummies', 'https://media.sketchfab.com/models/3f49271eb0dc404e87333baebca59886/thumbnails/914bdb37755946e8813325f9592bb0da/c09eace2ef6942268f325c369b1043e3.jpeg', 'You want to create your own game but dont know where to begin your journey?\nThis is the course for you!', NULL, 750000, NULL, NULL, 1, 1,2, 10, 4,"Beginner",1,3,0,0,"_Basic knowledge about computer \n_Have good internet connection","_In this course you will learn: \n+Basic programming using C#, +Popular tools in Unity 3D \n+Making 3 simple games with concept: 3d racing game, 2d action game and a top down rpg","_20 hours on-demand video \n_2 articles \n_10 quizzes \n_Full lifetime access all resources in this course", 14,1),
+(6, 'Unity 3D for dummies', 'https://media.sketchfab.com/models/3f49271eb0dc404e87333baebca59886/thumbnails/914bdb37755946e8813325f9592bb0da/c09eace2ef6942268f325c369b1043e3.jpeg', 'You want to create your own game but dont know where to begin your journey?\nThis is the course for you!', NULL, 750000, NULL, NULL, 1, 1,2, 10, 4,"Beginner",1,3,12987,0,"_Basic knowledge about computer \n_Have good internet connection","_In this course you will learn: \n+Basic programming using C#, +Popular tools in Unity 3D \n+Making 3 simple games with concept: 3d racing game, 2d action game and a top down rpg","_20 hours on-demand video \n_2 articles \n_10 quizzes \n_Full lifetime access all resources in this course", 14,1),
 (7, 'Autodesk Fusion 360 Tutorial for Beginners', NULL, 'Learn the basics of designing', NULL, 650000, NULL, NULL, 1, 2,1, 10, 4,"",0,0,0,0,"","","", 18,1),
 (8, 'Figma Tutorial for UI Design', NULL, 'In this Figma course, you will learn how to use Figma for UI Design', NULL, 750000, NULL, NULL, 1, 2,1, 10, 4,"",0,0,0,0,"","","", 10,1),
 (9, 'Photoshop for Beginners', NULL, 'Go from beginner to pro in 23 lessons', NULL, 900000, NULL, NULL, 1, 2, 2,10, 4,"",0,0,0,0,"","","", 90,1),
@@ -142,12 +142,12 @@ CREATE TABLE `topics` (
 INSERT INTO `topics` (`id`, `name`, `field_id`) VALUES
 (1, 'Web Development', 1),
 (2, 'Mobile Development', 1),
-(3, 'Web Design', 2),
-(4, 'Game Design', 2),
-(5, 'Digital Marketing', 3),
-(6, 'Product Marketing', 3),
-(7, 'Digital Photography', 4),
-(8, 'Video Design', 4);
+(1, 'Web Design', 2),
+(2, 'Game Design', 2),
+(1, 'Digital Marketing', 3),
+(2, 'Product Marketing', 3),
+(1, 'Digital Photography', 4),
+(2, 'Video Design', 4);
 
 
 CREATE TABLE `users` (
@@ -161,7 +161,7 @@ CREATE TABLE `users` (
   `enable` boolean DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `users` (`id`, `email`, `password`, `firstname`, `lastname`, `image`, `role_id`, `enable`) VALUES
+INSERT INTO `users` (`id`, `email`, `password`, `firstname`, `lastname`, `image`, `role_id`,`enable`) VALUES
 (1, 'maddogmichel@chavezschool.org', 'qwert123', 'maddog', 'michel', 'public/images/avt/1.png', 1,1),
 (2, 'ash33349599@gmail.com', '123456789h', 'ashley', 'sensor', 'public/images/avt/2.png', 1,1),
 (3, 'fatal0g1c@gmail.com', '0987654321j', 'fatal', 'shit', 'public/images/avt/3.png', 1,1),
@@ -191,12 +191,11 @@ CREATE TABLE `video` (
   `source` varchar(100) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
-  `time` int(11) DEFAULT NULL,
-  `free` boolean DEFAULT false
+  `time` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO `video`(`id`, `course_id`, `thumbnail`, `source`, `name`, `type`, `time`, `free`) VALUES
-(0,6, 'https://i.insider.com/602ee9e3d3ad27001837f2af?width=1200&format=jpeg', 'https://drive.google.com/file/d/1He5zXduec-59InN7fgujwIBGGgQKpufF/view?usp=share_link', 'Rick roll 1', 'mp4', '3:32', false),
-(1,6, 'https://i.insider.com/602ee9e3d3ad27001837f2af?width=1200&format=jpeg', 'https://drive.google.com/file/d/1He5zXduec-59InN7fgujwIBGGgQKpufF/view?usp=share_link', 'Rick roll 2', 'mp4', '3:32', false);
+INSERT INTO `video`(`id`, `course_id`, `thumbnail`, `source`, `name`, `type`, `time`) VALUES
+(0,6, 'https://i.insider.com/602ee9e3d3ad27001837f2af?width=1200&format=jpeg', 'https://drive.google.com/file/d/1He5zXduec-59InN7fgujwIBGGgQKpufF/view?usp=share_link', 'Rick roll 1', 'mp4', '3:32'),
+(1,6, 'https://i.insider.com/602ee9e3d3ad27001837f2af?width=1200&format=jpeg', 'https://drive.google.com/file/d/1He5zXduec-59InN7fgujwIBGGgQKpufF/view?usp=share_link', 'Rick roll 2', 'mp4', '3:32');
 
 CREATE TABLE `watch_list` (
   `user_id` int(11) NOT NULL,
@@ -228,6 +227,9 @@ add fulltext(lastname);
 alter table `academy-db`.courses
 add fulltext(tiny_des);
 
+alter table `academy-db`.courses
+add fulltext(tiny_des);
+
 alter table `academy-db`.topics
 add fulltext(name);
 
@@ -253,7 +255,7 @@ ALTER TABLE `sessions`
   ADD KEY `sessions_expired_index` (`expired`);
 
 ALTER TABLE `topics`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`id`, `field_id`),
   ADD KEY `FK_Cat_Field_idx` (`field_id`);
 
 ALTER TABLE `users`
