@@ -54,9 +54,14 @@ export default {
     },
 
     handleLogin: async (req, res) => {
-        const role = req.params.role;
         const { email, password } = req.body;
         const userdb = await userService.findByEmail(email);
+
+
+        req.session.isStudent = false;
+        req.session.isLecture = false;
+        req.session.isAdmin = false;
+
 
         if(userdb == null) {
             return res.render("vwlogin/login.hbs", {
@@ -65,13 +70,15 @@ export default {
             });
         }
         else if(!bcrypt.compareSync(password, userdb.password)) {
+
             return res.render("vwlogin/login.hbs", {
                 err_message: "Invalid email or password.",
                 isDefault: true,
             });
-        } else if (userdb.role_id != role) {
+        }
+        else if(userdb.enable === 0) {
             return res.render("vwlogin/login.hbs", {
-                err_message: "Invalid email or password.",
+                err_message: "You had locked by admin.",
                 isDefault: true,
             });
         }
@@ -80,8 +87,27 @@ export default {
             req.session.auth = true;
             req.session.authUser = userdb;
 
-            const url = '/';
-            res.redirect(url);
+            if (userdb.role_id == 1) {
+                req.session.isStudent = true;
+                req.session.url_home = "/";
+                const url = '/';
+                res.redirect(url);
+            }
+            if (userdb.role_id == 2) {
+                req.session.isLecture = true;
+                req.session.url_home = "/lecture";
+                console.log("Lecture");
+
+                const url = '/lecture';
+                res.redirect(url);
+            }
+            if (userdb.role_id == 3) {
+                req.session.isAdmin = true;
+                req.session.url_home = "/admin";
+
+                const url = '/admin';
+                res.redirect(url);
+            }
         }
     },
 

@@ -141,12 +141,12 @@ CREATE TABLE `topics` (
 INSERT INTO `topics` (`id`, `name`, `field_id`) VALUES
 (1, 'Web Development', 1),
 (2, 'Mobile Development', 1),
-(3, 'Web Design', 2),
-(4, 'Game Design', 2),
-(5, 'Digital Marketing', 3),
-(6, 'Product Marketing', 3),
-(7, 'Digital Photography', 4),
-(8, 'Video Design', 4);
+(1, 'Web Design', 2),
+(2, 'Game Design', 2),
+(1, 'Digital Marketing', 3),
+(2, 'Product Marketing', 3),
+(1, 'Digital Photography', 4),
+(2, 'Video Design', 4);
 
 
 CREATE TABLE `users` (
@@ -225,6 +225,12 @@ add fulltext(lastname);
 alter table `academy-db`.courses
 add fulltext(tiny_des);
 
+alter table `academy-db`.courses
+add fulltext(tiny_des);
+
+alter table `academy-db`.topics
+add fulltext(name);
+
 ALTER TABLE `links`
   ADD PRIMARY KEY (`user_id`);
 
@@ -247,7 +253,7 @@ ALTER TABLE `sessions`
   ADD KEY `sessions_expired_index` (`expired`);
 
 ALTER TABLE `topics`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`id`, `field_id`),
   ADD KEY `FK_Cat_Field_idx` (`field_id`);
 
 ALTER TABLE `users`
@@ -296,7 +302,8 @@ ALTER TABLE `watch_list`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 ALTER TABLE `courses`
-  ADD CONSTRAINT `FK_Courses_Cat` FOREIGN KEY (`category_id`) REFERENCES `topics` (`id`),
+  ADD CONSTRAINT `FK_Courses_Cat` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`),
+  ADD CONSTRAINT `FK_Courses_Topic` FOREIGN KEY (`topic_id`) REFERENCES `topics` (`id`),
   ADD CONSTRAINT `FK_Courses_Pro` FOREIGN KEY (`promotion_id`) REFERENCES `promotion` (`id`),
   ADD CONSTRAINT `FK_Courses_User` FOREIGN KEY (`lecture_id`) REFERENCES `users` (`id`);
 

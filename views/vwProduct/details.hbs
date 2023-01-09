@@ -27,7 +27,7 @@
 
             {{/if}}
             <div class="card-body">
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <p class="card-text"><small class="text-muted">{{last_modify}}</small></p>
                 <h5 class="card-title h3 font-weight-bold">{{courses.name}}</h5>
                 <div class="h2 font-weight-bold">{{format_number courses.price}} VND</div>
                 <p class="card-text">{{courses.tiny_des}}</p>
@@ -67,50 +67,66 @@
                 <div class="media">
                     <div class="media-left">
                         <figure class="image is-48x48">
-                            <img src="/imgs/avt/0.png" alt="Placeholder image">
+                            <img src="/imgs/avt/{{lecture.id}}.png" alt="Placeholder image">
                         </figure>
                     </div>
                     <div class="media-content">
-                        <p class="title is-4">Nguyễn Thái Hiệp</p>
-                        <p class="subtitle is-6">@thaihiepnguyen</p>
+                        <p class="title is-4">{{lecture.firstname}} {{lecture.lastname}} </p>
+                        <p class="subtitle is-6">{{lecture.email}}</p>
                     </div>
                 </div>
 
                 <div class="content">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Phasellus nec iaculis mauris. <a>@bulmaio</a>.
+                    Phasellus nec iaculis mauris. <a>@bulmaio</a>
                     <a href="#">#css</a> <a href="#">#responsive</a>
-                    <br>
-                    <div class="h4">Đây là vùng thông tin cho Giảng Viên</div>
                     <br>
                     <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
                 </div>
-                <div class="h4">Ở dưới là những khóa khác của ổng </div>
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="/imgs/courses/1/{{courses.id}}.jpeg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="/imgs/courses/1/{{courses.id}}.jpeg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="/imgs/courses/1/{{courses.id}}.jpeg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
+                <div class="h4">Other Courses of {{lecture.firstname}} {{lecture.lastname}}</div>
+                {{#if this.coursesOfLecture}}
+                    {{#each this.coursesOfLecture}}
+                        <div  class="card mr-6 mt-6 d-flex flex-column d-flex justify-content-between" style="width: 18rem;margin-right: 20px !important;">
+                            <a href="/courses/detail/{{id}}" class="courses" style="color: #000">
+                                <img src="/imgs/courses/{{category_id}}/{{topic_id}}/{{id}}.jpeg" class="card-img-top" alt="...">
+                                <div class="d-flex card-body align-items-start flex-column">
+                                    <h5 class="card-title font-weight-bold">{{name}}</h5>
+
+                                    <div style="width: 100%;" class="mt-auto">
+                                        <div class="d-flex justify-content-between align-items-center w-100">
+                                            <div style="display: flex">
+                                                <div class="ratings">
+                                                    {{#each ratings}}
+                                                        <small class="fa fa-star {{this}}"></small>
+                                                    {{/each}}
+                                                </div>
+                                                <small class="review-count">({{this.views}})</small>
+                                            </div>
+                                            <div>
+                                                {{#if check}}
+                                                    <!--                                like-->
+                                                    <form action="/account/watch_list/delete/{{id}}" method="post">
+                                                        <button style="color: red; font-size:1.2rem; border: none; background-color: #ffffff" class="fa fa-heart" type="submit"  value="{{id}}"></button>
+                                                    </form>
+                                                {{else}}
+                                                    <!--                                don't like-->
+                                                    <form action="/account/watch_list/add/{{id}}" method="post">
+                                                        <button style="font-size:1.2rem; border: none; background-color: #ffffff" class="fa fa-heart" type="submit"  value="{{id}}"></button>
+                                                    </form>
+                                                {{/if}}
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center w-100">
+                                            <p class="font-weight-bold">{{format_number this.price}} VND</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {{/each}}
+                {{/if}}
                 </div>
             </div>
-            </div>
-
-
     </div>
 </div>
 
@@ -124,38 +140,49 @@
         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
     </ol>
     <div class="carousel-inner">
-        <div class="carousel-item active">
-            <div class="card" style="width: 100%; margin-bottom: 30px; margin-top: 30px">
-                <div class="row no-gutters">
-                    <div class="col-md-4">
-                        <img src="/imgs/courses/1/{{courses.id}}.jpeg" alt="{{courses.id}}">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title font-weight-bold">{{courses.name}}</h5>
-                            <p class="card-text">{{courses.tiny_des}}</p>
-                            <p class="card-text"><small class="text-muted">{{courses.last_modify}}</small></p>
-                            <div class="d-flex justify-content-between align-items-center w-100">
-                                <div style="display: flex">
-                                    <div class="ratings">
-                                        {{#each ratings}}
-                                            <small class="fa fa-star {{this}}"></small>
-                                        {{/each}}
+        {{#if this.coursesTop5}}
+            {{#each this.coursesTop5}}
+                <div class="card" style="width: 100%; margin-bottom: 30px; margin-top: 30px">
+                    <a href="/courses/detail/{{id}}" class="courses" style="color: #000">
+                        <div class="row no-gutters">
+                            <div class="col-md-4">
+                                <img src="/imgs/courses/{{category_id}}/{{topic_id}}/{{id}}.jpeg" class="card-img-top" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title font-weight-bold">{{name}}</h5>
+                                    <p class="card-text">{{tiny_des}}</p>
+                                    <p class="card-text"><small class="text-muted">{{last_modify}}</small></p>
+                                    <div class="d-flex justify-content-between align-items-center w-100">
+                                        <div style="display: flex">
+                                            <div class="ratings">
+                                                {{#each ratings}}
+                                                    <small class="fa fa-star {{this}}"></small>
+                                                {{/each}}
+                                            </div>
+                                            <small class="review-count">({{this.views}})</small>
+                                        </div>
+                                        <div>
+                                            {{#if check}}
+                                                <!--                                like-->
+                                                <form action="/account/watch_list/delete/{{id}}" method="post">
+                                                    <button style="color: red; font-size:1.2rem; border: none; background-color: #ffffff" class="fa fa-heart" type="submit"  value="{{id}}"></button>
+                                                </form>
+                                            {{else}}
+                                                <!--                                don't like-->
+                                                <form action="/account/watch_list/add/{{id}}" method="post">
+                                                    <button style="font-size:1.2rem; border: none; background-color: #ffffff" class="fa fa-heart" type="submit"  value="{{id}}"></button>
+                                                </form>
+                                            {{/if}}
+                                        </div>
                                     </div>
-                                    <small class="review-count">(0)</small>
                                 </div>
-                                <!--                                <div>-->
-                                <!--                                    &lt;!&ndash;                                like&ndash;&gt;-->
-                                <!--&lt;!&ndash;                                    <i style="color: red; font-size:1.2rem" class="fa fa-heart"></i>&ndash;&gt;-->
-                                <!--&lt;!&ndash;                                    &lt;!&ndash;                                don't like&ndash;&gt;&ndash;&gt;-->
-                                <!--&lt;!&ndash;                                    <i style="display:none ;font-size:1.2rem" class="fa fa-heart"></i>&ndash;&gt;-->
-                                <!--                                </div>-->
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
-            </div>
-        </div>
+            {{/each}}
+        {{/if}}
     </div>
     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>

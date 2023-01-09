@@ -75,7 +75,7 @@
 <nav class="navbar shadow p-3 mb-5 bg-white rounded header-nav" role="navigation" style="max-height: 80px;"
      aria-label="main navigation">
     <div class="navbar-brand">
-        <a class="navbar-item" href="/">
+        <a class="navbar-item" href={{url_home}}>
             <img
                     src="https://bulma.io/images/bulma-logo.png"
                     width="112"
@@ -99,7 +99,7 @@
     <div id="navbarBasicExample" class="navbar-menu" style="width: 80%">
         <div class="navbar-start">
 
-          <a class="navbar-item text-decoration-none" href="/">
+          <a class="navbar-item text-decoration-none" href="{{url_home}}">
             Home
           </a>
 
@@ -113,7 +113,7 @@
                 <div class="navbar-dropdown text-decoration-none">
                     <li style="display:block" class="nav-item dropdown is-hoverable">
                         {{#each this.categories}}
-                            <a id="cat {{id}}"  href="/courses/byCat/{{id}}"
+                            <a id="cat {{id}}"  href="/courses/byCat/?cat_id={{id}}"
                                class="dropdown-item  dropdown-toggle mr-1">
                                 {{name}}
                             </a>
@@ -122,7 +122,7 @@
                                 class="dropdown-menu dropdown-submenu navbar-dropdown " >
                                 <li>
                                     {{#each topic}}
-                                        <a class="nav-link dropdown-item" href="#">
+                                        <a class="nav-link dropdown-item" href="/courses/byTopic/?cat_id={{category_id}}&topic_id={{id}}">
                                             {{name}}
                                         </a>
                                     {{/each}}
@@ -160,11 +160,11 @@
         <div class="navbar-end">
             <div class="d-flex align-items-center justify-content-between item-style" style="width: 423px;">
 
-                <a class="navbar-item text-decoration-none" href="/account/login/3">
+                <a class="navbar-item text-decoration-none" href="#">
                     Academy business
                 </a>
 
-                <a class="navbar-item text-decoration-none" href="/account/login/2">
+                <a class="navbar-item text-decoration-none" href="#">
                     Teach on Academy
                 </a>
 
@@ -225,7 +225,7 @@
                         >
                             <strong>Sign up</strong>
                         </a>
-                        <a class="button is-light" href="/account/login/1">
+                        <a class="button is-light" href="/account/login">
                             Log in
                         </a>
                     </div>

@@ -2,11 +2,9 @@
     <link rel="stylesheet" href="/css/courses.css">
 {{/section}}
 
-<p class="h1">{{this.catName}}</p>
-
 <div style="margin: 60px">
     <div class="container-fluid margin-top-100">
-        <form action="/courses/search/?key={{key}}&ratings={{radios}}" method="get">
+        <form action="/courses/search/?key={{key}}&ratings={{ratings}}" method="get">
             <div class="row">
                 <div class="col-sm-3">
                     <div class="dropdown" style="margin-bottom: 25px;">
@@ -18,16 +16,6 @@
                             <a class="dropdown-item" href="/courses/search/?key={{key}}&sort=ascending_priced">Ascending Price</a>
                         </div>
                     </div>
-                    <div class="card mb-3">
-                        <h4 class="card-header">
-                            Categories
-                        </h4>
-                        <ul class="list-group list-group-flush">
-                            {{#each topic}}
-                                <li class="list-group-item">{{name}}</li>
-                            {{/each}}
-                        </ul>
-                    </div>
                     <div class="card">
                         <h4 class="card-header">
                             Ratings
@@ -35,7 +23,7 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="radios" id="radios4" value="4" onChange='this.form.submit();'>
+                                    <input class="form-check-input" type="radio" name="ratings" id="radios4" value="4" onChange='this.form.submit();'>
                                     <label class="form-check-label" for="radios4">
                                         <small class="fa fa-star" style="color: #fbc634"></small>
                                         <small class="fa fa-star" style="color: #fbc634"></small>
@@ -48,7 +36,7 @@
                             </li>
                             <li class="list-group-item">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="radios" id="radios3" value="3" onChange='this.form.submit()'>
+                                    <input class="form-check-input" type="radio" name="ratings" id="radios3" value="3" onChange='this.form.submit()'>
                                     <label class="form-check-label" for="radios3">
                                         <small class="fa fa-star" style="color: #fbc634"></small>
                                         <small class="fa fa-star" style="color: #fbc634"></small>
@@ -61,7 +49,7 @@
                             </li>
                             <li class="list-group-item">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="radios" id="radios2" value="2" onChange='this.form.submit();'>
+                                    <input class="form-check-input" type="radio" name="ratings" id="radios2" value="2"  onChange='this.form.submit();'>
                                     <label class="form-check-label" for="radios2">
                                         <small class="fa fa-star" style="color: #fbc634"></small>
                                         <small class="fa fa-star" style="color: #fbc634"></small>
@@ -74,7 +62,7 @@
                             </li>
                             <li class="list-group-item">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="radios" id="radios1" value="1" onChange='this.form.submit();'>
+                                    <input class="form-check-input" type="radio" name="ratings" id="radios1" value="1" onChange='this.form.submit();'>
                                     <label class="form-check-label" for="radios1">
                                         <small class="fa fa-star" style="color: #fbc634"></small>
                                         <small class="fa fa-star"></small>
@@ -87,7 +75,7 @@
                             </li>
                             <li class="list-group-item">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="radios" id="radios0" value="0" onChange='this.form.submit();'>
+                                    <input class="form-check-input" type="radio" name="ratings" id="radios0" value="0" onChange='this.form.submit();'>
                                     <label class="form-check-label" for="radios0">
                                         <small class="fa fa-star"></small>
                                         <small class="fa fa-star"></small>
@@ -103,13 +91,15 @@
                     </div>
                 </div>
                 <div class="col-sm-9">
+                    <p class="h1">{{this.catName}}</p>
                     <div class="d-flex is-flex-wrap-wrap">
                         {{#if this.courses}}
                             {{#each this.courses}}
                                 <div class="card" style="width: 100%; margin-bottom: 30px; margin-top: 30px">
+                                    <a href="/courses/detail/{{id}}" class="courses" style="color: #000">
                                     <div class="row no-gutters">
                                         <div class="col-md-4">
-                                            <img src="/imgs/courses/1/{{id}}.jpeg" alt="{{id}}">
+                                            <img src="/imgs/courses/{{category_id}}/{{topic_id}}/{{id}}.jpeg" class="card-img-top" alt="...">
                                         </div>
                                         <div class="col-md-8">
                                             <div class="card-body">
@@ -123,18 +113,21 @@
                                                                 <small class="fa fa-star {{this}}"></small>
                                                             {{/each}}
                                                         </div>
-                                                        <small class="review-count">(0)</small>
+                                                        <small class="review-count">({{this.views}})</small>
+                                                        <div>
+                                                            {{#if highest_rated}}
+                                                                <span class="badge badge-success">Highest Rated</span>
+                                                            {{/if}}
+                                                            {{#if most_interested}}
+                                                                <span class="badge badge-info">Most Interested</span>
+                                                            {{/if}}
+                                                        </div>
                                                     </div>
-                                                    <!--                                <div>-->
-                                                    <!--                                    &lt;!&ndash;                                like&ndash;&gt;-->
-                                                    <!--&lt;!&ndash;                                    <i style="color: red; font-size:1.2rem" class="fa fa-heart"></i>&ndash;&gt;-->
-                                                    <!--&lt;!&ndash;                                    &lt;!&ndash;                                don't like&ndash;&gt;&ndash;&gt;-->
-                                                    <!--&lt;!&ndash;                                    <i style="display:none ;font-size:1.2rem" class="fa fa-heart"></i>&ndash;&gt;-->
-                                                    <!--                                </div>-->
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    </a>
                                 </div>
                             {{/each}}
                                 <nav aria-label="...">
@@ -181,3 +174,8 @@
     </div>
 </div>
 
+<script>
+    const check = 'radios' + {{ratings}}
+    var radios = document.getElementById(check);
+    radios.checked = true;
+</script>

@@ -14,7 +14,7 @@ router.use(passportFacebook.initialize());
 
 router.use(passportFacebook.session());
 
-router.get('/login/:role', accountController.getLoginPage);
+router.get('/login', accountController.getLoginPage);
 
 router.get('/signup/:role', accountController.getSignupPage);
 
@@ -22,7 +22,7 @@ router.post('/signup/:role', accountController.sendVerifyMail);
 
 router.post('/signup/otp/:role', accountController.handleSignup);
 
-router.post('/login/:role', accountController.handleLogin);
+router.post('/login', accountController.handleLogin);
 
 router.post('/logout', accountController.handleLogout);
 

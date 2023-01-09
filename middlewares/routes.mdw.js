@@ -20,7 +20,7 @@ export default async function (app) {
       coursesTop5[i].ratings = ratings;
       if (user != null) {
         const isActive = await userService.checkCourseInWatchList(user.id, coursesTop5[i].id);
-        const isEnrolled = await userService.checkEnroll(user.id, coursesTop5[i].id)
+        const isEnrolled = await userService.checkEnroll(user.id, coursesTop5[i].id);
         if (isActive.length > 0) {
           coursesTop5[i].check = true;
         }
@@ -37,7 +37,7 @@ export default async function (app) {
       coursesTop10Views[i].ratings = ratings;
       if (user != null) {
         const isActive = await userService.checkCourseInWatchList(user.id, coursesTop10Views[i].id);
-        const isEnrolled = await userService.checkEnroll(user.id, coursesTop10Views[i].id)
+        const isEnrolled = await userService.checkEnroll(user.id, coursesTop10Views[i].id);
         if (isActive.length > 0) {
           coursesTop10Views[i].check = true;
         }
@@ -55,7 +55,7 @@ export default async function (app) {
       coursesTop3[i].ratings = ratings;
       if(user != null) {
         const isActive = await userService.checkCourseInWatchList(user.id, coursesTop3[i].id);
-        const isEnrolled = await userService.checkEnroll(user.id, coursesTop3[i].id)
+        const isEnrolled = await userService.checkEnroll(user.id, coursesTop3[i].id);
         if (isActive.length > 0) {
           coursesTop3[i].check = true;
         }

@@ -12,6 +12,10 @@ export default function (app) {
       res.locals.ratings = req.session.ratings;
     }
 
+    if (typeof req.session.catID !== "undefined") {
+      res.locals.catID = req.session.catID;
+    }
+
     res.locals.active_pf = "";
     res.locals.active_pt = "";
     res.locals.active_sc = "";
@@ -19,6 +23,10 @@ export default function (app) {
     res.locals.active_rc = "";
     res.locals.active_lg = "";
     res.locals.flag = req.session.flag;
+    res.locals.isStudent = req.session.isStudent;
+    res.locals.isAdmin = req.session.isAdmin;
+    res.locals.isLecture = req.session.isLecture;
+    res.locals.url_home = req.session.url_home;
     res.locals.err_message = req.session.err_message;
     req.session.flag = null;
     req.session.err_message = null;
@@ -41,6 +49,7 @@ export default function (app) {
       let arrayOfTopic = [];
       for (let item of res.locals.topic) {
         if (category.id === item.field_id) {
+          item.category_id = category.id;
           arrayOfTopic.push(item);
         }
       }
