@@ -46,6 +46,14 @@ export default {
     return coursesService.findTop5Courses();
   },
 
+  findTop3Courses: async (req, res) => {
+    return coursesService.findTop3Courses();
+  },
+
+  findTop10CoursesByView: async (req, res) => {
+    return coursesService.findTop10CoursesByView();
+  },
+
   fullTextSearch: async (req, res) => {
     // lấy key
     let key = req.query.key;
@@ -172,55 +180,30 @@ export default {
     })
   },
 
-  filterCoursesByRating: async (req, res) => {
-    const rating = req.body.radios;
-    const curPage = req.query.page || 1;
-    const limit = 3;
-    const offset = (curPage - 1) * limit;
+  enrollCourses: async (req, res) => {
+    const user  = req.session.authUser;
+    const id = req.params.id;
+    console.log("Hello")
+    console.log(user.id)
 
-    const total = await coursesService.countFilterByRating(rating);
-    const nPages = Math.ceil(total / limit);
-
-    let isEnableNext = null;
-    let isEnablePrevious = null;
-    // console.log(isEnableNext);
-    if (+curPage !== nPages) {
-      isEnableNext = {
-        next: +curPage + 1,
-        ratings: ratings,
-      };
+    console.log("Hello 2")
+    console.log(req.params)
+    if (user === null) {
+      res.redirect('/account/signup/');
+      return;
     }
 
-    if (+curPage !== 1) {
-      isEnablePrevious = {
-        previous: +curPage - 1,
-        ratings: ratings,
-      };
-    }
 
-    const pageNumbers = [];
-    for (let i = 1; i <= nPages; i++) {
-      pageNumbers.push({
-        value: i,
-        isCurrent: i === +curPage,
-        ratings: ratings
-      });
-    }
+    await coursesService.insertEnroll(user.id, id);
 
-    const courses = await coursesService.filterCoursesByRating(rating,limit,offset);
-    if(courses == null) {
-      return res.render("vwProduct/courses", {
-        activeTagbarLayout: true,
-        warning: `Can not find any courses of ${rating}`,
-      });
-    }
+    res.redirect('/courses/detail/' + id);
+  },
 
-    res.render("vwProduct/courses", {
-      activeTagbarLayout: true,
-      courses,
-      isEnableNext,
-      isEnablePrevious,
-      pageNumbers,
-    });
-  }
+  pushView: async (req, res) => {
+    const id = req.params.id;
+    console.log(id);
+    await coursesService.pushView(id);
+
+    res.redirect('/courses/detail/' + id);
+  },
 };

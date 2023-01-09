@@ -32,44 +32,45 @@
         {{/if}}
         {{#if this.courses}}
             {{#each this.courses}}
-            <a href="/courses/detail/{{id}}">
-                <div class="card mr-6 mt-6 d-flex flex-column" style="width: 18rem;">
-                    <img src="/imgs/courses/1/{{id}}.jpeg" class="card-img-top" alt="...">
-                    <div class="d-flex card-body align-items-start flex-column">
-                        <h5 class="card-title font-weight-bold">{{name}}</h5>
-                        <p class="card-text ">{{tiny_des}}</p>
+                <div  class="card mr-6 mt-6 d-flex flex-column d-flex justify-content-between" style="width: 18rem;margin-right: 20px !important;">
+                    <a href="/courses/detail/{{id}}" class="courses" style="color: #000">
+                        <img src="/imgs/courses/{{category_id}}/{{topic_id}}/{{id}}.jpeg" class="card-img-top" alt="...">
+                        <div class="d-flex card-body align-items-start flex-column">
+                            <h5 class="card-title font-weight-bold">{{name}}</h5>
 
-                        <div class="mt-auto">
-                            <p class="card-text font-weight-light">{{firstname}} {{lastname}}</p>
-
-                            <div class="d-flex justify-content-between align-items-center w-100">
-                                <div>
-                                    <div class="ratings">
-                                        {{#each ratings}}
-                                            <small class="fa fa-star {{this}}"></small>
-                                        {{/each}}
+                            <div style="width: 100%;" class="mt-auto">
+                                <p class="card-text ">{{catName}}</p>
+                                <p class="card-text font-weight-light">{{firstname}} {{lastname}}</p>
+                                <div class="d-flex justify-content-between align-items-center w-100">
+                                    <div style="display: flex">
+                                        <div class="ratings">
+                                            {{#each ratings}}
+                                                <small class="fa fa-star {{this}}"></small>
+                                            {{/each}}
+                                        </div>
+                                        <small class="review-count">({{this.views}})</small>
                                     </div>
-                                    <small class="review-count">(0)</small>
+                                    <div>
+                                        {{#if check}}
+                                            <!--                                like-->
+                                            <form action="/account/watch_list/delete/{{id}}" method="post">
+                                                <button style="color: red; font-size:1.2rem; border: none; background-color: #ffffff" class="fa fa-heart" type="submit"  value="{{id}}"></button>
+                                            </form>
+                                        {{else}}
+                                            <!--                                don't like-->
+                                            <form action="/account/watch_list/add/{{id}}" method="post">
+                                                <button style="font-size:1.2rem; border: none; background-color: #ffffff" class="fa fa-heart" type="submit"  value="{{id}}"></button>
+                                            </form>
+                                        {{/if}}
+                                    </div>
                                 </div>
-                                <div>
-                                    {{#if check}}
-                                        <!--                                like-->
-                                        <form action="/account/watch_list/delete/{{id}}" method="post">
-                                            <button style="color: red; font-size:1.2rem; border: none; background-color: #ffffff" class="fa fa-heart" type="submit"  value="{{id}}"></button>
-                                        </form>
-                                    {{else}}
-                                        <!--                                don't like-->
-                                        <form action="/account/watch_list/add/{{id}}" method="post">
-                                            <button style="font-size:1.2rem; border: none; background-color: #ffffff" class="fa fa-heart" type="submit"  value="{{id}}"></button>
-                                        </form>
-                                    {{/if}}
+                                <div class="d-flex justify-content-between align-items-center w-100">
+                                    <p class="font-weight-bold">{{format_number this.price}} VND</p>
                                 </div>
                             </div>
                         </div>
-                        <p class="font-weight-bold">{{format_number this.price}} VND</p>
-                    </div>
+                    </a>
                 </div>
-            </a>
             {{/each}}
         {{else}}
             <p class="h4 mt-50">{{this.warning}}</p>
