@@ -15,7 +15,12 @@
 <script src="https://twitter.github.io/typeahead.js/js/handlebars.js"></script>
 
 <div style="padding: 1% 5%;">
-  <img src={{basicInfo.0.thumbnail}} class="imageShow" />
+  {{#if basicInfo.0.thumbnail}}
+    <img src={{basicInfo.0.thumbnail}} class="imageShow" />
+  {{else}}
+    <div>No image to show</div>
+  {{/if}}
+
   <div class="row">
     <div class="col" style="text-align: left; background-color: #385DBD;">
       <text
@@ -74,10 +79,7 @@
       </div>
       <div class="col" style="border-left: 1px solid black;">
         <div class="row" style="display: inline;">
-          <div
-            style="color: #189AB4; font-weight: bold; text-align: center;"
-          >{{basicInfo.0.enrolled}}
-            enrolled
+          <div style="color: #189AB4; font-weight: bold; text-align: center;">
             {{#if logged}}
               {{#if courses.check}}
                 <!--                                like-->
@@ -111,6 +113,8 @@
               <br />
               <br />
             {{/if}}
+            {{basicInfo.0.enrolled}}
+            enrolled
           </div>
           <div style="margin-left: 35%;">
             {{#if show}}
@@ -156,7 +160,6 @@
             {{/if}}
           </div>
           <br />
-
         </div>
       </div>
     </div>
@@ -189,28 +192,97 @@
             {{basicInfo.0.overview}}
           </p>
         </div>
-
         {{! Get clips }}
       </div>
       <div class="col">
         <text class="importanceBlue">Videos</text>
-        {{#if basicInfo.0.enrolled}}
-          {{#each videosL}}
-            <a href={{this.source}} style="text-decoration: none;">
+        <div style="overflow-y: auto; overflow-x:hidden; height: 28rem">
+          {{#if logged}}
+            {{#if basicInfo.0.enrolled}}
+              {{#each videosL}}
+                <a href={{this.source}} style="text-decoration: none;">
+                  <div class="row">
+                    <div class="col">
+                      <img src={{this.thumbnail}} style="border-radius: 5%;" />
+                    </div>
+                    <div class="col">
+                      {{#if this.free}}
+                        <div style="margin-top:15%; height: 100%;">
+                          <div
+                            style="color: #2638D8; font-weight:bold"
+                          >Free</div>
+                          <b>{{this.name}}</b>
+                          <br />
+                          <div
+                            style="color: #7EB0C6; font-weight: bold;"
+                          >{{this.time}}</div>
+                        </div>
+                      {{else}}
+                        <div style="margin-top:17%; height: 100%;">
+                          <b>{{this.name}}</b>
+                          <br />
+                          <div
+                            style="color: #7EB0C6; font-weight: bold;"
+                          >{{this.time}}</div>
+                        </div>
+                      {{/if}}
+                    </div>
+                  </div>
+                  <br />
+                </a>
+              {{/each}}
+            {{else}}
+              {{#each videosL}}
+                <div class="row">
+                  <div class="col">
+                    <img src={{this.thumbnail}} style="border-radius: 5%;" />
+                  </div>
+                  <div class="col">
+                    {{#if this.free}}
+                      <a href={{this.source}} style="text-decoration: none;">
+                        <div style="margin-top:15%; height: 100%;">
+                          <div
+                            style="color: #2638D8; font-weight:bold"
+                          >Free</div>
+                          <b>{{this.name}}</b>
+                          <br />
+                          <div
+                            style="color: #7EB0C6; font-weight: bold;"
+                          >{{this.time}}</div>
+                        </div>
+                      </a>
+                    {{else}}
+                      <div style="margin-top:17%; height: 100%;">
+                        <b>{{this.name}}</b>
+                        <br />
+                        <div
+                          style="color: #7EB0C6; font-weight: bold;"
+                        >{{this.time}}</div>
+                      </div>
+                    {{/if}}
+                  </div>
+                </div>
+                <br />
+              {{/each}}
+            {{/if}}
+          {{else}}
+            {{#each videosL}}
               <div class="row">
                 <div class="col">
                   <img src={{this.thumbnail}} style="border-radius: 5%;" />
                 </div>
                 <div class="col">
                   {{#if this.free}}
-                    <div style="margin-top:15%; height: 100%;">
-                      <div style="color: #2638D8; font-weight:bold">Free</div>
-                      <b>{{this.name}}</b>
-                      <br />
-                      <div
-                        style="color: #7EB0C6; font-weight: bold;"
-                      >{{this.time}}</div>
-                    </div>
+                    <a href={{this.source}} style="text-decoration: none;">
+                      <div style="margin-top:15%; height: 100%;">
+                        <div style="color: #2638D8; font-weight:bold">Free</div>
+                        <b>{{this.name}}</b>
+                        <br />
+                        <div
+                          style="color: #7EB0C6; font-weight: bold;"
+                        >{{this.time}}</div>
+                      </div>
+                    </a>
                   {{else}}
                     <div style="margin-top:17%; height: 100%;">
                       <b>{{this.name}}</b>
@@ -223,43 +295,12 @@
                 </div>
               </div>
               <br />
-            </a>
-          {{/each}}
-        {{else}}
-          {{#each videosL}}
-            <div class="row">
-              <div class="col">
-                <img src={{this.thumbnail}} style="border-radius: 5%;" />
-              </div>
-              <div class="col">
-                {{#if this.free}}
-                  <a href={{this.source}} style="text-decoration: none;">
-                    <div style="margin-top:15%; height: 100%;">
-                      <div style="color: #2638D8; font-weight:bold">Free</div>
-                      <b>{{this.name}}</b>
-                      <br />
-                      <div
-                        style="color: #7EB0C6; font-weight: bold;"
-                      >{{this.time}}</div>
-                    </div>
-                  </a>
-                {{else}}
-                  <div style="margin-top:17%; height: 100%;">
-                    <b>{{this.name}}</b>
-                    <br />
-                    <div
-                      style="color: #7EB0C6; font-weight: bold;"
-                    >{{this.time}}</div>
-                  </div>
-                {{/if}}
-              </div>
-            </div>
-            <br />
-          {{/each}}
-        {{/if}}
-
+            {{/each}}
+          {{/if}}
+        </div>
       </div>
     </div>
+
     {{! Get 5 course }}
     <div class="row">
       {{#each courseList}}

@@ -1,6 +1,6 @@
-import express from 'express';
+import express from "express";
 import accountController from "../controllers/account.controller.js";
-import authWithRequiredPermission from '../middlewares/auth.mdw.js';
+import authWithRequiredPermission from "../middlewares/auth.mdw.js";
 import passportGoogle from "../utils/passport-google-setup.js";
 import passportFacebook from "../utils/passport-facebook-setup.js";
 
@@ -14,6 +14,7 @@ router.use(passportFacebook.initialize());
 
 router.use(passportFacebook.session());
 
+<<<<<<< HEAD
 router.get('/login/', accountController.getLoginPage);
 
 router.get('/signup/', accountController.getSignupPage);
@@ -23,39 +24,106 @@ router.post('/signup/', accountController.sendVerifyMail);
 router.post('/signup/otp/', accountController.handleSignup);
 
 router.post('/login/', accountController.handleLogin);
+=======
+router.get("/login/:role", accountController.getLoginPage);
 
-router.post('/logout', accountController.handleLogout);
+router.get("/signup/:role", accountController.getSignupPage);
 
-router.get('/home_profile', authWithRequiredPermission(0), accountController.getHomeProfilePage);
+router.post("/signup/:role", accountController.sendVerifyMail);
 
-router.post('/home_profile', authWithRequiredPermission(0), accountController.editUserProfile);
+router.post("/signup/otp/:role", accountController.handleSignup);
 
-router.get('/account_security', authWithRequiredPermission(0), accountController.getAccountSecurityPage);
+router.post("/login/:role", accountController.handleLogin);
+>>>>>>> be6efac1e0984fde36944d66c0888dfaffe1e12f
 
-router.post('/account_security', authWithRequiredPermission(0), accountController.editUserPassword);
+router.post("/logout", accountController.handleLogout);
 
-router.get('/photo', authWithRequiredPermission(0), accountController.getPhotoPage);
+router.get(
+  "/home_profile",
+  authWithRequiredPermission(0),
+  accountController.getHomeProfilePage
+);
 
-router.post('/photo', authWithRequiredPermission(0), accountController.uploadPhoto);
+router.post(
+  "/home_profile",
+  authWithRequiredPermission(0),
+  accountController.editUserProfile
+);
 
-router.get('/watch_list', authWithRequiredPermission(0), accountController.getWatchListPage);
+router.get(
+  "/account_security",
+  authWithRequiredPermission(0),
+  accountController.getAccountSecurityPage
+);
 
-router.post('/watch_list/delete/:id', authWithRequiredPermission(0), accountController.deleteWatchListPage);
+router.post(
+  "/account_security",
+  authWithRequiredPermission(0),
+  accountController.editUserPassword
+);
 
-router.post('/watch_list/add/:id', authWithRequiredPermission(0), accountController.addWatchListPage);
+router.get(
+  "/photo",
+  authWithRequiredPermission(0),
+  accountController.getPhotoPage
+);
 
-router.get('/registered_courses', authWithRequiredPermission(0), accountController.getRegisteredCoursesPage);
+router.post(
+  "/photo",
+  authWithRequiredPermission(0),
+  accountController.uploadPhoto
+);
 
-router.get('/logout', authWithRequiredPermission(0), accountController.getLogOutPage);
+router.get(
+  "/watch_list",
+  authWithRequiredPermission(0),
+  accountController.getWatchListPage
+);
 
-router.get('/google', passportGoogle.authenticate('google', { scope: ['profile', 'email'] }));
+router.post(
+  "/watch_list/delete/:id",
+  authWithRequiredPermission(0),
+  accountController.deleteWatchListPage
+);
 
-router.get('/google/callback', passportGoogle.authenticate('google', { failureRedirect: '/login' }), accountController.callbackGoogle);
+router.post(
+  "/watch_list/add/:id",
+  authWithRequiredPermission(0),
+  accountController.addWatchListPage
+);
 
-router.get('/facebook', passportFacebook.authenticate('facebook',{scope:'email'}));
+router.get(
+  "/registered_courses",
+  authWithRequiredPermission(0),
+  accountController.getRegisteredCoursesPage
+);
 
-router.get('/facebook/callback', passportFacebook.authenticate('facebook', { failureRedirect: '/login' }), accountController.callbackFacebook);
+router.get(
+  "/logout",
+  authWithRequiredPermission(0),
+  accountController.getLogOutPage
+);
 
+router.get(
+  "/google",
+  passportGoogle.authenticate("google", { scope: ["profile", "email"] })
+);
 
+router.get(
+  "/google/callback",
+  passportGoogle.authenticate("google", { failureRedirect: "/login" }),
+  accountController.callbackGoogle
+);
+
+router.get(
+  "/facebook",
+  passportFacebook.authenticate("facebook", { scope: "email" })
+);
+
+router.get(
+  "/facebook/callback",
+  passportFacebook.authenticate("facebook", { failureRedirect: "/login" }),
+  accountController.callbackFacebook
+);
 
 export default router;
