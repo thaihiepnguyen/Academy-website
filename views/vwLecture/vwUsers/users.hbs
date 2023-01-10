@@ -1,0 +1,82 @@
+{{#section "js"}}
+    <script>
+    $('.delItem').on("click", function (e) {
+        const id = $(this).data("id");
+        $('#txtDelProID').val(id);
+        $('#frmDelItem').submit();
+    });
+</script>
+{{/section}}
+
+<div class="h3">
+
+    Hi, {{user.firstname}} {{user.lastname}}
+</div>
+
+
+
+<div id="filter">
+    <div class="d-flex justify-content-between">
+        <div>
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                data-toggle="dropdown" aria-expanded="false">
+            Dashboard
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" value="Courses" href="/lecture/courses">Courses</a>
+                <a class="dropdown-item" value="Users" href="/lecture/users">Users</a>
+            </div>
+        </div>
+        <div>
+
+        <a class="btn btn-sm btn-outline-primary" href="/lecture/users/add" role="button">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Add Users
+        </a>
+        </div>
+    </div>
+
+</div>
+
+
+<form method="post">
+    <div class="card mt-3">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center">#</th>
+                    <th>Email</th>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each lcLecturerStudent}}
+                {{#if (isEqual lecture_id ../user.id)}}
+                   
+                <tr >
+                    <td scope="row" class="text-center">{{user_id}}</td>
+                    <td>{{email}}</td>
+                    <td>{{firstname}}</td>
+                    <td class="text-center">
+                        {{lastname}}
+                    </td>
+                    <td class="text-right">
+                        <a class="btn btn-sm btn-primary" href="/admin/users/edit?id={{id}}"
+                            role="button" title="Edit">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+                {{/if}}
+              
+                {{/each}}
+            </tbody>
+        </table>
+
+        <div class="card-footer text-muted">
+            Footer
+        </div>
+    </div>
+</form>

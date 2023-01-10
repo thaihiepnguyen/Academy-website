@@ -54,9 +54,14 @@ export default {
     },
 
     handleLogin: async (req, res) => {
-        const role = req.params.role;
         const { email, password } = req.body;
         const userdb = await userService.findByEmail(email);
+
+
+        req.session.isStudent = false;
+        req.session.isLecture = false;
+        req.session.isAdmin = false;
+
 
         if(userdb == null) {
             return res.render("vwlogin/login.hbs", {
@@ -65,11 +70,7 @@ export default {
             });
         }
         else if(!bcrypt.compareSync(password, userdb.password)) {
-            return res.render("vwlogin/login.hbs", {
-                err_message: "Invalid email or password.",
-                isDefault: true,
-            });
-        } else if (userdb.role_id != role) {
+
             return res.render("vwlogin/login.hbs", {
                 err_message: "Invalid email or password.",
                 isDefault: true,
@@ -80,8 +81,26 @@ export default {
             req.session.auth = true;
             req.session.authUser = userdb;
 
-            const url = '/';
-            res.redirect(url);
+            if (userdb.role_id == 1) {
+                req.session.isStudent = true;
+                req.session.url_home = "/";
+                const url = '/';
+                res.redirect(url);
+            }
+            if (userdb.role_id == 2) {
+                req.session.isLecture = true;
+                req.session.url_home = "/lecture";
+
+                const url = '/lecture';
+                res.redirect(url);
+            }
+            if (userdb.role_id == 3) {
+               req.session.isAdmin = true;
+               req.session.url_home = "/admin";
+
+               const url = '/admin';
+               res.redirect(url);
+            }
         }
     },
 
@@ -372,9 +391,13 @@ export default {
     },
 
     sendVerifyMail: async (req, res) => {
-        const role = req.params.role;
         req.session.userBuffer = req.body;
         const { email } = req.body;
+
+        console.log(email)
+
+
+
 
         const entity = await userService.findAll();
         let isEmailExists = false;
@@ -385,6 +408,8 @@ export default {
             }
         }
 
+
+
         if (!isEmailExists) {
             let transporter = nodemailer.createTransport({
                 service: 'gmail',
@@ -394,8 +419,14 @@ export default {
                 },
             });
 
+
+
             const code = Math.floor(1000 + Math.random() * 9000);
             req.session.otp = code;
+
+
+
+
             await transporter.sendMail({
                 from: 'The Academy App', // sender address
                 to: `${email}`, // list of receivers
@@ -403,16 +434,19 @@ export default {
                 text: `${code}`, // plain text body
             });
 
+
+            console.log("test")
+            return;
+
             res.render('vwSignup/otp.hbs', {
                 isDefault: true,
                 email: email,
-                role: role
             });
+
         } else {
             res.render('vwSignup/signup', {
                 message: "Email is existed",
                 isDefault: true,
-                role: role
             });
         }
     }

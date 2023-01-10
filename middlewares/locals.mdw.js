@@ -1,8 +1,10 @@
 import categoryService from "../services/category.service.js";
 import topicService from "../services/topic.service.js";
 import userService from "../services/user.service.js";
+import courseService from "../services/courses.service.js";
 export default function (app) {
   app.use(async function (req, res, next) {
+
 
     if (typeof req.session.key !== "undefined") {
       res.locals.key = req.session.key;
@@ -18,6 +20,11 @@ export default function (app) {
     res.locals.active_wl = "";
     res.locals.active_rc = "";
     res.locals.active_lg = "";
+    res.locals.isStudent = req.session.isStudent;
+    res.locals.isAdmin = req.session.isAdmin;
+    res.locals.isLecture = req.session.isLecture;
+    res.locals.url_home = req.session.url_home;
+
     res.locals.flag = req.session.flag;
     res.locals.err_message = req.session.err_message;
     req.session.flag = null;
@@ -28,6 +35,14 @@ export default function (app) {
     res.locals.lcUsersRole = await userService.findAllWithRole();
     next();
   });
+
+
+  app.use(async function (req, res, next) {
+    res.locals.lcLecturerStudent = await courseService.findStudentByLecture();
+    next();
+  });
+
+
   app.use(async function (req, res, next) {
     const topic = await topicService.findAll();
     res.locals.topic = topic;

@@ -1,6 +1,13 @@
 import db from "../utils/db.js";
 
 export default {
+  async findStudentByLecture() {
+		const sql = `select c.lecture_id,c.name,r.user_id, u.email, u.firstname, u.lastname
+    from courses c right join registered_courses r on c.id = r.course_id join users u on u.id = r.user_id
+     group by c.lecture_id,c.name,r.user_id, u.email`;
+		const raw = await db.raw(sql);
+		return raw[0];
+	},
 
   insertEnroll: async (user_id, course_id) => {
 

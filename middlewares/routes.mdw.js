@@ -2,6 +2,7 @@ import productUserRoute from "../routes/product-user.route.js";
 import accountRoute from "../routes/account.route.js";
 import coursesRoute from "../routes/courses.route.js";
 import adminRoute from "../routes/admin.route.js";
+import lectureRoute from "../routes/lecture.route.js";
 import coursesController from "../controllers/courses.controller.js";
 import userService from "../services/user.service.js";
 
@@ -82,4 +83,5 @@ export default async function (app) {
   app.use("/courses", coursesRoute);
   app.use("/admin", adminRoute);
   app.use("/details", coursesRoute);
+  app.use("/lecture", lectureRoute);
 }

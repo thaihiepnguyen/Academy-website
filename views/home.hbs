@@ -6,7 +6,7 @@
     {{#if this.coursesTop3}}
         {{#each this.coursesTop3}}
             <div  class="card mr-6 mt-6 d-flex flex-column d-flex justify-content-between" style="width: 18rem;margin-right: 20px !important;">
-                <a href="/courses/detail/{{id}}" class="courses" style="color: #000">
+                <a href="/details/{{id}}" class="courses" style="color: #000">
                     <img src="/imgs/courses/{{category_id}}/{{topic_id}}/{{id}}.jpeg" class="card-img-top" alt="...">
                     <div class="d-flex card-body align-items-start flex-column">
                         <h5 class="card-title font-weight-bold">{{name}}</h5>
@@ -45,7 +45,7 @@
                 </a>
                 <!--                <button type="submit"></button>-->
                 {{#if enroll}}
-                    <a      href="/courses/detail/{{id}}"
+                    <a      href="/details/{{id}}"
                             class="button is-primary"
                             style="background-color: #00d1b2;width: 100%;
                             border-top-right-radius: 0px; border-top-left-radius: 0px"
@@ -74,7 +74,7 @@
     {{#if this.coursesTop5}}
         {{#each this.coursesTop5}}
             <div  class="card mr-6 mt-6 d-flex flex-column d-flex justify-content-between" style="width: 18rem;margin-right: 20px !important;">
-                <a href="/courses/detail/{{id}}" class="courses" style="color: #000">
+                <a href="/details/{{id}}" class="courses" style="color: #000">
                     <img src="/imgs/courses/{{category_id}}/{{topic_id}}/{{id}}.jpeg" class="card-img-top" alt="...">
                     <div class="d-flex card-body align-items-start flex-column">
                         <h5 class="card-title font-weight-bold">{{name}}</h5>
@@ -113,7 +113,7 @@
                 </a>
                 <!--                <button type="submit"></button>-->
                 {{# if enroll}}
-                    <a      href="/courses/detail/{{id}}"
+                    <a      href="/details/{{id}}"
                             class="button is-primary"
                             style="background-color: #00d1b2;width: 100%;
                             border-top-right-radius: 0px; border-top-left-radius: 0px"
@@ -142,7 +142,7 @@
     {{#if this.coursesTop10Views}}
         {{#each this.coursesTop10Views}}
             <div  class="card mr-6 mt-6 d-flex flex-column d-flex justify-content-between" style="width: 18rem;margin-right: 20px !important;">
-                <a href="/courses/detail/{{id}}" class="courses" style="color: #000">
+                <a href="/details/{{id}}" class="courses" style="color: #000">
                     <img src="/imgs/courses/{{category_id}}/{{topic_id}}/{{id}}.jpeg" class="card-img-top" alt="...">
                     <div class="d-flex card-body align-items-start flex-column">
                         <h5 class="card-title font-weight-bold">{{name}}</h5>
@@ -182,7 +182,7 @@
                 <!--                <button type="submit"></button>-->
 
                 {{# if enroll}}
-                    <a      href="/courses/detail/{{id}}"
+                    <a      href="/details/{{id}}"
                                        class="button is-primary"
                                        style="background-color: #00d1b2;width: 100%;
                             border-top-right-radius: 0px; border-top-left-radius: 0px"

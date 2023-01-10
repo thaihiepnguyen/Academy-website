@@ -1,0 +1,102 @@
+{{#section "js"}}
+    <script>
+    $('.delItem').on("click", function (e) {
+        const id = $(this).data("id");
+        $('#txtDelProID').val(id);
+        $('#frmDelItem').submit();
+    });
+</script>
+{{/section}}
+
+<div class="h3">
+    
+</div>
+
+
+
+<div id="filter">
+    <div class="d-flex justify-content-between">
+        <div>
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                data-toggle="dropdown" aria-expanded="false">
+            Dashboard
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" value="Courses" href="/lecture/courses">Courses</a>
+                <a class="dropdown-item" value="Users" href="/lecture/users">Users</a>
+            </div>
+        </div>
+        <div>
++
+        <a class="btn btn-sm btn-outline-primary" href="/lecture/courses/add" role="button">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Add Courses
+        </a>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="card mt-3">
+    <h4 class="card-header h4">
+        Courses
+    </h4>
+
+    <form action="/admin/courses/del" method="post" id="frmDelItem">
+        <input type="hidden" id="txtDelProID" name="id">
+    </form>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th class="text-center">#</th>
+            <th>Courses</th>
+            <th>Price</th>
+            <th>Rating</th>
+            <th>TinyDes</th>
+            <th>Status</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each this.courses}}
+            <a href="#" >
+            <tr {{#if (isEqual enable 0)}} class="table-danger" {{/if}}>
+                <td scope="row" class="text-center">{{id}}</td>
+                <td>{{name}}</td>
+                <td>{{format_number price}}</td>
+                <td class="text-center">{{rating}}<i class="fa fa-star"
+                                                     style="color:rgba(228, 228, 22, 0.675)" aria-hidden="true"></i></td>
+                <td>{{tiny_des}}</td>
+
+                <td class="text-center">
+
+                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                    <label for="vehicle1">Done</label><br>
+                </td>
+
+                 <td class="text-right">
+                        <a class="btn btn-sm btn-primary" href="/lecture/courses/edit?id={{id}}"
+                            role="button" title="Edit">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                </td>
+                <td class="text-right">
+                    <a data-id="{{id}}" class=" btn btn-sm btn-danger delItem" href="javascript:;"
+                       role="button">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
+            </a>
+            
+        {{/each}}
+        </tbody>
+    </table>
+
+    <div class="card-footer text-muted">
+        Footer
+    </div>
+</div>
