@@ -5,7 +5,7 @@
 - Made with HTML/JS/CSS for Front-end
 - The Project of **Web Programming** Subject (Ngô Ngọc Đăng Khoa, M.Sc Instructor)
 - Scores: 8.5/10
-- Members of the Group 05:
+- Members of the Group 03:
 
     1. Nguyễn Thái Hiệp - Leader
     2. Nguyễn Thị Ngọc Hải
