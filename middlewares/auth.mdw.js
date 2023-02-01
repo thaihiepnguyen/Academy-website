@@ -1,14 +1,28 @@
-export default function authWithRequiredPermission(requiredPermission) {
-  return function (req, res, next) {
-    if (!req.session.auth) {
-      req.session.retUrl = req.originalUrl;
-      return res.redirect('/account/login/1');
-    }
+export default {
+    withLoginPermission() {
+        return function (req, res, next) {
+            if (!req.session.auth) {
+                req.session.retUrl = req.originalUrl;
+                return res.redirect('/account/login');
+            }
+            next();
+        }
+    },
+    withStudentPermission() {
 
-    if (req.session.authUser && req.session.authUser.permission < requiredPermission) {
-      return res.render('403', { layout: false });
-    }
+    },
+    withAdminPermission() {
 
-    next();
-  }
+    },
+    withLecturePermission() {
+        return function (req, res, next) {
+            const user = req.session.authUser;
+
+            if (user.role_id !== 2) {
+                req.session.retUrl = req.originalUrl;
+                return res.redirect('/');
+            }
+            next();
+        }
+    },
 }

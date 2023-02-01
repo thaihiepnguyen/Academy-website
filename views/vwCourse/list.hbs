@@ -1,0 +1,115 @@
+{{#section 'courses-css'}}
+    <link rel="stylesheet" href="/public/css/courses.css">
+{{/section}}
+
+{{#if this.empty}}
+    <p class="h1">{{this.warning}}</p>
+    {{else}}
+
+    {{#if key}}
+    <p class="h1">{{this.total}} results for "{{this.key}}"</p>
+    {{/if}}
+    <div style="width: 100%;" class="d-flex is-flex-wrap-wrap justify-between">
+        {{#each this.courses}}
+            <div class="card mr-6 d-flex mt-30 shadow flex-row course" id="c{{id}}" style="width: 100%; padding: 10px">
+                <a href="/courses/detail/{{this.id}}" class="flex-1 d-flex justify-between">
+                    <img src="/public/imgs/sp/{{id}}.jpeg" class="card-img-top" alt="..."
+                    >
+                </a>
+                <div class="card-body d-flex flex-column justify-between padding-top-none padding-bottom-none flex-2">
+                    <div class="d-flex">
+                        <div class="flex-3">
+                            <div>
+                                <a href="/public/detail/{{this.id}}" class="fix-a-tag">
+                                    <h6 class="card-title">{{this.name}}</h6>
+                                </a>
+                            </div>
+                            <p class="small">{{this.tiny_des}}</p>
+                            <p class="card-text mb-0 small">{{this.topicName}}</p>
+
+                            <div class="w-100">
+                     <span class="ratings">
+                         {{#each ratings}}
+                             <small class="fa fa-star {{this}}"></small>
+                         {{/each}}
+                     </span>
+                                <small class="review-count">({{format_number 10000}})</small>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center w-100">
+
+                            </div>
+                            <div class="card-text mb-1rem d-flex justify-between">
+                                <div class="d-flex">
+                                    <img src="/public/imgs/avt/0.png" alt=""
+                                         width="30" height="30">
+                                    <p class="mb-0 mt-6 ml-10">{{this.lecture_name}}</p>
+                                    <!--                                <a href="#" class="btn btn-primary enroll">Enroll Now</a>-->
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="flex-1 d-flex justify-between flex-column align-content-end text-align-end">
+                            <p class="font-weight-bold">{{format_number this.price}} đ</p>
+                            <!--                    <form action="/account/watch_list/delete/{{id}}" method="post">-->
+                            <!--                        <button style="color: red; font-size:1.2rem; border: none; background-color: #ffffff; text-align: end" class="fa fa-heart mt-6" type="submit"  value="{{id}}">-->
+                            <!--                        </button>-->
+                            <!--                    </form>-->
+                            <a href="#" class="btn btn-primary bg-green">Enroll Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+
+    <nav aria-label="Page navigation example" class="mt-30">
+        <ul class="pagination justify-content-end">
+            {{#if previous}}
+                {{#if key}}
+                <li class="page-item">
+                    <a class="page-link" href="?key={{key}}&page={{previous.value}}">Previous</a>
+                </li>
+                {{else}}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{previous.value}}">Previous</a>
+                </li>
+                {{/if}}
+            {{else}}
+                <li class="page-item disabled">
+                    <span class="page-link">Previous</span>
+                </li>
+            {{/if}}
+            {{#each this.pageNumbers}}
+                {{#if isCurrent}}
+                    {{#if key}}
+                        <li class="page-item active"><a class="page-link" href="?key={{key}}&page={{value}}">{{value}}</a></li>
+                    {{else}}
+                        <li class="page-item active"><a class="page-link" href="?page={{value}}">{{value}}</a></li>
+                    {{/if}}
+                {{else}}
+                    {{#if key}}
+                        <li class="page-item"><a class="page-link" href="?key={{key}}&page={{value}}">{{value}}</a></li>
+                    {{else}}
+                        <li class="page-item"><a class="page-link" href="?page={{value}}">{{value}}</a></li>
+                    {{/if}}
+                {{/if}}
+            {{/each}}
+            {{# if next}}
+                {{#if key}}
+                <li class="page-item">
+                    <a class="page-link" href="?key={{key}}&page={{next.value}}">Next</a>
+                </li>
+                {{else}}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{next.value}}">Next</a>
+                </li>
+                {{/if}}
+            {{else}}
+                <li class="page-item disabled">
+                    <span class="page-link">Next</span>
+                </li>
+            {{/if }}
+        </ul>
+    </nav>
+{{/if}}

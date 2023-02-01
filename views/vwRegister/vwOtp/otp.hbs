@@ -1,0 +1,33 @@
+{{#section 'login-css'}}
+    <link rel="stylesheet" href="/public/css/login.css">
+{{/section}}
+{{#section 'login-js'}}
+    <script src="/public/js/login.js"></script>
+{{/section}}
+<div class="bg-img">
+    <div class="content">
+        <header style="margin: 0">OTP Verification</header>
+        <div class="flex flex-col mt-4 mb-4rem">
+            <span>Enter the OTP you received at</span>
+            <span class="font-bold">{{email}}</span>
+        </div>
+        {{#if message}}
+            <div class="alert alert-danger" role="alert"> {{message}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {{/if}}
+        <form method="post" action="/account/register">
+            <div class="field">
+                <span class="fa fa-cog"></span>
+                <input name="otp" type="text" required placeholder="OTP" autofocus>
+            </div>
+            <div class="field mt-30">
+                <input type="submit" value="Verify">
+            </div>
+        </form>
+        <div class="login">Or <a href="/account/resendOTP">resend OTP</a></div>
+    </div>
+</div>
+

@@ -1,0 +1,59 @@
+{{#section 'profile-css'}}
+    <link rel="stylesheet" href="/public/css/profile.css">
+{{/section}}
+
+{{#section 'profile-js'}}
+    <script src="/public/js/profile.js"></script>
+{{/section}}
+
+
+<div style="border: 1px solid #ccc;border-radius: 5px;" class=" navbar-expand-lg navbar-light bg-light card-body">
+    <div class="container-fluid d-flex justify-content-center ">
+        <div class="content_profile" style="text-align: center;">
+            <h1>Profile public</h1>
+            <p class="description">Add information about yourself</p>
+        </div>
+    </div>
+</div>
+
+
+<form method="post" enctype="multipart/form-data">
+    <div class="content card card-body mt-60">
+        <!-- basic  -->
+        <h5>Basic</h5>
+        <div class="mb-3">
+            <input type="text" class="form-control" id="txtEmail" placeholder="{{authUser.email}}" name="email" value="{{user.email}}">
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" id="txtFirstName" placeholder="{{authUser.firstname}}" name="firstname" value="{{user.firstname}}">
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" id="txtLastName" placeholder="{{authUser.lastname}}" name="lastname" value="{{user.lastname}}">
+        </div>
+
+        <div class="mb-3">
+            <input id="formFile" name="avatar" type="file" class="file" multiple
+                   data-show-upload="false" data-show-caption="true" data-msg-placeholder="Select your avatar for upload...">
+        </div>
+
+        <!-- link  -->
+
+        <h5 class="mb-3">Link</h5>
+
+        <div class="mb-3">
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Faceboook">
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Google">
+        </div>
+        {{#if success_message}}
+            <div class="alert alert-success" role="alert"> {{success_message}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {{/if}}
+        <button type="submit" class="btn btn-dark mt-3" >SAVE</button>
+    </div>
+
+</form>

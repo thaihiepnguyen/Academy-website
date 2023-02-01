@@ -1,17 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700|Poppins:400,500&display=swap');
-
 :root{
     --color-button: #05445E;
     --background-color: rgb(255, 255, 255);
     --primary-color:#FAFDFF;
     --title-color:#000;
-}
-
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    /* user-select: none; */
 }
 .bg-img{
     background: var(--background-color);
@@ -76,16 +68,16 @@
 .space{
     margin-top: 16px;
 }
-.show{
-    position: absolute;
-    right: 13px;
-    font-size: 13px;
-    font-weight: 700;
-    color: #222;
-    display: none;
-    cursor: pointer;
-    font-family: 'Montserrat',sans-serif;
-}
+/* .show{ */
+/*     position: absolute; */
+/*     right: 13px; */
+/*     font-size: 13px; */
+/*     font-weight: 700; */
+/*     color: #222; */
+/*     display: none; */
+/*     cursor: pointer; */
+/*     font-family: 'Montserrat',sans-serif; */
+/* } */
 .pass-key:valid ~ .show{
     display: block;
 }
@@ -103,7 +95,6 @@
 }
 .field input[type="submit"]{
     background: var(--color-button);
-
     color: white;
     font-size: 18px;
     letter-spacing: 1px;

@@ -1,87 +1,105 @@
-import productUserRoute from "../routes/product-user.route.js";
-import accountRoute from "../routes/account.route.js";
+import accountRoute from '../routes/account.route.js';
+import categoryRoute from "../routes/category.route.js";
 import coursesRoute from "../routes/courses.route.js";
+import coursesService from "../services/courses.service.js";
+import topicService from "../services/topic.service.js";
+import categoryService from "../services/category.service.js";
+import accountService from "../services/account.service.js";
+import watchListService from "../services/watch-list.service.js";
 import adminRoute from "../routes/admin.route.js";
-import lectureRoute from "../routes/lecture.route.js";
-import coursesController from "../controllers/courses.controller.js";
-import userService from "../services/user.service.js";
+import shoppingService from "../services/shopping.service.js";
+import instructorRoute from "../routes/instructor.route.js";
+import videoService from '../services/video.service.js';
 
-export default async function (app) {
-  app.get("/", async function (req, res) {
-    const user = req.session.authUser;
-    const coursesTop5 = await coursesController.findTop5Courses();
-    const coursesTop10Views = await coursesController.findTop10CoursesByView();
-    const coursesTop3 = await coursesController.findTop3Courses();
+export default function(app) {	
+	app.get('/', async (req, res) => {
+		const user = res.locals.authUser;
 
-    for (let i = 0; i < coursesTop5.length; i++) {
-      let ratings = ["", "", "", "", ""];
-      for (let j = 0; j < coursesTop5[i].rating; j++) {
-        ratings[j] = "rating-color"; // rating-color is a css class.
-      }
-      coursesTop5[i].ratings = ratings;
-      if (user != null) {
-        const isActive = await userService.checkCourseInWatchList(user.id, coursesTop5[i].id);
-        const isEnrolled = await userService.checkEnroll(user.id, coursesTop5[i].id)
-        if (isActive.length > 0) {
-          coursesTop5[i].check = true;
-        }
-        if (isEnrolled.length > 0) {
-          coursesTop5[i].enroll = true;
-        }
-      }
-    }
-    for (let i = 0; i < coursesTop10Views.length; i++) {
-      let ratings = ["", "", "", "", ""];
-      for (let j = 0; j < coursesTop10Views[i].rating; j++) {
-        ratings[j] = "rating-color"; // rating-color is a css class.
-      }
-      coursesTop10Views[i].ratings = ratings;
-      if (user != null) {
-        const isActive = await userService.checkCourseInWatchList(user.id, coursesTop10Views[i].id);
-        const isEnrolled = await userService.checkEnroll(user.id, coursesTop10Views[i].id)
-        if (isActive.length > 0) {
-          coursesTop10Views[i].check = true;
-        }
-        if (isEnrolled.length > 0) {
-          coursesTop10Views[i].enroll = true;
-        }
-      }
-    }
+		const courses = [];
 
-    for (let i = 0; i < coursesTop3.length; i++) {
-      let ratings = ["", "", "", "", ""];
-      for (let j = 0; j < coursesTop3[i].rating; j++) {
-        ratings[j] = "rating-color"; // rating-color is a css class.
-      }
-      coursesTop3[i].ratings = ratings;
-      if(user != null) {
-        const isActive = await userService.checkCourseInWatchList(user.id, coursesTop3[i].id);
-        const isEnrolled = await userService.checkEnroll(user.id, coursesTop3[i].id)
-        if (isActive.length > 0) {
-          coursesTop3[i].check = true;
-        }
-        if (isEnrolled.length > 0) {
-          coursesTop3[i].enroll = true;
-        }
-      }
-    }
+		const titleOfTop3 = "Top 3 The Most Rating Courses"
+		const coursesTop3 = await coursesService.findTop3Most();
+		courses.push({
+			title: titleOfTop3,
+			entity: coursesTop3
+		});
 
+		const titleOfTop10 = "Top 10 The Most Viewed Courses"
+		const coursesTop10 = await coursesService.findAll();
 
-    res.render("home.hbs", {
-      activeTagbarLayout: true,
-      activeSliderLayout: true,
-      // isDefault: true,
-      coursesTop5: coursesTop5,
-      coursesTop10Views: coursesTop10Views,
-      coursesTop3: coursesTop3
-    });
-  });
+		courses.push({
+			title: titleOfTop10,
+			entity: coursesTop10
+		});
+		//  course = {
+		// 	...,
+		// 	topic_id: 1,
+		// 	category_id: 2,
+		//  ratings: ["rating-color", "rating-color", "", "", ""]
+		// 	...,
+		// 	}
+		const isExistCourses = courses.length !== 0;
+
+		let watchList = null;
+		if (typeof user !== 'undefined')
+			watchList = await watchListService.findByUserID(user.id);
+
+		let enrollList = null;
+		if (typeof user !== 'undefined')
+			enrollList = await shoppingService.findByUserID(user.id);
+		// add topic and category id
+		for (let item of courses) {
+			for (let course of item.entity) {
+				course.isWatchList = false;
+				course.isEnrolled = false;
+				let topic = await topicService.findById(course.topic_id);
+				let category = await categoryService.findById(topic.category_id);
+				let lecture = await accountService.findById(course.lecture_id);
+				let videos = await videoService.findByCourseId(course.id);
+				course.category_id = topic.category_id;
+				course.category_name = category.name;
+				course.lecture_name = lecture.firstname + lecture.lastname;
+				if (videos !== null)
+					course.video = videos[0].source;
+
+				if (watchList !== null)
+					for (let item of watchList) {
+						if (item.course_id === course.id) {
+							course.isWatchList = true;
+						}
+					}
+				if (enrollList !== null)
+					for (let item of enrollList) {
+						if (item.course_id === course.id) {
+							course.isEnrolled = true;
+						}
+					}
+			}
+		}
 
 
-  app.use("/account", accountRoute);
-  app.use("/products", productUserRoute);
-  app.use("/courses", coursesRoute);
-  app.use("/admin", adminRoute);
-  app.use("/details", coursesRoute);
-  app.use("/lecture", lectureRoute);
+		// add ratings
+		for (let item of courses) {
+			for (let i = 0 ; i < item.entity.length; i++) {
+				let ratings = ["", "", "", "", ""];
+				for (let j = 0; j < item.entity[i].rating; j++) {
+					ratings[j] = "rating-color"; // rating-color is a css class.
+				}
+				item.entity[i].ratings = ratings;
+			}
+		}
+
+		// add video
+
+		res.render('home', {
+			courses,
+			isExistCourses
+		});
+	})
+
+	app.use('/account', accountRoute);
+	app.use('/categories', categoryRoute);
+	app.use('/courses', coursesRoute);
+	app.use('/admin', adminRoute);
+	app.use('/instructor', instructorRoute);
 }

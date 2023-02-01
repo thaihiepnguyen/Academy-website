@@ -1,89 +1,31 @@
-import categoryService from "../services/category.service.js";
+import categoryService from '../services/category.service.js';
 import topicService from "../services/topic.service.js";
-import userService from "../services/user.service.js";
-import courseService from "../services/courses.service.js";
-export default function (app) {
-  app.use(async function (req, res, next) {
-
-
-    if (typeof req.session.key !== "undefined") {
-      res.locals.key = req.session.key;
-    }
-
-    if (typeof req.session.ratings !== "undefined") {
-      res.locals.ratings = req.session.ratings;
-    }
-
-    res.locals.active_pf = "";
-    res.locals.active_pt = "";
-    res.locals.active_sc = "";
-    res.locals.active_wl = "";
-    res.locals.active_rc = "";
-    res.locals.active_lg = "";
-    res.locals.isStudent = req.session.isStudent;
-    res.locals.isAdmin = req.session.isAdmin;
-    res.locals.isLecture = req.session.isLecture;
-    res.locals.url_home = req.session.url_home;
-
-    res.locals.flag = req.session.flag;
-    res.locals.err_message = req.session.err_message;
-    req.session.flag = null;
-    req.session.err_message = null;
-    next();
-  });
-  app.use(async function (req, res, next) {
-    res.locals.lcUsersRole = await userService.findAllWithRole();
-    next();
-  });
-
-
-  app.use(async function (req, res, next) {
-    res.locals.lcLecturerStudent = await courseService.findStudentByLecture();
-    next();
-  });
-
-
-  app.use(async function (req, res, next) {
-    const topic = await topicService.findAll();
-    res.locals.topic = topic;
-    next();
-  });
-  app.use(async function (req, res, next) {
-    const categories = await categoryService.findAll();
-
-    // add an array of topics into each category.
-    for (let category of categories) {
-      let arrayOfTopic = [];
-      for (let item of res.locals.topic) {
-        if (category.id === item.field_id) {
-          arrayOfTopic.push(item);
+export default function(app) {
+    app.use(async function (req, res, next) {
+        req.session.url = null;
+        if (req.session.auth) {
+            res.locals.auth = req.session.auth;
+            res.locals.authUser = req.session.authUser;
         }
-      }
-      category.topic = arrayOfTopic;
-    }
+        next();
+    });
+    app.use(async function (req, res, next) {
+        let categories = await categoryService.findAll();
+        const topics = await topicService.findAll();
 
-    res.locals.categories = categories;
-    next();
-  });
-  app.use(async function (req, res, next) {
-    if (typeof req.session.auth === "undefined") {
-      req.session.auth = false;
-    }
+        // add topic into categories
+        for (let category of categories) {
+            let topicsOfCategory = [];
+            for (let topic of topics) {
+                if (topic.category_id === category.id) {
+                    topicsOfCategory.push(topic);
+                }
+            }
+            category.lcTopics = topicsOfCategory
+        }
 
-    if (typeof req.session.authUser === "undefined") {
-      req.session.authUser = null;
-    }
-
-    if (req.session.auth) {
-      if (req.session.authUser.image === null) {
-        req.session.authUser.image = "/imgs/avt/0.png";
-      }
-      res.locals.auth = req.session.auth;
-      res.locals.user = req.session.authUser;
-    } else {
-      res.locals.auth = false;
-      res.locals.user = null;
-    }
-    next();
-  });
+        res.locals.lcCategories = categories;
+        req.session.seCategories = res.locals.lcCategories;
+        next();
+    });
 }

@@ -1,0 +1,15 @@
+.flex-3 {
+    flex: 3; !important;
+}
+
+.flex-1 {
+    flex: 1; !important;
+}
+
+.mr-40 {
+    margin-right: 40px !important;
+}
+
+.max-height-500 {
+    max-height: 500px !important;
+}

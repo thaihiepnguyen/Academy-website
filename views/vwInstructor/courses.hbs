@@ -1,0 +1,103 @@
+{{#section 'instructor-js'}}
+
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tinymce/tinymce-jquery@1/dist/tinymce-jquery.min.js"></script>
+    <script>
+        $('textarea#tiny').tinymce({
+            height: 500,
+            menubar: false,
+            plugins: [
+                'a11ychecker','advlist','advcode','advtable','autolink','checklist','export',
+                'lists','link','image','charmap','preview','anchor','searchreplace','visualblocks',
+                'powerpaste','fullscreen','formatpainter','insertdatetime','media','table','help','wordcount'
+            ],
+            toolbar: 'undo redo | a11ycheck casechange blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist checklist outdent indent | removeformat | code table help'
+        });
+    </script>
+
+{{/section}}
+<div class="container content card card-body">
+    <div style="border: 1px solid #ccc;border-radius: 5px;" class=" navbar-expand-lg navbar-light bg-light card-body">
+        <div class="container-fluid d-flex justify-content-center ">
+            <div class="content_profile" style="text-align: center;">
+                <h1>Create Courses</h1>
+                <p class="description">Add information about yourself</p>
+            </div>
+        </div>
+    </div>
+
+    <form method="post" enctype="multipart/form-data" action="/instructor/courses/add">
+        <div class="content " style="margin-top: 60px;">
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label w-100">Title courses
+                    <input type="text" class="form-control w-100" name="name" placeholder="Ex: C++ Tutorial Full Courses">
+                </label>
+            </div>
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Image title courses</label>
+                <input id="formFile" name="image" type="file" class="file" multiple
+                       data-show-upload="false" data-show-caption="true" data-msg-placeholder="Select your thumbnail for upload...">
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Brief Description</label>
+                <textarea name="tiny_des" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="A brief description of your course"></textarea>
+
+                <div class="mb-3 form-group" >
+                    <label for="exampleFormControlTextarea1" class="form-label">Detail Description</label>
+                    <textarea name="full_des" class="form-control" rows="3" id="tiny"> &lt;p&gt;Describe anything about your course!&lt;/p&gt;</textarea>
+
+                </div>
+            </div>
+
+            <div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Price</label>
+                    <input type="text" class="form-control" name="price" placeholder="Ex: 1000000" id="exampleFormControlInput1" >
+                </div>
+<!--                <div class="mb-3">-->
+<!--                    <label for="exampleFormControlInput1" class="form-label">Sale</label>-->
+<!--                    <input type="text" class="form-control" id="exampleFormControlInput1" >-->
+<!--                </div>-->
+
+<!--                <div class="mb-3">-->
+<!--                    <label for="exampleFormControlInput1" class="form-label">Time video</label>-->
+<!--                    <input type="text" class="form-control" id="exampleFormControlInput1" >-->
+<!--                </div>-->
+<!--                <div class="form-check form-switch mb-3">-->
+<!--                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">-->
+<!--                    <label class="form-check-label" for="flexSwitchCheckDefault">Preview</label>-->
+<!--                </div>-->
+
+            </div>
+
+            <div style="display: flex;">
+                <div class="form-check form-switch mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Category
+                        <select class="form-select" name="topic_id">
+                            {{#each this.topics}}
+                                <option value={{topicId}}>{{topicName}}</option>
+                            {{/each}}
+                        </select>
+                    </label>
+                </div>
+<!--                <div class="form-check form-switch mb-3">-->
+<!--                    <label for="exampleFormControlInput1" class="form-label">Level courses</label>-->
+
+<!--                    <select class="form-select" aria-label="levelCourse">-->
+<!--                        <option selected>Level Course</option>-->
+<!--                        <option value="Beginner">Beginner</option>-->
+<!--                        <option value="Mediumn">Mediumn</option>-->
+<!--                        <option value="Advanced">Advanced</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+
+            </div>
+
+        </div>
+        <div class="card-footer text-muted " style="justify-content: center;">
+            <button type="submit" class="btn btn-dark mt-3 mr-2">CREATE COURSES</button>
+            <a  href = "/lecture" style = "opacity: 90%" class = "btn btn-dark mt-3">Back</a>
+        </div>
+    </form>
+</div>
