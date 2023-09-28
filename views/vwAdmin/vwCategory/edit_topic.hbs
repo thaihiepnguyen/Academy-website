@@ -16,19 +16,19 @@
         <div class="card-body">
             <div class="form-group">
                 <label for="txtID">#</label>
-                <input name="id" type="text" class="form-control" id="txtID" readonly
-                    value="{{this.topic.id}}" />
+                <input name="topicId" type="text" class="form-control" id="txtID" readonly
+                    value="{{this.topic.topicId}}" />
             </div>
             <div class="form-group">
                 <label for="txtName">Topic</label>
-                <input name="name" type="text" class="form-control" id="txtName"
-                    value="{{this.topic.name}}" autofocus placeholder="Javascript" />
+                <input name="topicName" type="text" class="form-control" id="txtName"
+                    value="{{this.topic.topicName}}" autofocus placeholder="Javascript" />
             </div>
             <div class="form-group">
                 <label for="txtCatName">Category</label>
-                <select class="custom-select custom-select-medium" name="field_id">
+                <select class="custom-select custom-select-medium" name="category_id">
                     {{#each this.categories}}
-                    {{#if (isEqual id ../topic.field_id)}}
+                    {{#if (isEqual id ../topic.category_id)}}
                     <option selected value="{{id}}">{{name}}</option>
                     {{else}}
                     <option value="{{id}}">{{name}}</option>
@@ -43,7 +43,7 @@
                 List
             </a>
             <button type="submit" class="btn btn-danger"
-                formaction="/admin/categories/topics/del/{{this.topic.id}}">
+                formaction="/admin/categories/topics/del/{{this.topic.topicId}}">
                 <i class="fa fa-trash" aria-hidden="true"></i>
                 Delete
             </button>
