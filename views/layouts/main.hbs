@@ -1,136 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>Academy-online</title>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-	<link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
+    <meta charset="UTF-8">
+    <title>Academy-online</title>
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+        crossorigin="anonymous">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     {{{_sections.courses-css}}}
-	{{{_sections.otp-css}}}
+    {{{_sections.otp-css}}}
     {{{_sections.login-css}}}
     <link rel="stylesheet" href="/public/css/styles.css">
 </head>
-	<body>
-        <!--header-->
-		<nav class="navbar navbar-expand-lg navbar-light bg-light nav-header shadow justify-between">
-            <div class="left d-flex">
-                <a class="navbar-brand" href="/">
-                    <span class="h4 logo">Academy</span>
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Categories
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                {{#each lcCategories}}
-                                    <li class="dropdown-submenu">
-                                        <a class="dropdown-item dropdown-toggle" href="/courses/byCat/{{this.id}}">{{this.name}}</a>
-                                        <ul class="dropdown-menu">
-                                            {{#each lcTopics}}
-                                                <li><a class="dropdown-item" href="/courses/byTopic/{{this.topicId}}">{{this.topicName}}</a></li>
-                                            {{/each}}
-                                        </ul>
-                                    </li>
-                                {{/each}}
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
 
-            <form class="form-inline my-2 my-lg-0 search-form center" method="get" action="/courses/search/">
-                <input class="form-control" type="search" placeholder="Search" name="key" aria-label="Search" style="min-width: 500px">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-                    <i class="fa fa-search" aria-hidden="true"></i>
-                </button>
-            </form>
+<body>
+    <!--header-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light nav-header shadow justify-between">
+        <div class="left d-flex">
+            <a class="navbar-brand" href="/">
+                <span class="h4 logo">Academy</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Categories
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            {{#each lcCategories}}
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item dropdown-toggle"
+                                    href="/courses/byCat/{{this.id}}">{{this.name}}</a>
+                                <ul class="dropdown-menu">
+                                    {{#each lcTopics}}
+                                    <li><a class="dropdown-item"
+                                            href="/courses/byTopic/{{this.topicId}}">{{this.topicName}}</a>
+                                    </li>
+                                    {{/each}}
+                                </ul>
+                            </li>
+                            {{/each}}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <form class="form-inline my-2 my-lg-0 search-form center" method="get"
+            action="/courses/search/">
+            <input class="form-control" type="search" placeholder="Search" name="key"
+                aria-label="Search" style="min-width: 500px">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+        </form>
         {{#if auth}}
-            <div class="nav-item dropdown">
-                <a
-                        class="nav-link dropdown-toggle d-flex align-items-center"
-                        href="#"
-                        role="button"
-                        data-toggle="dropdown"
-                        aria-expanded="false"
-                >
-                    <p style="margin-right: 20px; font-weight: bold; color: #000; margin-bottom: 0px !important; min-width: 80px">
-                        Hi, {{authUser.lastname}} {{authUser.firstname}}</p>
-                    <img
-                            src={{authUser.image}}
-                            alt="avatar"
-                            style="border-radius: 50%;
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
+                data-toggle="dropdown" aria-expanded="false">
+                <p
+                    style="margin-right: 20px; font-weight: bold; color: #000; margin-bottom: 0px !important; min-width: 80px">
+                    Hi, {{authUser.lastname}} {{authUser.firstname}}</p>
+                <img src={{authUser.image}} alt="avatar" style="border-radius: 50%;
                                     height: 30px; width: 30px;
                                   min-height: 30px; min-width:30px ">
+            </a>
+            <div class="dropdown-menu" style="top:125%; right: 0px;">
+                <a class="dropdown-item" href="/account/profile">
+                    <i class="icon fa fa-user" aria-hidden="true"></i>
+                    Edit Profile
                 </a>
-                <div class="dropdown-menu" style="top:125%; right: 0px;">
-                    <a class="dropdown-item" href="/account/profile">
-                        <i class="icon fa fa-user" aria-hidden="true"></i>
-                        Edit Profile
-                    </a>
-                    <a class="dropdown-item" href="/account/profile">
-                        <i class="icon fa fa-shopping-cart" aria-hidden="true"></i>
-                        Shopping Cart
-                    </a>
+                <a class="dropdown-item" href="/account/profile">
+                    <i class="icon fa fa-shopping-cart" aria-hidden="true"></i>
+                    Shopping Cart
+                </a>
 
-                    <a class="dropdown-item" href="/account/profile/watch-list">
-                        <i class="icon fa fa-clock-o" aria-hidden="true"></i>
-                        Watch List
-                    </a>
+                <a class="dropdown-item" href="/account/profile/watch-list">
+                    <i class="icon fa fa-clock-o" aria-hidden="true"></i>
+                    Watch List
+                </a>
 
-                    {{#if authUser.instructor}}
-                        <a class="dropdown-item" href="/instructor/courses">
-                            <i class="icon fa fa-graduation-cap" aria-hidden="true"></i>
-                            My Courses
-                        </a>
-                    {{/if}}
+                {{#if authUser.instructor}}
+                <a class="dropdown-item" href="/instructor/courses">
+                    <i class="icon fa fa-graduation-cap" aria-hidden="true"></i>
+                    My Courses
+                </a>
+                {{/if}}
+
+                <div class="dropdown-divider"></div>
+                {{#if authUser.admin}}
+                <a class="dropdown-item" href="/admin/categories">
+                    <i class="icon fa fa-graduation-cap" aria-hidden="true"></i>
+                    Manage Categories
+                </a>
+                <a class="dropdown-item" href="/admin/courses">
+                    <i class="icon fa fa-book" aria-hidden="true"></i>
+                    Manage Courses
+                </a>
+
+                <a class="dropdown-item" href="/admin/users">
+                    <i class="icon fa fa-user-plus" aria-hidden="true"></i>
+                    Manage Users
+                </a>
+                {{/if}}
 
 
-                    <div class="dropdown-divider"></div>
-                    <form
-                            id="frmLogout"
-                            action="/account/logout"
-                            method="post"
-                    ></form>
-                    <a
-                            class="dropdown-item"
-                            href="javascript: $('#frmLogout').submit();"
-                    >
-                        <i class="icon fa fa-sign-out" aria-hidden="true"></i>
-                        Logout
-                    </a>
-                </div>
+                <div class="dropdown-divider"></div>
+                <form id="frmLogout" action="/account/logout" method="post"></form>
+                <a class="dropdown-item" href="javascript: $('#frmLogout').submit();">
+                    <i class="icon fa fa-sign-out" aria-hidden="true"></i>
+                    Logout
+                </a>
             </div>
+        </div>
         {{else}}
-            <div class="nav-item">
-                <a href="/account/login" class="btn btn-primary">Sign in</a>
-                <a href="/account/register" class="btn btn-secondary">Register</a>
-            </div>
+        <div class="nav-item">
+            <a href="/account/login" class="btn btn-primary">Sign in</a>
+            <a href="/account/register" class="btn btn-secondary">Register</a>
+        </div>
 
         {{/if}}
-		</nav>
+    </nav>
 
-        {{{body}}}
+    {{{body}}}
 
 
-        <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-                integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-                crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
-                integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
-                crossorigin="anonymous"></script>
-        {{{_sections.courses-js}}}
-        {{{_sections.login-js}}}
-        {{{_sections.profile-js}}}
-        {{{_sections.home-js}}}
-        <script src="/public/js/dropdown.js"></script>
-    </body>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
+        integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
+        crossorigin="anonymous"></script>
+    {{{_sections.courses-js}}}
+    {{{_sections.login-js}}}
+    {{{_sections.profile-js}}}
+    {{{_sections.home-js}}}
+    <script src="/public/js/dropdown.js"></script>
+</body>
+
 </html>
