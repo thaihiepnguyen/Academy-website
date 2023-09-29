@@ -67,9 +67,7 @@ export default {
 	},
 
 	findWatchList: async (id) => {
-		const list = await db("watch_list")
-			.join("courses", "course_id", "id")
-			.where("user_id", id);
+		const list = await db("watch_list").join("courses", "course_id", "id").where("user_id", id);
 
 		if (list.length === 0) {
 			return null;
@@ -108,13 +106,5 @@ export default {
 		}
 
 		return list;
-	},
-
-	checkEnroll: async (user_id, course_id) => {
-		const check = await db("registered_courses").where({"user_id": user_id,
-			"course_id": course_id
-		});
-
-		return check;
 	},
 };

@@ -1,24 +1,29 @@
-import express from "express";
-import bodyParser from "body-parser";
-import morgan from "morgan";
-import viewMdw from "./middlewares/view.mdw.js";
-import localsMdw from "./middlewares/locals.mdw.js";
-import routesMdw from "./middlewares/routes.mdw.js";
-import sessionMdw from "./middlewares/session.mdw.js";
+import express from 'express';
+import activate_view from './middlewares/view.mdw.js';
+import activate_route from './middlewares/routes.mdw.js';
+import activate_resLocals from './middlewares/locals.mdw.js';
+import activate_session from './middlewares/session.mdw.js'
+import activate_error from './middlewares/error.mdw.js'
+import morgan from 'morgan';
 
 const app = express();
 
-const PORT = process.env.PORT || 3000;
-app.use(morgan('tiny'));
-app.use(express.static("public"));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use('/public', express.static('public'));
+app.use(morgan('dev'))
+app.use(express.urlencoded({
+  extended: true
+}));
 
-sessionMdw(app);
-localsMdw(app);
-viewMdw(app);
-routesMdw(app);
+activate_session(app);
+activate_resLocals(app);
+activate_view(app);
+activate_route(app);
+activate_error(app);
+
+const PORT = 3000;
+
+app.listen(PORT, function(){
+	console.log(`app listening on http://localhost:${PORT}`);
+})
 
 
-app.listen(PORT, function () {
-  console.log(`E-Commerce App listening at http://localhost:${PORT}`);
-});

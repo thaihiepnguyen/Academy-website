@@ -21,8 +21,8 @@
 </p> --}}
 
 <form method="post">
-    <div class="card">
-        <h4 class="card-header h4">
+    <div class="card card-body mr-40 ml-40 mt-100">
+        <h4 class="card-header">
             Manage Users
             <a class="btn btn-sm btn-outline-primary" href="/admin/users/add" role="button">
                 <i class="fa fa-plus" aria-hidden="true"></i>
@@ -41,8 +41,7 @@
                 </tr>
             </thead>
             <tbody>
-                {{#each lcUsersRole}}
-                {{#if (isEqual role ../temp)}}
+                {{#each users}}
                 <tr {{#if (isEqual enable 0)}} class="table-danger" {{/if}}>
                     <td scope="row" class="text-center">{{id}}</td>
                     <td>{{email}}</td>

@@ -1,14 +1,15 @@
-import knexObj from "knex";
+import knexService from "knex";
 
-export default knexObj({
-  client: "mysql2",
-  connection: {
-    host: "127.0.0.1",
-    port: 3306,
-    user: "root",
-    database: "academy-db",
-    password: "1234",
-    //password: "1234",
-    //reallyStrongPwd123
-  },
+const knex = knexService({
+	client: "mysql2",
+	connection: {
+		host: "127.0.0.1",
+		port: 3306,
+		user: "root",
+		password: "root",
+		//reallyStrongPwd123
+		database: "academy-db",
+	},
 });
+
+export default knex;

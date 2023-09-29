@@ -1,10 +1,20 @@
 {{#section 'login-css'}}
-    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/public/css/login.css">
 {{/section}}
-
+{{#section 'login-js'}}
+	<script src="/public/js/login.js"></script>
+{{/section}}
 <div class="bg-img">
     <div class="content">
         <header>Login</header>
+        {{#if signup_message}}
+            <div class="alert alert-success" role="alert">
+                Register successfully!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {{/if}}
         {{#if err_message}}
             <div class="alert alert-warning" role="alert"> {{err_message}}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -20,10 +30,10 @@
             <div class="field space">
                 <span class="fa fa-lock"></span>
                 <input name="password" type="password" class="pass-key" required placeholder="Password">
-                <span class="show">SHOW</span>
+                <span class="show"><i class="fa fa-eye" aria-hidden="true"></i></span>
             </div>
             <div class="pass">
-                <a href="#">Forgot Password?</a>
+                <a href="/account/forgot-password">Forgot Password?</a>
             </div>
             <div class="field">
                 <input type="submit" value="LOGIN">
@@ -47,7 +57,7 @@
 <!--            </div>-->
 <!--        </div>-->
         <div class="space">Don't have account?
-            <a href="/account/signup/{{this.role}}">Signup Now</a>
+            <a href="/account/register/">Signup Now</a>
         </div>
     </div>
 </div>

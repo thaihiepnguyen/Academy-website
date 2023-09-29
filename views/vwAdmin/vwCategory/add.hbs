@@ -1,24 +1,27 @@
-<form method="post">
-    <div class="card">
-        <h4 class="card-header h4">
-            New Category
-        </h4>
-        <div class="card-body">
-            <div class="form-group">
-                <label for="txtCatName">Category</label>
-                <input name="name" type="text" class="form-control" id="txtCatName" autofocus
-                    placeholder="Development" />
+<div class="card-body card mt-100 mr-40 ml-40">
+    <form method="post">
+        <div class="card">
+            <h4 class="card-header h4">
+                New Category
+            </h4>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="txtCatName">Category</label>
+                    <input name="name" type="text" class="form-control" id="txtCatName" autofocus
+                           placeholder="Development" />
+                </div>
+            </div>
+            <div class="card-footer text-muted">
+                <a class="btn btn-outline-success" href="/admin/categories" role="button">
+                    <i class="fa fa-backward" aria-hidden="true"></i>
+                    List
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                    Save
+                </button>
             </div>
         </div>
-        <div class="card-footer text-muted">
-            <a class="btn btn-outline-success" href="/admin/categories" role="button">
-                <i class="fa fa-backward" aria-hidden="true"></i>
-                List
-            </a>
-            <button type="submit" class="btn btn-primary">
-                <i class="fa fa-check" aria-hidden="true"></i>
-                Save
-            </button>
-        </div>
-    </div>
-</form>
+    </form>
+</div>
+

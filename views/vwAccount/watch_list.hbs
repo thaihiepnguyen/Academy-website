@@ -1,0 +1,59 @@
+{{#section 'profile-css'}}
+    <link rel="stylesheet" href="/public/css/profile.css">
+{{/section}}
+
+{{#section 'profile-js'}}
+    <script src="/public/js/profile.js"></script>
+    <script src="/public/js/ajax-enroll.js"></script>
+{{/section}}
+
+<div style="border: 1px solid #ccc;border-radius: 5px;" class=" navbar-expand-lg navbar-light bg-light card-body">
+    <div class="container-fluid d-flex justify-content-center ">
+        <div class="content_profile" style="text-align: center;">
+            <h1>Watch list</h1>
+            <p class="description">The course you already love</p>
+        </div>
+    </div>
+</div>
+
+<div class="content card card-body mt-60">
+    <div class="d-flex is-flex-wrap-wrap">
+        {{#if message_no_watch_list}}
+            <div class="mt-3">
+                {{message_no_watch_list}}
+            </div>
+        {{/if}}
+        {{#each this.courses}}
+            <div class="card mr-6 d-flex mt-30 shadow flex-row course" id="c{{id}}" style="width: 100%; padding: 10px">
+                <a href="/courses/detail/{{this.id}}" class="flex-1 d-flex justify-between">
+                    <img src="/public/imgs/sp/{{id}}.jpeg" class="card-img-top" alt="..."
+                    >
+                </a>
+                <div class="card-body d-flex flex-column justify-between padding-top-none padding-bottom-none flex-3">
+                    <div class="d-flex">
+                        <div class="flex-3">
+                            <div>
+                                <a href="/public/detail/{{this.id}}" class="fix-a-tag">
+                                    <h6 class="card-title">{{this.name}}</h6>
+                                </a>
+                            </div>
+                            <p class="small">{{this.tiny_des}}</p>
+                        </div>
+                        <div class="flex-1 d-flex justify-between flex-column align-content-end text-align-end">
+                            <p class="font-weight-bold">{{format_number this.price}} đ</p>
+                            {{#if isEnrolled}}
+                                <form class="formEnroll" id="e{{id}}">
+                                    <button class="btn btn-primary enroll enrolled" type="submit" value="{{id}}">Enrolled</button>
+                                </form>
+                            {{else}}
+                                <form class="formEnroll" id="e{{id}}">
+                                    <button class="btn btn-primary enroll" type="submit"  value="{{id}}">Enroll Now</button>
+                                </form>
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>
